@@ -1,0 +1,295 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mastersign.datascience.database &mdash; mastersign-datascience 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> mastersign-datascience
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../database.html">Database Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../plot.html">Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebook.html">Processing Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">Command Line Interface</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">mastersign-datascience</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>mastersign.datascience.database</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for mastersign.datascience.database</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">create_engine</span>
+
+<span class="n">_def_db_conn</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<div class="viewcode-block" id="set_default_db_conn"><a class="viewcode-back" href="../../../database.html#mastersign.datascience.database.set_default_db_conn">[docs]</a><span class="k">def</span> <span class="nf">set_default_db_conn</span><span class="p">(</span><span class="n">db_conn</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sets the default connection string for subsequent database queries.</span>
+
+<span class="sd">    :param db_conn: A SqlAlchemy connection string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">_def_db_conn</span>
+    <span class="n">_def_db_conn</span> <span class="o">=</span> <span class="n">db_conn</span></div>
+
+
+<div class="viewcode-block" id="execute"><a class="viewcode-back" href="../../../database.html#mastersign.datascience.database.execute">[docs]</a><span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">db_conn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Execute a SQL statement, returning no data.</span>
+
+<span class="sd">    :param query:  A string as a SQL query.</span>
+<span class="sd">    :param dbconn: A SqlAlchemy connection string. (optional)</span>
+<span class="sd">    :param args:   Additional positional arguments,</span>
+<span class="sd">                   passed to `sqlalchemy.engine.Connection.execute()`.</span>
+<span class="sd">    :param kwargs: Additional keyword arguments,</span>
+<span class="sd">                   passed to `sqlalchemy.engine.Connection.execute()`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">db_conn</span> <span class="ow">or</span> <span class="n">_def_db_conn</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">engine</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+            <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">engine</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="load_query"><a class="viewcode-back" href="../../../database.html#mastersign.datascience.database.load_query">[docs]</a><span class="k">def</span> <span class="nf">load_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">db_conn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load data from an arbitrary SQL query.</span>
+
+<span class="sd">    :param query:   A string as a SQL query.</span>
+<span class="sd">    :param db_conn: A SqlAlchemy connection string. (optional)</span>
+<span class="sd">    :param kwargs:  Additional keyword arguments</span>
+<span class="sd">                    are passed to `pandas.read_sql_query()`.</span>
+
+<span class="sd">    :return: Pandas DataFrame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">db_conn</span> <span class="ow">or</span> <span class="n">_def_db_conn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">_select_query</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group_by</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">columns</span><span class="p">:</span>
+        <span class="n">column_list</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">column_list</span> <span class="o">=</span> <span class="s1">&#39;*&#39;</span>
+
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">where</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">where_clause</span> <span class="o">=</span> <span class="n">where</span>
+    <span class="k">elif</span> <span class="n">where</span><span class="p">:</span>
+        <span class="n">where_clause</span> <span class="o">=</span> <span class="s1">&#39; AND &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">term</span><span class="p">:</span> <span class="n">term</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">term</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span> <span class="k">else</span> <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="s1">&#39; OR &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">term</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="p">,</span>
+                <span class="n">where</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">where_clause</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">where_clause</span><span class="p">:</span>
+        <span class="n">where_clause</span> <span class="o">=</span> <span class="s1">&#39; WHERE &#39;</span> <span class="o">+</span> <span class="n">where_clause</span>
+
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">group_by</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">group_by_clause</span> <span class="o">=</span> <span class="n">group_by</span>
+    <span class="k">elif</span> <span class="n">group_by</span><span class="p">:</span>
+        <span class="n">group_by_clause</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">group_by</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">group_by_clause</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">group_by_clause</span><span class="p">:</span>
+        <span class="n">group_by_clause</span> <span class="o">=</span> <span class="s1">&#39; GROUP BY &#39;</span> <span class="o">+</span> <span class="n">group_by_clause</span>
+
+    <span class="k">return</span> <span class="s2">&quot;SELECT </span><span class="si">{}</span><span class="s2"> FROM `</span><span class="si">{}</span><span class="s2">`</span><span class="si">{}{}</span><span class="s2"> ;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">column_list</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="n">where_clause</span><span class="p">,</span> <span class="n">group_by_clause</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="load_table"><a class="viewcode-back" href="../../../database.html#mastersign.datascience.database.load_table">[docs]</a><span class="k">def</span> <span class="nf">load_table</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group_by</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">db_conn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load data from a SQL table.</span>
+
+<span class="sd">    :param name:     The name of the table.</span>
+<span class="sd">    :param columns:  An iterable of column names. (optional)</span>
+<span class="sd">    :param where:    A string with on condition or an iterable. (optional)</span>
+<span class="sd">                     The iterable forms a conjunction and can hold strings</span>
+<span class="sd">                     as conditions or nested iterables. The nested iterables</span>
+<span class="sd">                     form disjunctions and must hold strings with conditions.</span>
+<span class="sd">    :param group_by: A string as a GROUP-BY-clause or an iterable with</span>
+<span class="sd">                     multiple GROUP-BY-clauses. (optional)</span>
+<span class="sd">    :param db_conn:  A SqlAlchemy connection string. (optional)</span>
+<span class="sd">    :param kwargs:   Additional keyword arguments</span>
+<span class="sd">                     are passed to `pandas.read_sql_query()`.</span>
+
+<span class="sd">    :return: Pandas DataFrame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">load_query</span><span class="p">(</span><span class="n">_select_query</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">where</span><span class="p">,</span> <span class="n">group_by</span><span class="o">=</span><span class="n">group_by</span><span class="p">),</span> <span class="n">db_conn</span><span class="o">=</span><span class="n">db_conn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Tobias Kiertscher
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
