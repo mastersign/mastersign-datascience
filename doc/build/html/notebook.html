@@ -1,0 +1,255 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Processing Jupyter Notebooks &mdash; mastersign-datascience 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Command Line Interface" href="cli.html" />
+    <link rel="prev" title="Plotting" href="plot.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> mastersign-datascience
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="database.html">Database Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Processing Jupyter Notebooks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-mastersign.datascience.notebook.export_cell_code">Export Code Cells Into <code class="docutils literal notranslate"><span class="pre">*.py</span></code> File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-mastersign.datascience.notebook.remove_input_from_html">Remove Input from Jupyter Notebook HTML</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">mastersign-datascience</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Processing Jupyter Notebooks</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/notebook.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="processing-jupyter-notebooks">
+<h1>Processing Jupyter Notebooks<a class="headerlink" href="#processing-jupyter-notebooks" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-mastersign.datascience.notebook.export_cell_code">
+<span id="export-code-cells-into-py-file"></span><h2>Export Code Cells Into <code class="docutils literal notranslate"><span class="pre">*.py</span></code> File<a class="headerlink" href="#module-mastersign.datascience.notebook.export_cell_code" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="mastersign.datascience.notebook.export_cell_code.export_cell_code">
+<code class="descclassname">mastersign.datascience.notebook.export_cell_code.</code><code class="descname">export_cell_code</code><span class="sig-paren">(</span><em>nb_file</em>, <em>py_file=None</em>, <em>tag='production'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/notebook/export_cell_code.html#export_cell_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.notebook.export_cell_code.export_cell_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take the source of all code cells, tagged with the given tag,
+from the given notebook and write them into a Python code file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>nb_file</strong> – A path to a Jupyter Notebook.</li>
+<li><strong>py_file</strong> – A path to a Python script file as target.</li>
+<li><strong>tag</strong> – A tag name for the code cell selection.
+Defaults to <code class="docutils literal notranslate"><span class="pre">production</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-mastersign.datascience.notebook.remove_input_from_html">
+<span id="remove-input-from-jupyter-notebook-html"></span><h2>Remove Input from Jupyter Notebook HTML<a class="headerlink" href="#module-mastersign.datascience.notebook.remove_input_from_html" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="mastersign.datascience.notebook.remove_input_from_html.remove_input_from_html">
+<code class="descclassname">mastersign.datascience.notebook.remove_input_from_html.</code><code class="descname">remove_input_from_html</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/notebook/remove_input_from_html.html#remove_input_from_html"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.notebook.remove_input_from_html.remove_input_from_html" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove input blocks from Jupyter notebook HTML output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file</strong> – A path to the HTML file to process.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cli.html" class="btn btn-neutral float-right" title="Command Line Interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="plot.html" class="btn btn-neutral float-left" title="Plotting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Tobias Kiertscher
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
