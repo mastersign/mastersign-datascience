@@ -1,0 +1,4 @@
+Sphinx
+sphinx-click
+sphinx-rtd-theme
+Jupyter
