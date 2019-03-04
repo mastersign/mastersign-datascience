@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Processing Jupyter Notebooks" href="notebook.html" />
+    <link rel="next" title="Plotting on a Map" href="mapplot.html" />
     <link rel="prev" title="Database Access" href="database.html" /> 
 </head>
 
@@ -88,6 +88,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="database.html">Database Access</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapplot.html">Plotting on a Map</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebook.html">Processing Jupyter Notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
 </ul>
@@ -156,6 +157,7 @@
             
   <div class="section" id="module-mastersign.datascience.plot">
 <span id="plotting"></span><h1>Plotting<a class="headerlink" href="#module-mastersign.datascience.plot" title="Permalink to this headline">¶</a></h1>
+<p>This module contains functionality to comfortably create plots.</p>
 <dl class="function">
 <dt id="mastersign.datascience.plot.bar">
 <code class="descclassname">mastersign.datascience.plot.</code><code class="descname">bar</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>value_column</em>, <em>label_column=None</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>title=None</em>, <em>figsize=(10</em>, <em>4)</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#bar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.bar" title="Permalink to this definition">¶</a></dt>
@@ -502,6 +504,61 @@ of a multiplot. (optional)</li>
 </dd></dl>
 
 <dl class="function">
+<dt id="mastersign.datascience.plot.scatter_map">
+<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">scatter_map</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>longitude_column='longitude'</em>, <em>latitude_column='latitude'</em>, <em>region=None</em>, <em>autofit=False</em>, <em>projection='merc'</em>, <em>map_resolution='i'</em>, <em>grid=(1</em>, <em>2)</em>, <em>map_style=None</em>, <em>map_style_attributes=None</em>, <em>size_column=None</em>, <em>size=1</em>, <em>size_mode=None</em>, <em>color_column=None</em>, <em>color='blue'</em>, <em>cmap='YlGnBu'</em>, <em>title=None</em>, <em>figsize=(10</em>, <em>10)</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays a scatter plot on a geographical map.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> – A Pandas DataFrame.</li>
+<li><strong>longitude_column</strong> – The column with the longitudes. (optional)</li>
+<li><strong>latitude_column</strong> – The column with the latitudes. (optional)</li>
+<li><strong>region</strong> – The geographic region to plot. (optional)
+A iterable with four elements:
+lower left corner latitude,
+lower left corner longitude,
+upper right corner latitude,
+and upper right corner longitude.</li>
+<li><strong>autofit</strong> – A switch to automatically zoom to a region,
+showing all markers. (optional)</li>
+<li><strong>grid</strong> – A pair of distances for grid lines (lat, lon).
+(optional)</li>
+<li><strong>projection</strong> – The named projection of the map.
+See <a class="reference external" href="https://matplotlib.org/basemap/users/mapsetup.html">https://matplotlib.org/basemap/users/mapsetup.html</a></li>
+<li><strong>map_style</strong> – The name of a style. (optional)</li>
+<li><strong>map_style_attributes</strong> – A dict with style attributes. (optional)</li>
+<li><strong>map_resolution</strong> – The resolution of geographical and political features
+on the map: crude <cite>c</cite>, low <cite>l</cite>, intermediate <cite>i</cite>,
+high <cite>h</cite>, or full <cite>f</cite>. (optional)</li>
+<li><strong>size_column</strong> – A column with marker sizes. (optional)</li>
+<li><strong>size</strong> – A factor to the marker size. (optional)</li>
+<li><strong>size_mode</strong> – The mode for applying the size: <cite>area</cite> or <cite>radius</cite>.
+(optional)</li>
+<li><strong>color_column</strong> – A column with values for the marker color. (optional)</li>
+<li><strong>color</strong> – A color for the markers. (optional)
+Gets overridden by <cite>color_column</cite>.</li>
+<li><strong>cmap</strong> – A Matplotlib Colormap or the name of a color map.
+Is used in combination with <cite>color_column</cite>. (optional)
+See <cite>matplotlib.pyplot.scatter()</cite> for more info.</li>
+<li><strong>title</strong> – A title for the plot. (optional)</li>
+<li><strong>figsize</strong> – The figure size in inches. (optional)</li>
+<li><strong>pos</strong> – The position in the grid of a multiplot. (optional)</li>
+<li><strong>rowspan</strong> – The number of rows to span in the grid
+of a multiplot. (optional)</li>
+<li><strong>colspan</strong> – The number of columns to span in the grid
+of a multiplot. (optional)</li>
+<li><strong>file_name</strong> – A path to a file to save the plot in. (optional)</li>
+<li><strong>file_dpi</strong> – A resolution to render the saved plot. (optional)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="mastersign.datascience.plot.scatter_matrix">
 <code class="descclassname">mastersign.datascience.plot.</code><code class="descname">scatter_matrix</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>columns=None</em>, <em>subplot_size=2</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a matrix of scatter plots and histograms for a number of columns
@@ -592,7 +649,7 @@ Must be the same size as the columns.</li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="notebook.html" class="btn btn-neutral float-right" title="Processing Jupyter Notebooks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="mapplot.html" class="btn btn-neutral float-right" title="Plotting on a Map" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="database.html" class="btn btn-neutral float-left" title="Database Access" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

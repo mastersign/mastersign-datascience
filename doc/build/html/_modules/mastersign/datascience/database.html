@@ -86,6 +86,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../database.html">Database Access</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../plot.html">Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mapplot.html">Plotting on a Map</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notebook.html">Processing Jupyter Notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../cli.html">Command Line Interface</a></li>
 </ul>
@@ -152,6 +153,10 @@
             
   <h1>Source code for mastersign.datascience.database</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains functionality to comfortably access a SQL database.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">create_engine</span>
