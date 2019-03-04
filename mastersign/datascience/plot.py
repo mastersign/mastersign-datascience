@@ -16,6 +16,7 @@ import matplotlib.lines as mlines
 from configparser import ConfigParser
 from IPython.display import HTML, display
 from tabulate import tabulate
+from .mapplot import base_map, lat_lon_region
 
 _col_labels = {
     'count': 'Anzahl'
@@ -507,6 +508,111 @@ def scatter(data: pd.DataFrame, xcolumn, ycolumn,
     ax.set_ylim(bottom=ymin, top=ymax)
     ax.set_xlabel(_col_label(xlabel, xcolumn))
     ax.set_ylabel(_col_label(ylabel, ycolumn))
+    if color_column:
+        (cb_ax, cb_kw) = matplotlib.colorbar.make_axes(ax)
+        plt.colorbar(marker, cax=cb_ax, **cb_kw)
+        _suppress_tight_layout()
+    if not _in_multiplot() and file_name:
+        fig.savefig(file_name, dpi=file_dpi)
+    if title:
+        ax.set_title(title)
+    if not _in_multiplot():
+        plt.show()
+
+
+def scatter_map(data: pd.DataFrame,
+                longitude_column='longitude', latitude_column='latitude',
+                region=None, autofit=False,
+                projection='merc',
+                map_resolution='i', grid=(1, 2),
+                map_style=None, map_style_attributes=None,
+                size_column=None, size=1, size_mode=None,
+                color_column=None, color='blue', cmap='YlGnBu',
+                title=None,
+                figsize=(10, 10), pos=(0, 0), rowspan=1, colspan=1,
+                file_name=None, file_dpi=300):
+    """
+    Displays a scatter plot on a geographical map.
+
+    :param data:         A Pandas DataFrame.
+    :param longitude_column:
+                         The column with the longitudes. (optional)
+    :param latitude_column:
+                         The column with the latitudes. (optional)
+    :param region:       The geographic region to plot. (optional)
+                         A iterable with four elements:
+                         lower left corner latitude,
+                         lower left corner longitude,
+                         upper right corner latitude,
+                         and upper right corner longitude.
+    :param autofit:      A switch to automatically zoom to a region,
+                         showing all markers. (optional)
+    :param grid:         A pair of distances for grid lines (lat, lon).
+                         (optional)
+    :param projection:   The named projection of the map.
+                         See https://matplotlib.org/basemap/users/mapsetup.html
+    :param map_style:    The name of a style. (optional)
+    :param map_style_attributes:
+                         A dict with style attributes. (optional)
+    :param map_resolution:
+                         The resolution of geographical and political features
+                         on the map: crude `c`, low `l`, intermediate `i`,
+                         high `h`, or full `f`. (optional)
+    :param size_column:  A column with marker sizes. (optional)
+    :param size:         A factor to the marker size. (optional)
+    :param size_mode:    The mode for applying the size: `area` or `radius`.
+                         (optional)
+    :param color_column: A column with values for the marker color. (optional)
+    :param color:        A color for the markers. (optional)
+                         Gets overridden by `color_column`.
+    :param cmap:         A Matplotlib Colormap or the name of a color map.
+                         Is used in combination with `color_column`. (optional)
+                         See `matplotlib.pyplot.scatter()` for more info.
+    :param title:        A title for the plot. (optional)
+    :param figsize:      The figure size in inches. (optional)
+    :param pos:          The position in the grid of a multiplot. (optional)
+    :param rowspan:      The number of rows to span in the grid
+                         of a multiplot. (optional)
+    :param colspan:      The number of columns to span in the grid
+                         of a multiplot. (optional)
+    :param file_name:    A path to a file to save the plot in. (optional)
+    :param file_dpi:     A resolution to render the saved plot. (optional)
+    """
+    columns = [longitude_column, latitude_column]
+    if size_column:
+        columns.append(size_column)
+    if color_column:
+        columns.append(color_column)
+
+    data = data.loc[:, columns].dropna()
+    lon = data.loc[:, longitude_column]
+    lat = data.loc[:, latitude_column]
+    s = (data.loc[:, size_column].values if size_column else 1) * size
+    if size_mode == 'radius':
+        s = np.power(s, 2.0) * pi
+    if size_mode == 'area':
+        pass
+    c = data.loc[:, color_column].values if color_column else color
+
+    if autofit or region is None:
+        region = [lat.min(), lon.min(), lat.max(), lon.max()]
+        lat_margin = abs(region[2] - region[0]) * 0.15
+        lon_margin = abs(region[3] - region[1]) * 0.15
+        region[0] -= lat_margin
+        region[1] -= lon_margin
+        region[2] += lat_margin
+        region[3] += lon_margin
+        if region[2] - region[0] > 180:
+            region[0], region[2] = region[2], region[0]
+
+    (fig, ax) = _plt(figsize=figsize, pos=pos,
+                     rowspan=rowspan, colspan=colspan)
+    m = base_map(lat_lon_region(*region), projection=projection,
+                 resolution=map_resolution, grid=grid,
+                 style_name=map_style, style_attributes=map_style_attributes,
+                 ax=ax)
+    marker = m.scatter(list(lon.values), list(lat.values), latlon=True,
+              s=s, c=c, marker='o', cmap=cmap, zorder=10)
     if color_column:
         (cb_ax, cb_kw) = matplotlib.colorbar.make_axes(ax)
         plt.colorbar(marker, cax=cb_ax, **cb_kw)
