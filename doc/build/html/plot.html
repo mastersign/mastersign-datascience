@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Plotting on a Map" href="mapplot.html" />
+    <link rel="next" title="Processing Jupyter Notebooks" href="notebook.html" />
     <link rel="prev" title="Database Access" href="database.html" /> 
 </head>
 
@@ -88,7 +88,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="database.html">Database Access</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Plotting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mapplot.html">Plotting on a Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#module-mastersign.datascience.plot.basemap">Plotting with Basemap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebook.html">Processing Jupyter Notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
 </ul>
@@ -640,6 +640,155 @@ Must be the same size as the columns.</li>
 </dd></dl>
 
 </div>
+<div class="section" id="module-mastersign.datascience.plot.basemap">
+<span id="plotting-with-basemap"></span><h1>Plotting with Basemap<a class="headerlink" href="#module-mastersign.datascience.plot.basemap" title="Permalink to this headline">¶</a></h1>
+<p>This module contains functionality used to plot on a map.</p>
+<p>See e.g. <cite>mastersign.datascience.plot.scatter_map()</cite>.</p>
+<dl class="function">
+<dt id="mastersign.datascience.plot.basemap.base_map">
+<code class="descclassname">mastersign.datascience.plot.basemap.</code><code class="descname">base_map</code><span class="sig-paren">(</span><em>region: Mapping[str, float], projection: str = 'cyl', epsg: Optional[int] = None, grid: Tuple[float, float] = (30, 60), resolution: str = 'i', style_name: Optional[str] = None, style_attributes: Optional[Mapping[str, Any]] = None, ax=None</em><span class="sig-paren">)</span> &#x2192; mpl_toolkits.basemap.Basemap<a class="reference internal" href="_modules/mastersign/datascience/plot/basemap.html#base_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.basemap.base_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a Basemap instance containing continents, coastlines,
+rivers and country borders.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>region</strong> (<em>Mapping</em><em>[</em><em>str</em><em>, </em><em>float</em><em>]</em>) – A Basemap compatible structure defining a rectangular
+geographical region. (See <cite>lat_lon_region()</cite>.)</li>
+<li><strong>projection</strong> – <p>A named projection from Basemap.
+E.g. <cite>cyl</cite>, <cite>robin</cite>, <cite>mill</cite>, <cite>ortho</cite>, <cite>merc</cite>, and a lot more.</p>
+<p>See <a class="reference external" href="https://matplotlib.org/basemap/users/mapsetup.html">https://matplotlib.org/basemap/users/mapsetup.html</a>
+for more details.</p>
+</li>
+<li><strong>epsg</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – <p>An EPSG projection code as an alternative to the named
+projection types.
+E.g. <cite>EPSG_WGS84_GIS</cite>, <cite>EPSG_WGS84_GPS</cite>, or <cite>EPSG_ETRS89</cite>.</p>
+<p>See <a class="reference external" href="http://spatialreference.org/ref/epsg/">http://spatialreference.org/ref/epsg/</a> for EPSG codes.</p>
+</li>
+<li><strong>lat_0</strong> (<em>float</em>) – The latitude facing the viewer for orthographic projections.</li>
+<li><strong>lon_0</strong> (<em>float</em>) – The longitude facing the viewer for orthographic projections.</li>
+<li><strong>grid</strong> (<em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em>) – A tuple with latitude and longitude intervals for drawing a grid.</li>
+<li><strong>resolution</strong> (<em>str</em>) – The Basemap resolution level: <code class="docutils literal notranslate"><span class="pre">c</span></code> (crude), <code class="docutils literal notranslate"><span class="pre">l</span></code> (low),
+<code class="docutils literal notranslate"><span class="pre">i</span></code> (intermediate), <code class="docutils literal notranslate"><span class="pre">h</span></code> (high), or <code class="docutils literal notranslate"><span class="pre">f</span></code> (full).</li>
+<li><strong>style_name</strong> (<em>str</em>) – The name of a style in <cite>map_styles</cite>.</li>
+<li><strong>style_attributes</strong> (<em>Optional</em><em>[</em><em>Mapping</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>) – A dict like structure with overridings for the style.</li>
+<li><strong>ax</strong> – A mapplotlib Axes object.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The initialized Basemap instance.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">mpl_toolkits.basemap.Basemap</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="mastersign.datascience.plot.basemap.g2m">
+<code class="descclassname">mastersign.datascience.plot.basemap.</code><code class="descname">g2m</code><span class="sig-paren">(</span><em>m: mpl_toolkits.basemap.Basemap, coord: Tuple[float, float]</em><span class="sig-paren">)</span> &#x2192; Tuple[float, float]<a class="reference internal" href="_modules/mastersign/datascience/plot/basemap.html#g2m"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.basemap.g2m" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert geographical coordinate into x-y-coordinates in the plotting space.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>m</strong> (<em>mpl_toolkits.basemap.Basemap</em>) – The Basemap instance to use for conversion.</li>
+<li><strong>coord</strong> (<em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em>) – A tuple with the latitude and longitude.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A tuple with the x and y coordinates in the plotting space.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Tuple[float, float]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="mastersign.datascience.plot.basemap.g2ms">
+<code class="descclassname">mastersign.datascience.plot.basemap.</code><code class="descname">g2ms</code><span class="sig-paren">(</span><em>m: mpl_toolkits.basemap.Basemap, coords: Iterable[Tuple[float, float]]</em><span class="sig-paren">)</span> &#x2192; List[Tuple[float, float]]<a class="reference internal" href="_modules/mastersign/datascience/plot/basemap.html#g2ms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.basemap.g2ms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert an iterable with geographical coordinates into
+a list of x-y-coordinates in the plotting space.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>m</strong> (<em>mpl_toolkits.basemap.Basemap</em>) – The Basemap instance to use for conversion.</li>
+<li><strong>coords</strong> (<em>Iterable</em><em>[</em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em><em>]</em>) – An iterable with geographical coordinates (lat, lon).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A list with x-y-coordinates in the plotting space.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">List[Tuple[float, float]]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="mastersign.datascience.plot.basemap.g2xys">
+<code class="descclassname">mastersign.datascience.plot.basemap.</code><code class="descname">g2xys</code><span class="sig-paren">(</span><em>m: mpl_toolkits.basemap.Basemap, coords: Iterable[Tuple[float, float]]</em><span class="sig-paren">)</span> &#x2192; Tuple[Sequence[float], Sequence[float]]<a class="reference internal" href="_modules/mastersign/datascience/plot/basemap.html#g2xys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.basemap.g2xys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert an iterable with geographical coordinates into
+two sequences with x- and y-coordinates in the plotting space.</p>
+<p>Can be used to convert an iterable with geographic coordinates
+into the input for a line or scatter plot.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>m</strong> (<em>mpl_toolkits.basemap.Basemap</em>) – The Basemap instance to use for conversion.</li>
+<li><strong>coords</strong> (<em>Iterable</em><em>[</em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em><em>]</em>) – An iterable with geographical coordinates (lat, lon).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Two lists with x- and y-coordinates in the plotting space.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Tuple[Sequence[float], Sequence[float]]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="mastersign.datascience.plot.basemap.lat_lon_region">
+<code class="descclassname">mastersign.datascience.plot.basemap.</code><code class="descname">lat_lon_region</code><span class="sig-paren">(</span><em>lower_left_corner_latitude</em>, <em>lower_left_corner_longitude</em>, <em>upper_right_corner_latitude</em>, <em>upper_right_corner_longitude</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot/basemap.html#lat_lon_region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.basemap.lat_lon_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a geographical region with lower left corner
+and upper right corner into a Basemap compatible structure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>lower_left_corner_latitude</strong> – The latitude of the lower left corner.</li>
+<li><strong>lower_left_corner_longitude</strong> – The longitude of the lower left corner.</li>
+<li><strong>upper_right_corner_latitude</strong> – The latitude of the lower left corner.</li>
+<li><strong>upper_right_corner_longitude</strong> – The longitude of the lower left corner.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A dict with the keys <code class="docutils literal notranslate"><span class="pre">llcrnrlat</span></code>, <code class="docutils literal notranslate"><span class="pre">llcrnrlon</span></code>,
+<code class="docutils literal notranslate"><span class="pre">urcrnrlat</span></code>, and <code class="docutils literal notranslate"><span class="pre">urcrnrlon</span></code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
 
 
            </div>
@@ -649,7 +798,7 @@ Must be the same size as the columns.</li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="mapplot.html" class="btn btn-neutral float-right" title="Plotting on a Map" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="notebook.html" class="btn btn-neutral float-right" title="Processing Jupyter Notebooks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="database.html" class="btn btn-neutral float-left" title="Database Access" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
