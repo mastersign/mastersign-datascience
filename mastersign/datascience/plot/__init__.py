@@ -16,7 +16,7 @@ import matplotlib.lines as mlines
 from configparser import ConfigParser
 from IPython.display import HTML, display
 from tabulate import tabulate
-from .mapplot import base_map, lat_lon_region
+from .basemap import base_map, lat_lon_region
 
 _col_labels = {
     'count': 'Anzahl'

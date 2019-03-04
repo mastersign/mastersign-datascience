@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 import os
-from setuptools import setup, find_packages
+from setuptools import setup, find_namespace_packages
 
-import mastersign
+import mastersign.datascience.core as root
 
 
 def read_info_files(*names):
@@ -28,23 +28,21 @@ def read_dependencies():
     return None
 
 
-info_files = ['README', 'CHANGELOG', 'LICENSE']
+info_files = ['README', 'LICENSE']
 info_texts = read_info_files(*info_files)
 
 long_description = """
 {README}
-
-{CHANGELOG}
 """.format(**info_texts)
 
 data_files = None
 
 setup(
     name='mastersign-datascience',
-    version=mastersign.__version__,
-    description=mastersign.__doc__.strip().replace('\n', ' '),
+    version=root.__version__,
+    description=root.__doc__.strip().replace('\n', ' '),
     long_description=long_description,
-    keywords=' '.join(mastersign.__keywords__),
+    keywords=' '.join(root.__keywords__),
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
@@ -58,13 +56,13 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
-    url=mastersign.__url__,
-    author=mastersign.__author__,
-    author_email=mastersign.__author_email__,
-    maintainer=mastersign.__maintainer__,
-    maintainer_email=mastersign.__maintainer_email__,
+    url=root.__url__,
+    author=root.__author__,
+    author_email=root.__author_email__,
+    maintainer=root.__maintainer__,
+    maintainer_email=root.__maintainer_email__,
     license='BSD-3',
-    packages=find_packages(),
+    packages=find_namespace_packages(include=['mastersign.*']),
     data_files=data_files,
     install_requires=read_dependencies(),
 )
