@@ -22,7 +22,7 @@ def remove_input_from_html(file):
         f.write(str(doc))
 
 
-@click.command(help='Remove input blocks from Jupyter notebook HTML output.'
+@click.command(help='Remove input blocks from Jupyter notebook HTML output. '
                     'The given HTML file will be changed in place.')
 @click.argument('file', type=click.Path(exists=True,
                                         file_okay=True, dir_okay=False,

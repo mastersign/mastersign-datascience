@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from math import floor, ceil
+"""
+This module contains functionality to comfortably create plots.
+"""
+
+from math import floor, ceil, pi
 from itertools import islice, chain
 from warnings import warn
 import pandas as pd

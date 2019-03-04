@@ -28,7 +28,7 @@ def export_cell_code(nb_file, py_file=None, tag='production'):
     :param nb_file: A path to a Jupyter Notebook.
     :param py_file: A path to a Python script file as target.
     :param tag:     A tag name for the code cell selection.
-                    Defaults to `production`.
+                    Defaults to ``production``.
     """
     with open(nb_file, 'r', encoding='utf8') as f:
         nb = json.load(f)

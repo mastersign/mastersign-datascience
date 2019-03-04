@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+"""
+This module contains functionality to comfortably access a SQL database.
+"""
+
 import pandas as pd
 from sqlalchemy import create_engine
 
