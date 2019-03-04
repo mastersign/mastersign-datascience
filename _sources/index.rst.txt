@@ -7,7 +7,6 @@ Documentation for Mastersign Data Science
 
    database
    plot
-   mapplot
    notebook
    cli
 
