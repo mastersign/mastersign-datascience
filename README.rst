@@ -1,6 +1,6 @@
-############################################################
-Mastersign Datascience
-############################################################
+#######################
+Mastersign Data Science
+#######################
 
     High level helpers for data science in Python with Pandas.
 

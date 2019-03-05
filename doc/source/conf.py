@@ -17,14 +17,15 @@ sys.path.insert(0, os.path.abspath(os.path.join('..', '..')))
 
 # -- Project information -----------------------------------------------------
 
+import mastersign.datascience.core as root
 project = 'mastersign-datascience'
-copyright = '2019, Tobias Kiertscher'
-author = 'Tobias Kiertscher'
+copyright = '2019, ' + root.__author__
+author = root.__author__
 
 # The short X.Y version
-version = '0.1'
+version = '.'.join(root.__version__.split('.')[:2])
 # The full version, including alpha/beta/rc tags
-release = '0.1.0'
+release = root.__version__
 
 
 # -- General configuration ---------------------------------------------------
