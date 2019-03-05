@@ -3,7 +3,7 @@
 # Bash script for commiting unstaged changes in Sphinx documentation HTML output
 # and pushing subtree to Git branch gh-pages
 
-remote=origin
+remote=github
 pages_branch=gh-pages
 docs_path=doc/build/html
 

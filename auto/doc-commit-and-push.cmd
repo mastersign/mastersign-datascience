@@ -4,7 +4,7 @@ SETLOCAL
 :: CMD script for commiting unstaged changes in Sphinx documentation HTML output
 :: and pushing subtree to Git branch gh-pages
 
-SET REMOTE=origin
+SET REMOTE=github
 SET PAGES_BRANCH=gh-pages
 SET DOCS_PATH=doc/build/html
 PUSHD "%~dp0.."
