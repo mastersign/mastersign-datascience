@@ -26,13 +26,12 @@ function assert_python_cli() {
 assert_python_cli sphinx-build sphinx Sphinx http://sphinx-doc.org/
 
 if [ "$1" == "" ]; then
-    sphinx-build -M help "$source_dir" "$build_dir" $SPHINXOPTS
-    echo ""
-    echo "NOTE: Replace 'make' with 'auto/doc-build.sh' in this project."
-    exit 1
+    format="html"
+else
+    format="$1"
 fi
 
 if ! [ -d "$source_dir/_static" ]; then mkdir "$source_dir/_static"; fi
 if ! [ -d "$source_dir/_templates" ]; then mkdir "$source_dir/_templates"; fi
 
-exec sphinx-build -M $1 "$source_dir" "$build_dir" $SPHINXOPTS
+exec sphinx-build -M $format "$source_dir" "$build_dir" $SPHINXOPTS

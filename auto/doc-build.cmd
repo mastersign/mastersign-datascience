@@ -13,12 +13,16 @@ IF ERRORLEVEL 1 (
 	GOTO:ERROR
 )
 
-IF "%1" == "" GOTO:HELP
+IF "%1" == "" (
+	SET FORMAT=html
+) ELSE (
+	SET FORMAT=%1
+)
 
 IF NOT EXIST "%SOURCEDIR%\_static\" MKDIR "%SOURCEDIR%\_static"
 IF NOT EXIST "%SOURCEDIR%\_templates\" MKDIR "%SOURCEDIR%\_templates"
 
-CALL sphinx-build -M %1 %SOURCEDIR% %BUILDDIR% %SPHINXOPTS%
+CALL sphinx-build -M %FORMAT% %SOURCEDIR% %BUILDDIR% %SPHINXOPTS%
 SET STATUS=%ERRORLEVEL%
 IF %STATUS% NEQ 0 GOTO:ERROR
 
@@ -33,13 +37,6 @@ GOTO:EOF
 :ERROR
 POPD
 EXIT /B %STATUS%
-
-:HELP
-CALL sphinx-build -M help %SOURCEDIR% %BUILDDIR% %SPHINXOPTS%
-ECHO.
-ECHO.NOTE: Replace 'make' with 'auto\doc_build.cmd' in this project.
-GOTO:END
-
 
 :ASSERT_COMMAND
 SET NAME=%1
