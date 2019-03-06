@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>mastersign.datascience.plot &mdash; mastersign-datascience 0.1.1 documentation</title>
+  <title>mastersign.datascience.plot &mdash; mastersign-datascience 0.1.2 documentation</title>
   
 
   
@@ -170,7 +170,6 @@
 <span class="kn">from</span> <span class="nn">configparser</span> <span class="k">import</span> <span class="n">ConfigParser</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">display</span>
 <span class="kn">from</span> <span class="nn">tabulate</span> <span class="k">import</span> <span class="n">tabulate</span>
-<span class="kn">from</span> <span class="nn">.basemap</span> <span class="k">import</span> <span class="n">base_map</span><span class="p">,</span> <span class="n">lat_lon_region</span>
 
 <span class="n">_col_labels</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="s1">&#39;Anzahl&#39;</span>
@@ -732,6 +731,9 @@
 <span class="sd">    :param file_name:    A path to a file to save the plot in. (optional)</span>
 <span class="sd">    :param file_dpi:     A resolution to render the saved plot. (optional)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">from</span> <span class="nn">.basemap</span> <span class="k">import</span> <span class="n">base_map</span><span class="p">,</span> <span class="n">lat_lon_region</span>
+
     <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">longitude_column</span><span class="p">,</span> <span class="n">latitude_column</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">size_column</span><span class="p">:</span>
         <span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">size_column</span><span class="p">)</span>
