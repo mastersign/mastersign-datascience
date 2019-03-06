@@ -5,6 +5,5 @@ PyMySQL
 SQLAlchemy>=1.0
 tabulate
 matplotlib
-basemap>=1.0
 beautifulsoup4
 click>=7.0

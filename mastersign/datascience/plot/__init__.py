@@ -16,7 +16,6 @@ import matplotlib.lines as mlines
 from configparser import ConfigParser
 from IPython.display import HTML, display
 from tabulate import tabulate
-from .basemap import base_map, lat_lon_region
 
 _col_labels = {
     'count': 'Anzahl'
@@ -578,6 +577,9 @@ def scatter_map(data: pd.DataFrame,
     :param file_name:    A path to a file to save the plot in. (optional)
     :param file_dpi:     A resolution to render the saved plot. (optional)
     """
+
+    from .basemap import base_map, lat_lon_region
+
     columns = [longitude_column, latitude_column]
     if size_column:
         columns.append(size_column)
