@@ -24,7 +24,7 @@ def execute(sql, db_conn=None, *args, **kwargs):
     """
     Execute a SQL statement, returning no data.
 
-    :param query:  A string as a SQL query.
+    :param query:  A string as a SQL statement.
     :param dbconn: A SqlAlchemy connection string. (optional)
     :param args:   Additional positional arguments,
                    passed to `sqlalchemy.engine.Connection.execute()`.
