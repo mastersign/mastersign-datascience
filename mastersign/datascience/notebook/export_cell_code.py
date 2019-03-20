@@ -52,7 +52,7 @@ def export_cell_code(nb_file, py_file=None, tag='production'):
               type=click.Path(file_okay=True, dir_okay=False,
                               writable=True),
               required=False,
-              help='A path to the *.py file to write.')
+              help='A path to the Python code file to write.')
 @click.option('-t', '--tag',
               type=str, default='production', show_default=True,
               help='A tag for the cell selection.')
