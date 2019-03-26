@@ -39,18 +39,24 @@ def execute(sql, db_conn=None, *args, **kwargs):
         engine.dispose()
 
 
-def load_query(query, db_conn=None, **kwargs):
+def load_query(query, index=None, db_conn=None, **kwargs):
     """
     Load data from an arbitrary SQL query.
 
     :param query:   A string as a SQL query.
+    :param index:   A column name or an iterable with column names,
+                    which will be the index in the resulting DataFrame.
+                    (optional)
     :param db_conn: A SqlAlchemy connection string. (optional)
     :param kwargs:  Additional keyword arguments
                     are passed to `pandas.read_sql_query()`.
 
     :return: Pandas DataFrame
     """
-    return pd.read_sql_query(query, db_conn or _def_db_conn, **kwargs)
+    df = pd.read_sql_query(query, db_conn or _def_db_conn, **kwargs)
+    if index:
+        df.set_index(index, inplace=True)
+    return df
 
 
 def load_scalar(query, db_conn=None, *args, **kwargs):
@@ -77,7 +83,7 @@ def load_scalar(query, db_conn=None, *args, **kwargs):
     return result
 
 
-def _select_query(table_name, columns=None, where=None, group_by=None):
+def _select_query(table_name, columns=None, where=None, group_by=None, limit=None):
     if columns:
         column_list = ', '.join(columns)
     else:
@@ -103,26 +109,39 @@ def _select_query(table_name, columns=None, where=None, group_by=None):
     if group_by_clause:
         group_by_clause = ' GROUP BY ' + group_by_clause
 
+    if limit:
+        limit_clause = ' LIMIT ' + str(int(limit))
+    else:
+        limit_clause = ''
+
     return "SELECT {} FROM `{}`{}{} ;".format(
-        column_list, table_name, where_clause, group_by_clause)
+        column_list, table_name, where_clause, group_by_clause, limit_clause)
 
 
-def load_table(name, columns=None, where=None, group_by=None, db_conn=None, **kwargs):
+def load_table(name, columns=None, index=None,
+               where=None, group_by=None, limit=None,
+               db_conn=None, **kwargs):
     """
     Load data from a SQL table.
 
     :param name:     The name of the table.
     :param columns:  An iterable of column names. (optional)
+    :param index:    A column name or an iterable with column names,
+                     which will be the index in the resulting DataFrame.
+                     (optional)
     :param where:    A string with on condition or an iterable. (optional)
                      The iterable forms a conjunction and can hold strings
                      as conditions or nested iterables. The nested iterables
                      form disjunctions and must hold strings with conditions.
     :param group_by: A string as a GROUP-BY-clause or an iterable with
                      multiple GROUP-BY-clauses. (optional)
+    :param limit:    The maximum number of rows to fetch. (optional)
     :param db_conn:  A SqlAlchemy connection string. (optional)
     :param kwargs:   Additional keyword arguments
                      are passed to `pandas.read_sql_query()`.
 
     :return: Pandas DataFrame
     """
-    return load_query(_select_query(name, columns=columns, where=where, group_by=group_by), db_conn=db_conn, **kwargs)
+    return load_query(_select_query(name, columns=columns, where=where,
+                                    group_by=group_by, limit=limit),
+                      index=index, db_conn=db_conn, **kwargs)
