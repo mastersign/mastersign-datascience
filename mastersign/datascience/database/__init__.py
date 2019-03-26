@@ -24,12 +24,12 @@ def execute(sql, db_conn=None, *args, **kwargs):
     """
     Execute a SQL statement, returning no data.
 
-    :param query:  A string as a SQL statement.
-    :param dbconn: A SqlAlchemy connection string. (optional)
-    :param args:   Additional positional arguments,
-                   passed to `sqlalchemy.engine.Connection.execute()`.
-    :param kwargs: Additional keyword arguments,
-                   passed to `sqlalchemy.engine.Connection.execute()`.
+    :param sql:     A string as a SQL statement.
+    :param db_conn: A SqlAlchemy connection string. (optional)
+    :param args:    Additional positional arguments,
+                    passed to `sqlalchemy.engine.Connection.execute()`.
+    :param kwargs:  Additional keyword arguments,
+                    passed to `sqlalchemy.engine.Connection.execute()`.
     """
     engine = create_engine(db_conn or _def_db_conn)
     try:
