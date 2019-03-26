@@ -66,21 +66,19 @@ def load_scalar(query, db_conn=None, *args, **kwargs):
 
     :param query:   A string as a SQL query.
     :param db_conn: A SqlAlchemy connection string. (optional)
-    :param args:   Additional positional arguments,
-                   passed to `sqlalchemy.engine.Connection.execute()`.
-    :param kwargs: Additional keyword arguments,
-                   passed to `sqlalchemy.engine.Connection.execute()`.
+    :param args:    Additional positional arguments,
+                    passed to `sqlalchemy.engine.Connection.execute()`.
+    :param kwargs:  Additional keyword arguments,
+                    passed to `sqlalchemy.engine.Connection.execute()`.
 
     :return: A single value
     """
     engine = create_engine(db_conn or _def_db_conn)
-    result = None
     try:
         with engine.connect() as connection:
-            result = connection.execute(query, *args, **kwargs).scalar()
+            return connection.execute(query, *args, **kwargs).scalar()
     finally:
         engine.dispose()
-    return result
 
 
 def _select_query(table_name, columns=None, where=None, group_by=None, limit=None):
