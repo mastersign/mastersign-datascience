@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Database Access &mdash; mastersign-datascience 0.1.3 documentation</title>
+  <title>Database Access &mdash; mastersign-datascience 0.1.4 documentation</title>
   
 
   
@@ -167,8 +167,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>query</strong> – A string as a SQL statement.</li>
-<li><strong>dbconn</strong> – A SqlAlchemy connection string. (optional)</li>
+<li><strong>sql</strong> – A string as a SQL statement.</li>
+<li><strong>db_conn</strong> – A SqlAlchemy connection string. (optional)</li>
 <li><strong>args</strong> – Additional positional arguments,
 passed to <cite>sqlalchemy.engine.Connection.execute()</cite>.</li>
 <li><strong>kwargs</strong> – Additional keyword arguments,
@@ -182,7 +182,7 @@ passed to <cite>sqlalchemy.engine.Connection.execute()</cite>.</li>
 
 <dl class="function">
 <dt id="mastersign.datascience.database.load_query">
-<code class="descclassname">mastersign.datascience.database.</code><code class="descname">load_query</code><span class="sig-paren">(</span><em>query</em>, <em>db_conn=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/database.html#load_query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.database.load_query" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mastersign.datascience.database.</code><code class="descname">load_query</code><span class="sig-paren">(</span><em>query</em>, <em>index=None</em>, <em>db_conn=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/database.html#load_query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.database.load_query" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load data from an arbitrary SQL query.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -190,6 +190,9 @@ passed to <cite>sqlalchemy.engine.Connection.execute()</cite>.</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>query</strong> – A string as a SQL query.</li>
+<li><strong>index</strong> – A column name or an iterable with column names,
+which will be the index in the resulting DataFrame.
+(optional)</li>
 <li><strong>db_conn</strong> – A SqlAlchemy connection string. (optional)</li>
 <li><strong>kwargs</strong> – Additional keyword arguments
 are passed to <cite>pandas.read_sql_query()</cite>.</li>
@@ -230,7 +233,7 @@ passed to <cite>sqlalchemy.engine.Connection.execute()</cite>.</li>
 
 <dl class="function">
 <dt id="mastersign.datascience.database.load_table">
-<code class="descclassname">mastersign.datascience.database.</code><code class="descname">load_table</code><span class="sig-paren">(</span><em>name</em>, <em>columns=None</em>, <em>where=None</em>, <em>group_by=None</em>, <em>db_conn=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/database.html#load_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.database.load_table" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mastersign.datascience.database.</code><code class="descname">load_table</code><span class="sig-paren">(</span><em>name</em>, <em>columns=None</em>, <em>index=None</em>, <em>where=None</em>, <em>group_by=None</em>, <em>limit=None</em>, <em>db_conn=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/database.html#load_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.database.load_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load data from a SQL table.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -239,12 +242,16 @@ passed to <cite>sqlalchemy.engine.Connection.execute()</cite>.</li>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>name</strong> – The name of the table.</li>
 <li><strong>columns</strong> – An iterable of column names. (optional)</li>
+<li><strong>index</strong> – A column name or an iterable with column names,
+which will be the index in the resulting DataFrame.
+(optional)</li>
 <li><strong>where</strong> – A string with on condition or an iterable. (optional)
 The iterable forms a conjunction and can hold strings
 as conditions or nested iterables. The nested iterables
 form disjunctions and must hold strings with conditions.</li>
 <li><strong>group_by</strong> – A string as a GROUP-BY-clause or an iterable with
 multiple GROUP-BY-clauses. (optional)</li>
+<li><strong>limit</strong> – The maximum number of rows to fetch. (optional)</li>
 <li><strong>db_conn</strong> – A SqlAlchemy connection string. (optional)</li>
 <li><strong>kwargs</strong> – Additional keyword arguments
 are passed to <cite>pandas.read_sql_query()</cite>.</li>
