@@ -44,7 +44,7 @@ setup(
     long_description=long_description,
     keywords=' '.join(root.__keywords__),
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Natural Language :: English',
