@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Plotting &mdash; mastersign-datascience 0.1.4 documentation</title>
+  <title>Plotting &mdash; mastersign-datascience 0.1.5 documentation</title>
   
 
   
@@ -606,6 +606,33 @@ The column-label-pairs must be placed under the INI section <cite>[Columns]</cit
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – A map of column names and labels.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="mastersign.datascience.plot.subplot">
+<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">subplot</code><span class="sig-paren">(</span><em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#subplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.subplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepares a sub-plot inside the current figure between calls
+of <cite>begin()</cite> and <cite>end()</cite>.</p>
+<p>This method is useful, if a custom plot must be integrated
+into a multiplot created with <cite>mastersign.datasience.plot</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pos</strong> – The position in the grid of a multiplot. (optional)</li>
+<li><strong>rowspan</strong> – The number of rows to span in the grid
+of a multiplot. (optional)</li>
+<li><strong>colspan</strong> – The number of columns to span in the grid
+of a multiplot. (optional)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A tuple with Matplotlib figure and axes: <code class="docutils literal notranslate"><span class="pre">(fig,</span> <span class="pre">ax)</span></code>.</p>
+</td>
 </tr>
 </tbody>
 </table>

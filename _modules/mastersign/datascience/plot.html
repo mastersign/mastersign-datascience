@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>mastersign.datascience.plot &mdash; mastersign-datascience 0.1.4 documentation</title>
+  <title>mastersign.datascience.plot &mdash; mastersign-datascience 0.1.5 documentation</title>
   
 
   
@@ -315,6 +315,26 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">())</span>
+
+
+<div class="viewcode-block" id="subplot"><a class="viewcode-back" href="../../../plot.html#mastersign.datascience.plot.subplot">[docs]</a><span class="k">def</span> <span class="nf">subplot</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prepares a sub-plot inside the current figure between calls</span>
+<span class="sd">    of `begin()` and `end()`.</span>
+
+<span class="sd">    This method is useful, if a custom plot must be integrated</span>
+<span class="sd">    into a multiplot created with `mastersign.datasience.plot`.</span>
+
+<span class="sd">    :param pos:     The position in the grid of a multiplot. (optional)</span>
+<span class="sd">    :param rowspan: The number of rows to span in the grid</span>
+<span class="sd">                    of a multiplot. (optional)</span>
+<span class="sd">    :param colspan: The number of columns to span in the grid</span>
+<span class="sd">                    of a multiplot. (optional)</span>
+<span class="sd">    :return:        A tuple with Matplotlib figure and axes: ``(fig, ax)``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">_in_multiplot</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;No current figure. Did you use begin()?&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_plt</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">rowspan</span><span class="o">=</span><span class="n">rowspan</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="n">colspan</span><span class="p">)</span></div>
 
 
 <span class="k">def</span> <span class="nf">_suppress_tight_layout</span><span class="p">():</span>
