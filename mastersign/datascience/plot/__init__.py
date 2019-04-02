@@ -163,6 +163,26 @@ def _plt(figsize=(10, 4), pos=(0, 0), rowspan=1, colspan=1):
         return (fig, plt.gca())
 
 
+def subplot(pos=(0, 0), rowspan=1, colspan=1):
+    """
+    Prepares a sub-plot inside the current figure between calls
+    of `begin()` and `end()`.
+
+    This method is useful, if a custom plot must be integrated
+    into a multiplot created with `mastersign.datasience.plot`.
+
+    :param pos:     The position in the grid of a multiplot. (optional)
+    :param rowspan: The number of rows to span in the grid
+                    of a multiplot. (optional)
+    :param colspan: The number of columns to span in the grid
+                    of a multiplot. (optional)
+    :return:        A tuple with Matplotlib figure and axes: ``(fig, ax)``.
+    """
+    if not _in_multiplot():
+        raise Exception("No current figure. Did you use begin()?")
+    return _plt(pos=pos, rowspan=rowspan, colspan=colspan)
+
+
 def _suppress_tight_layout():
     global allow_tight_layout
     allow_tight_layout = False
