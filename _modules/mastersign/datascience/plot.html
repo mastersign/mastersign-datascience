@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>mastersign.datascience.plot &mdash; mastersign-datascience 0.1.5 documentation</title>
+  <title>mastersign.datascience.plot &mdash; mastersign-datascience 0.1.6 documentation</title>
   
 
   
@@ -278,8 +278,6 @@
 <span class="sd">                      See `matplotlib.pyplot.tight_layout()`.</span>
 <span class="sd">    :param h_pad:     Vertical space between subplots. (optional)</span>
 <span class="sd">                      See `matplotlib.pyplot.tight_layout()`.</span>
-<span class="sd">    :param tight_layout:</span>
-<span class="sd">                      A switch to call `matplotlib.pyplot.tight_layout()`.</span>
 <span class="sd">    :param file_name: A path to a file to save the plot in. (optional)</span>
 <span class="sd">    :param file_dpi:  A resolution to render the saved plot. (optional)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -344,7 +342,7 @@
 
 <div class="viewcode-block" id="pie"><a class="viewcode-back" href="../../../plot.html#mastersign.datascience.plot.pie">[docs]</a><span class="k">def</span> <span class="nf">pie</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">label_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sort_by</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pct</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file_dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Display a pie chart with values from a column.</span>
@@ -357,6 +355,7 @@
 <span class="sd">    :param title:        The title of the plot.</span>
 <span class="sd">    :param pct:          A switch to display percentages.</span>
 <span class="sd">    :param figsize:      The figure size in inches. (optional)</span>
+<span class="sd">    :param pad:          Padding around the figure. (optional)</span>
 <span class="sd">    :param pos:          The position in the grid of a multiplot. (optional)</span>
 <span class="sd">    :param rowspan:      The number of rows to span in the grid</span>
 <span class="sd">                         of a multiplot. (optional)</span>
@@ -385,16 +384,20 @@
                 <span class="n">startangle</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">counterclock</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_in_multiplot</span><span class="p">()</span> <span class="ow">and</span> <span class="n">file_name</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">pad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">)</span>
         <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">file_dpi</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_in_multiplot</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">pad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="pie_groups"><a class="viewcode-back" href="../../../plot.html#mastersign.datascience.plot.pie_groups">[docs]</a><span class="k">def</span> <span class="nf">pie_groups</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">sort_by</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pct</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-               <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+               <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file_dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Display a pie chart by counting rows according to a column value.</span>
@@ -405,6 +408,7 @@
 <span class="sd">    :param title:     The title of the plot.</span>
 <span class="sd">    :param pct:       A switch to display percentages.</span>
 <span class="sd">    :param figsize:   The figure size in inches. (optional)</span>
+<span class="sd">    :param pad:       Padding around the figure. (optional)</span>
 <span class="sd">    :param pos:       The position in the grid of a multiplot. (optional)</span>
 <span class="sd">    :param rowspan:   The number of rows to span in the grid</span>
 <span class="sd">                      of a multiplot. (optional)</span>
@@ -418,13 +422,13 @@
     <span class="n">group_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">groups</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">groups</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
     <span class="n">pie</span><span class="p">(</span><span class="n">group_data</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">sort_by</span><span class="o">=</span><span class="n">sort_by</span><span class="p">,</span>
         <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">pct</span><span class="o">=</span><span class="n">pct</span><span class="p">,</span>
-        <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">rowspan</span><span class="o">=</span><span class="n">rowspan</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="n">colspan</span><span class="p">,</span>
+        <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">rowspan</span><span class="o">=</span><span class="n">rowspan</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="n">colspan</span><span class="p">,</span>
         <span class="n">file_name</span><span class="o">=</span><span class="n">file_name</span><span class="p">,</span> <span class="n">file_dpi</span><span class="o">=</span><span class="n">file_dpi</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="bar"><a class="viewcode-back" href="../../../plot.html#mastersign.datascience.plot.bar">[docs]</a><span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">value_column</span><span class="p">,</span> <span class="n">label_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">xlabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file_dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Display a bar chart from one two columns.</span>
@@ -436,6 +440,7 @@
 <span class="sd">    :param ylabel:       The label for the Y axis. (optional)</span>
 <span class="sd">    :param title:        The title of the plot. (optional)</span>
 <span class="sd">    :param figsize:      The figure size in inches. (optional)</span>
+<span class="sd">    :param pad:          Padding around the figure. (optional)</span>
 <span class="sd">    :param pos:          The position in the grid of a multiplot. (optional)</span>
 <span class="sd">    :param rowspan:      The number of rows to span in the grid</span>
 <span class="sd">                         of a multiplot. (optional)</span>
@@ -458,10 +463,14 @@
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">_col_label</span><span class="p">(</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">label_column</span><span class="p">))</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">_col_label</span><span class="p">(</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">value_column</span><span class="p">))</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_in_multiplot</span><span class="p">()</span> <span class="ow">and</span> <span class="n">file_name</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">pad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">)</span>
         <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">file_dpi</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_in_multiplot</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">pad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
 
 
@@ -469,7 +478,7 @@
 <div class="viewcode-block" id="hist"><a class="viewcode-back" href="../../../plot.html#mastersign.datascience.plot.hist">[docs]</a><span class="k">def</span> <span class="nf">hist</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">key_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
          <span class="n">bins</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">ticks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ylog</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
          <span class="n">xlabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-         <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+         <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
          <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file_dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Display a histogram for the values of one column.</span>
@@ -493,6 +502,7 @@
 <span class="sd">    :param ylabel:     The label for the Y axis. (optional)</span>
 <span class="sd">    :param title:      The title of the plot. (optional)</span>
 <span class="sd">    :param figsize:    The figure size in inches. (optional)</span>
+<span class="sd">    :param pad:        Padding around the figure. (optional)</span>
 <span class="sd">    :param pos:        The position in the grid of a multiplot. (optional)</span>
 <span class="sd">    :param rowspan:    The number of rows to span in the grid</span>
 <span class="sd">                       of a multiplot. (optional)</span>
@@ -534,10 +544,14 @@
     <span class="k">if</span> <span class="n">key_column</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_in_multiplot</span><span class="p">()</span> <span class="ow">and</span> <span class="n">file_name</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">pad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">)</span>
         <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">file_dpi</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_in_multiplot</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">pad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
 
 
@@ -545,7 +559,7 @@
            <span class="n">xmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
            <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">colorbar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
            <span class="n">xlabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-           <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">7.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+           <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">7.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
            <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file_dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Displays a 2-dimensional histogram (heatmap).</span>
@@ -572,6 +586,7 @@
 <span class="sd">    :param ylabel:    A label for Y axis. (optional)</span>
 <span class="sd">    :param title:     A title for the plot. (optional)</span>
 <span class="sd">    :param figsize:   The figure size in inches. (optional)</span>
+<span class="sd">    :param pad:        Padding around the figure. (optional)</span>
 <span class="sd">    :param pos:       The position in the grid of a multiplot. (optional)</span>
 <span class="sd">    :param rowspan:   The number of rows to span in the grid</span>
 <span class="sd">                      of a multiplot. (optional)</span>
@@ -613,10 +628,14 @@
         <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cb_ax</span><span class="p">,</span> <span class="o">**</span><span class="n">cb_kw</span><span class="p">)</span>
         <span class="n">_suppress_tight_layout</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_in_multiplot</span><span class="p">()</span> <span class="ow">and</span> <span class="n">file_name</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">colorbar</span> <span class="ow">and</span> <span class="n">pad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">)</span>
         <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">file_dpi</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_in_multiplot</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">colorbar</span> <span class="ow">and</span> <span class="n">pad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
 
 
@@ -625,7 +644,7 @@
             <span class="n">xmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;rainbow&#39;</span><span class="p">,</span>
             <span class="n">xlabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">9.8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">9.8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file_dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Display a 2-dimensional scatter plot.</span>
@@ -653,6 +672,7 @@
 <span class="sd">    :param ylabel:       A label for Y axis. (optional)</span>
 <span class="sd">    :param title:        A title for the plot. (optional)</span>
 <span class="sd">    :param figsize:      The figure size in inches. (optional)</span>
+<span class="sd">    :param pad:          Padding around the figure. (optional)</span>
 <span class="sd">    :param pos:          The position in the grid of a multiplot. (optional)</span>
 <span class="sd">    :param rowspan:      The number of rows to span in the grid</span>
 <span class="sd">                         of a multiplot. (optional)</span>
@@ -686,10 +706,14 @@
         <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">marker</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cb_ax</span><span class="p">,</span> <span class="o">**</span><span class="n">cb_kw</span><span class="p">)</span>
         <span class="n">_suppress_tight_layout</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_in_multiplot</span><span class="p">()</span> <span class="ow">and</span> <span class="n">file_name</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">color_column</span> <span class="ow">and</span> <span class="n">pad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">)</span>
         <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">file_dpi</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_in_multiplot</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">color_column</span> <span class="ow">and</span> <span class="n">pad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
 
 
@@ -702,7 +726,7 @@
                 <span class="n">size_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">size_mode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">color_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;YlGnBu&#39;</span><span class="p">,</span>
                 <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                 <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file_dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Displays a scatter plot on a geographical map.</span>
@@ -743,6 +767,7 @@
 <span class="sd">                         See `matplotlib.pyplot.scatter()` for more info.</span>
 <span class="sd">    :param title:        A title for the plot. (optional)</span>
 <span class="sd">    :param figsize:      The figure size in inches. (optional)</span>
+<span class="sd">    :param pad:          Padding around the figure. (optional)</span>
 <span class="sd">    :param pos:          The position in the grid of a multiplot. (optional)</span>
 <span class="sd">    :param rowspan:      The number of rows to span in the grid</span>
 <span class="sd">                         of a multiplot. (optional)</span>
@@ -794,10 +819,14 @@
         <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">marker</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cb_ax</span><span class="p">,</span> <span class="o">**</span><span class="n">cb_kw</span><span class="p">)</span>
         <span class="n">_suppress_tight_layout</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_in_multiplot</span><span class="p">()</span> <span class="ow">and</span> <span class="n">file_name</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">color_column</span> <span class="ow">and</span> <span class="n">pad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">)</span>
         <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">file_dpi</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_in_multiplot</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">color_column</span> <span class="ow">and</span> <span class="n">pad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
 
 
@@ -827,7 +856,7 @@
           <span class="n">avg_window</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interpolation_step</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interpolation_kind</span><span class="o">=</span><span class="s1">&#39;quadratic&#39;</span><span class="p">,</span>
           <span class="n">xmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
           <span class="n">xlabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-          <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+          <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
           <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file_dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Display line(s) from values in one column of a DataFrame.</span>
@@ -864,6 +893,7 @@
 <span class="sd">    :param ylabel:       A label for Y axis. (optional)</span>
 <span class="sd">    :param title:        A title for the plot. (optional)</span>
 <span class="sd">    :param figsize:      The figure size in inches. (optional)</span>
+<span class="sd">    :param pad:          Padding around the figure. (optional)</span>
 <span class="sd">    :param pos:          The position in the grid of a multiplot. (optional)</span>
 <span class="sd">    :param rowspan:      The number of rows to span in the grid</span>
 <span class="sd">                         of a multiplot. (optional)</span>
@@ -926,15 +956,19 @@
     <span class="k">if</span> <span class="n">legend_handles</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">legend_handles</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_in_multiplot</span><span class="p">()</span> <span class="ow">and</span> <span class="n">file_name</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">pad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">)</span>
         <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">file_dpi</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_in_multiplot</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">pad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="scatter_matrix"><a class="viewcode-back" href="../../../plot.html#mastersign.datascience.plot.scatter_matrix">[docs]</a><span class="k">def</span> <span class="nf">scatter_matrix</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                   <span class="n">subplot_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                   <span class="n">subplot_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                    <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file_dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plots a matrix of scatter plots and histograms for a number of columns</span>
@@ -946,6 +980,7 @@
 <span class="sd">    :param data:         A Pandas DataFrame.</span>
 <span class="sd">    :param columns:      The columns to include into the matrix. (optional)</span>
 <span class="sd">    :param subplot_size: The edge length for the subplots. (optional)</span>
+<span class="sd">    :param pad:          Padding around the figure. (optional)</span>
 <span class="sd">    :param file_name:    A path to a file to save the plot in. (optional)</span>
 <span class="sd">    :param file_dpi:     A resolution to render the saved plot. (optional)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -970,12 +1005,12 @@
                      <span class="n">xlabel</span><span class="o">=</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="n">ylabel</span><span class="p">,</span>
                      <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="n">iy</span><span class="p">,</span> <span class="n">ix</span><span class="p">))</span>
 
-    <span class="n">end</span><span class="p">(</span><span class="n">h_pad</span><span class="o">=</span><span class="mf">1.75</span><span class="p">,</span> <span class="n">w_pad</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">end</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">,</span> <span class="n">h_pad</span><span class="o">=</span><span class="mf">1.75</span><span class="p">,</span> <span class="n">w_pad</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
         <span class="n">file_name</span><span class="o">=</span><span class="n">file_name</span><span class="p">,</span> <span class="n">file_dpi</span><span class="o">=</span><span class="n">file_dpi</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="hist2d_matrix"><a class="viewcode-back" href="../../../plot.html#mastersign.datascience.plot.hist2d_matrix">[docs]</a><span class="k">def</span> <span class="nf">hist2d_matrix</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                  <span class="n">subplot_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span>
+                  <span class="n">subplot_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span>
                   <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file_dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plots a matrix of 2D histogram plots and histograms for a number of columns</span>
@@ -987,6 +1022,7 @@
 <span class="sd">    :param data:         A Pandas DataFrame.</span>
 <span class="sd">    :param columns:      The columns to include into the matrix. (optional)</span>
 <span class="sd">    :param subplot_size: The edge length for the subplots. (optional)</span>
+<span class="sd">    :param pad:          Padding around the figure. (optional)</span>
 <span class="sd">    :param cmap:         The color map to use. (optional)</span>
 <span class="sd">    :param file_name:    A path to a file to save the plot in. (optional)</span>
 <span class="sd">    :param file_dpi:     A resolution to render the saved plot. (optional)</span>
@@ -1012,7 +1048,7 @@
                      <span class="n">xlabel</span><span class="o">=</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="n">ylabel</span><span class="p">,</span>
                      <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="n">iy</span><span class="p">,</span> <span class="n">ix</span><span class="p">))</span>
 
-    <span class="n">end</span><span class="p">(</span><span class="n">h_pad</span><span class="o">=</span><span class="mf">1.75</span><span class="p">,</span> <span class="n">w_pad</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">end</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">,</span> <span class="n">h_pad</span><span class="o">=</span><span class="mf">1.75</span><span class="p">,</span> <span class="n">w_pad</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
         <span class="n">file_name</span><span class="o">=</span><span class="n">file_name</span><span class="p">,</span> <span class="n">file_dpi</span><span class="o">=</span><span class="n">file_dpi</span><span class="p">)</span></div>
 </pre></div>
 

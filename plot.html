@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Plotting &mdash; mastersign-datascience 0.1.5 documentation</title>
+  <title>Plotting &mdash; mastersign-datascience 0.1.6 documentation</title>
   
 
   
@@ -160,7 +160,7 @@
 <p>This module contains functionality to comfortably create plots.</p>
 <dl class="function">
 <dt id="mastersign.datascience.plot.bar">
-<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">bar</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>value_column</em>, <em>label_column=None</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>title=None</em>, <em>figsize=(10</em>, <em>4)</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#bar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.bar" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">bar</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>value_column</em>, <em>label_column=None</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>title=None</em>, <em>figsize=(10</em>, <em>4)</em>, <em>pad=1</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#bar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.bar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a bar chart from one two columns.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -174,6 +174,7 @@
 <li><strong>ylabel</strong> – The label for the Y axis. (optional)</li>
 <li><strong>title</strong> – The title of the plot. (optional)</li>
 <li><strong>figsize</strong> – The figure size in inches. (optional)</li>
+<li><strong>pad</strong> – Padding around the figure. (optional)</li>
 <li><strong>pos</strong> – The position in the grid of a multiplot. (optional)</li>
 <li><strong>rowspan</strong> – The number of rows to span in the grid
 of a multiplot. (optional)</li>
@@ -222,7 +223,6 @@ of a multiplot. (optional)</li>
 See <cite>matplotlib.pyplot.tight_layout()</cite>.</li>
 <li><strong>h_pad</strong> – Vertical space between subplots. (optional)
 See <cite>matplotlib.pyplot.tight_layout()</cite>.</li>
-<li><strong>tight_layout</strong> – A switch to call <cite>matplotlib.pyplot.tight_layout()</cite>.</li>
 <li><strong>file_name</strong> – A path to a file to save the plot in. (optional)</li>
 <li><strong>file_dpi</strong> – A resolution to render the saved plot. (optional)</li>
 </ul>
@@ -234,7 +234,7 @@ See <cite>matplotlib.pyplot.tight_layout()</cite>.</li>
 
 <dl class="function">
 <dt id="mastersign.datascience.plot.hist">
-<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">hist</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>column</em>, <em>key_column=None</em>, <em>bins=35</em>, <em>ticks=None</em>, <em>xmin=None</em>, <em>xmax=None</em>, <em>ylog=False</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>title=None</em>, <em>figsize=(10</em>, <em>4)</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#hist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.hist" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">hist</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>column</em>, <em>key_column=None</em>, <em>bins=35</em>, <em>ticks=None</em>, <em>xmin=None</em>, <em>xmax=None</em>, <em>ylog=False</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>title=None</em>, <em>figsize=(10</em>, <em>4)</em>, <em>pad=1</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#hist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.hist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a histogram for the values of one column.
 Optionally group the values by another key column.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -260,6 +260,7 @@ for more details.</li>
 <li><strong>ylabel</strong> – The label for the Y axis. (optional)</li>
 <li><strong>title</strong> – The title of the plot. (optional)</li>
 <li><strong>figsize</strong> – The figure size in inches. (optional)</li>
+<li><strong>pad</strong> – Padding around the figure. (optional)</li>
 <li><strong>pos</strong> – The position in the grid of a multiplot. (optional)</li>
 <li><strong>rowspan</strong> – The number of rows to span in the grid
 of a multiplot. (optional)</li>
@@ -276,7 +277,7 @@ of a multiplot. (optional)</li>
 
 <dl class="function">
 <dt id="mastersign.datascience.plot.hist2d">
-<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">hist2d</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>xcolumn</em>, <em>ycolumn</em>, <em>xmin=None</em>, <em>xmax=None</em>, <em>ymin=None</em>, <em>ymax=None</em>, <em>cmap='Blues'</em>, <em>bins=20</em>, <em>colorbar=True</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>title=None</em>, <em>figsize=(7.5</em>, <em>6)</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#hist2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.hist2d" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">hist2d</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>xcolumn</em>, <em>ycolumn</em>, <em>xmin=None</em>, <em>xmax=None</em>, <em>ymin=None</em>, <em>ymax=None</em>, <em>cmap='Blues'</em>, <em>bins=20</em>, <em>colorbar=True</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>title=None</em>, <em>figsize=(7.5</em>, <em>6)</em>, <em>pad=1</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#hist2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.hist2d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays a 2-dimensional histogram (heatmap).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -305,6 +306,7 @@ See <cite>matplotlib.pyplot.hist2d()</cite> for more info.</li>
 <li><strong>ylabel</strong> – A label for Y axis. (optional)</li>
 <li><strong>title</strong> – A title for the plot. (optional)</li>
 <li><strong>figsize</strong> – The figure size in inches. (optional)</li>
+<li><strong>pad</strong> – Padding around the figure. (optional)</li>
 <li><strong>pos</strong> – The position in the grid of a multiplot. (optional)</li>
 <li><strong>rowspan</strong> – The number of rows to span in the grid
 of a multiplot. (optional)</li>
@@ -321,7 +323,7 @@ of a multiplot. (optional)</li>
 
 <dl class="function">
 <dt id="mastersign.datascience.plot.hist2d_matrix">
-<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">hist2d_matrix</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>columns=None</em>, <em>subplot_size=2</em>, <em>cmap='Blues'</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#hist2d_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.hist2d_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">hist2d_matrix</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>columns=None</em>, <em>subplot_size=2</em>, <em>pad=1</em>, <em>cmap='Blues'</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#hist2d_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.hist2d_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a matrix of 2D histogram plots and histograms for a number of columns
 from a Pandas DataFrame.</p>
 <p>Warning: This function cannot be used between <cite>begin()</cite> and <cite>end()</cite> as part
@@ -334,6 +336,7 @@ of another multiplot.</p>
 <li><strong>data</strong> – A Pandas DataFrame.</li>
 <li><strong>columns</strong> – The columns to include into the matrix. (optional)</li>
 <li><strong>subplot_size</strong> – The edge length for the subplots. (optional)</li>
+<li><strong>pad</strong> – Padding around the figure. (optional)</li>
 <li><strong>cmap</strong> – The color map to use. (optional)</li>
 <li><strong>file_name</strong> – A path to a file to save the plot in. (optional)</li>
 <li><strong>file_dpi</strong> – A resolution to render the saved plot. (optional)</li>
@@ -346,7 +349,7 @@ of another multiplot.</p>
 
 <dl class="function">
 <dt id="mastersign.datascience.plot.lines">
-<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">lines</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>column</em>, <em>xcolumn=None</em>, <em>key_column=None</em>, <em>min_n=None</em>, <em>label_column=None</em>, <em>color=None</em>, <em>linewidth=2</em>, <em>avg_window=None</em>, <em>interpolation_step=None</em>, <em>interpolation_kind='quadratic'</em>, <em>xmin=None</em>, <em>xmax=None</em>, <em>ymin=None</em>, <em>ymax=None</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>title=None</em>, <em>figsize=(10</em>, <em>5)</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.lines" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">lines</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>column</em>, <em>xcolumn=None</em>, <em>key_column=None</em>, <em>min_n=None</em>, <em>label_column=None</em>, <em>color=None</em>, <em>linewidth=2</em>, <em>avg_window=None</em>, <em>interpolation_step=None</em>, <em>interpolation_kind='quadratic'</em>, <em>xmin=None</em>, <em>xmax=None</em>, <em>ymin=None</em>, <em>ymax=None</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>title=None</em>, <em>figsize=(10</em>, <em>5)</em>, <em>pad=1</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.lines" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display line(s) from values in one column of a DataFrame.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -383,6 +386,7 @@ in the vertical dimension. (optional)</li>
 <li><strong>ylabel</strong> – A label for Y axis. (optional)</li>
 <li><strong>title</strong> – A title for the plot. (optional)</li>
 <li><strong>figsize</strong> – The figure size in inches. (optional)</li>
+<li><strong>pad</strong> – Padding around the figure. (optional)</li>
 <li><strong>pos</strong> – The position in the grid of a multiplot. (optional)</li>
 <li><strong>rowspan</strong> – The number of rows to span in the grid
 of a multiplot. (optional)</li>
@@ -399,7 +403,7 @@ of a multiplot. (optional)</li>
 
 <dl class="function">
 <dt id="mastersign.datascience.plot.pie">
-<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">pie</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>column</em>, <em>label_column=None</em>, <em>sort_by=None</em>, <em>title=None</em>, <em>pct=True</em>, <em>figsize=(4</em>, <em>4)</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#pie"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.pie" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">pie</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>column</em>, <em>label_column=None</em>, <em>sort_by=None</em>, <em>title=None</em>, <em>pct=True</em>, <em>figsize=(4</em>, <em>4)</em>, <em>pad=1</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#pie"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.pie" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a pie chart with values from a column.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -414,6 +418,7 @@ By default the index is used.</li>
 <li><strong>title</strong> – The title of the plot.</li>
 <li><strong>pct</strong> – A switch to display percentages.</li>
 <li><strong>figsize</strong> – The figure size in inches. (optional)</li>
+<li><strong>pad</strong> – Padding around the figure. (optional)</li>
 <li><strong>pos</strong> – The position in the grid of a multiplot. (optional)</li>
 <li><strong>rowspan</strong> – The number of rows to span in the grid
 of a multiplot. (optional)</li>
@@ -430,7 +435,7 @@ of a multiplot. (optional)</li>
 
 <dl class="function">
 <dt id="mastersign.datascience.plot.pie_groups">
-<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">pie_groups</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>column</em>, <em>sort_by=None</em>, <em>title=None</em>, <em>pct=True</em>, <em>figsize=(4</em>, <em>4)</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#pie_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.pie_groups" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">pie_groups</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>column</em>, <em>sort_by=None</em>, <em>title=None</em>, <em>pct=True</em>, <em>figsize=(4</em>, <em>4)</em>, <em>pad=1</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#pie_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.pie_groups" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a pie chart by counting rows according to a column value.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -443,6 +448,7 @@ of a multiplot. (optional)</li>
 <li><strong>title</strong> – The title of the plot.</li>
 <li><strong>pct</strong> – A switch to display percentages.</li>
 <li><strong>figsize</strong> – The figure size in inches. (optional)</li>
+<li><strong>pad</strong> – Padding around the figure. (optional)</li>
 <li><strong>pos</strong> – The position in the grid of a multiplot. (optional)</li>
 <li><strong>rowspan</strong> – The number of rows to span in the grid
 of a multiplot. (optional)</li>
@@ -459,7 +465,7 @@ of a multiplot. (optional)</li>
 
 <dl class="function">
 <dt id="mastersign.datascience.plot.scatter">
-<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">scatter</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>xcolumn</em>, <em>ycolumn</em>, <em>size_column=None</em>, <em>color_column=None</em>, <em>xmin=None</em>, <em>xmax=None</em>, <em>ymin=None</em>, <em>ymax=None</em>, <em>size=1</em>, <em>color=None</em>, <em>cmap='rainbow'</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>title=None</em>, <em>figsize=(9.8</em>, <em>8)</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">scatter</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>xcolumn</em>, <em>ycolumn</em>, <em>size_column=None</em>, <em>color_column=None</em>, <em>xmin=None</em>, <em>xmax=None</em>, <em>ymin=None</em>, <em>ymax=None</em>, <em>size=1</em>, <em>color=None</em>, <em>cmap='rainbow'</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>title=None</em>, <em>figsize=(9.8</em>, <em>8)</em>, <em>pad=1</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a 2-dimensional scatter plot.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -489,6 +495,7 @@ See <cite>matplotlib.pyplot.scatter()</cite> for more info.</li>
 <li><strong>ylabel</strong> – A label for Y axis. (optional)</li>
 <li><strong>title</strong> – A title for the plot. (optional)</li>
 <li><strong>figsize</strong> – The figure size in inches. (optional)</li>
+<li><strong>pad</strong> – Padding around the figure. (optional)</li>
 <li><strong>pos</strong> – The position in the grid of a multiplot. (optional)</li>
 <li><strong>rowspan</strong> – The number of rows to span in the grid
 of a multiplot. (optional)</li>
@@ -505,7 +512,7 @@ of a multiplot. (optional)</li>
 
 <dl class="function">
 <dt id="mastersign.datascience.plot.scatter_map">
-<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">scatter_map</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>longitude_column='longitude'</em>, <em>latitude_column='latitude'</em>, <em>region=None</em>, <em>autofit=False</em>, <em>projection='merc'</em>, <em>map_resolution='i'</em>, <em>grid=(1</em>, <em>2)</em>, <em>map_style=None</em>, <em>map_style_attributes=None</em>, <em>size_column=None</em>, <em>size=1</em>, <em>size_mode=None</em>, <em>color_column=None</em>, <em>color='blue'</em>, <em>cmap='YlGnBu'</em>, <em>title=None</em>, <em>figsize=(10</em>, <em>10)</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter_map" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">scatter_map</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>longitude_column='longitude'</em>, <em>latitude_column='latitude'</em>, <em>region=None</em>, <em>autofit=False</em>, <em>projection='merc'</em>, <em>map_resolution='i'</em>, <em>grid=(1</em>, <em>2)</em>, <em>map_style=None</em>, <em>map_style_attributes=None</em>, <em>size_column=None</em>, <em>size=1</em>, <em>size_mode=None</em>, <em>color_column=None</em>, <em>color='blue'</em>, <em>cmap='YlGnBu'</em>, <em>title=None</em>, <em>figsize=(10</em>, <em>10)</em>, <em>pad=1</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter_map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays a scatter plot on a geographical map.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -544,6 +551,7 @@ Is used in combination with <cite>color_column</cite>. (optional)
 See <cite>matplotlib.pyplot.scatter()</cite> for more info.</li>
 <li><strong>title</strong> – A title for the plot. (optional)</li>
 <li><strong>figsize</strong> – The figure size in inches. (optional)</li>
+<li><strong>pad</strong> – Padding around the figure. (optional)</li>
 <li><strong>pos</strong> – The position in the grid of a multiplot. (optional)</li>
 <li><strong>rowspan</strong> – The number of rows to span in the grid
 of a multiplot. (optional)</li>
@@ -560,7 +568,7 @@ of a multiplot. (optional)</li>
 
 <dl class="function">
 <dt id="mastersign.datascience.plot.scatter_matrix">
-<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">scatter_matrix</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>columns=None</em>, <em>subplot_size=2</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">scatter_matrix</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>columns=None</em>, <em>subplot_size=2</em>, <em>pad=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a matrix of scatter plots and histograms for a number of columns
 from a Pandas DataFrame.</p>
 <p>Warning: This function cannot be used between <cite>begin()</cite> and <cite>end()</cite> as part
@@ -573,6 +581,7 @@ of another multiplot.</p>
 <li><strong>data</strong> – A Pandas DataFrame.</li>
 <li><strong>columns</strong> – The columns to include into the matrix. (optional)</li>
 <li><strong>subplot_size</strong> – The edge length for the subplots. (optional)</li>
+<li><strong>pad</strong> – Padding around the figure. (optional)</li>
 <li><strong>file_name</strong> – A path to a file to save the plot in. (optional)</li>
 <li><strong>file_dpi</strong> – A resolution to render the saved plot. (optional)</li>
 </ul>
