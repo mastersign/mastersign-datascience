@@ -320,7 +320,6 @@ def bar(data: pd.DataFrame, value_column, label_column=None,
         plt.show()
 
 
-
 def hist(data: pd.DataFrame, column, key_column=None,
          bins=35, ticks=None, xmin=None, xmax=None, ylog=False,
          xlabel=None, ylabel=None, title=None,
