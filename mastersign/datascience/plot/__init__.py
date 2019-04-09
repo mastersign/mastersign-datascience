@@ -188,7 +188,7 @@ def _suppress_tight_layout():
 
 def pie(data: pd.DataFrame, column, label_column=None, sort_by=None,
         title=None, pct=True,
-        figsize=(4, 4), pos=(0, 0), rowspan=1, colspan=1,
+        figsize=(4, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1,
         file_name=None, file_dpi=300):
     """
     Display a pie chart with values from a column.
@@ -201,6 +201,7 @@ def pie(data: pd.DataFrame, column, label_column=None, sort_by=None,
     :param title:        The title of the plot.
     :param pct:          A switch to display percentages.
     :param figsize:      The figure size in inches. (optional)
+    :param pad:          Padding around the figure. (optional)
     :param pos:          The position in the grid of a multiplot. (optional)
     :param rowspan:      The number of rows to span in the grid
                          of a multiplot. (optional)
@@ -229,16 +230,20 @@ def pie(data: pd.DataFrame, column, label_column=None, sort_by=None,
                 startangle=180, counterclock=False)
     ax.axis('equal')
     if not _in_multiplot() and file_name:
+        if pad is not None:
+            fig.tight_layout(pad=pad)
         fig.savefig(file_name, dpi=file_dpi)
     if title:
         ax.set_title(title)
     if not _in_multiplot():
+        if pad is not None:
+            fig.tight_layout(pad=pad)
         plt.show()
 
 
 def pie_groups(data: pd.DataFrame, column, sort_by=None,
                title=None, pct=True,
-               figsize=(4, 4), pos=(0, 0), rowspan=1, colspan=1,
+               figsize=(4, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1,
                file_name=None, file_dpi=300):
     """
     Display a pie chart by counting rows according to a column value.
@@ -249,6 +254,7 @@ def pie_groups(data: pd.DataFrame, column, sort_by=None,
     :param title:     The title of the plot.
     :param pct:       A switch to display percentages.
     :param figsize:   The figure size in inches. (optional)
+    :param pad:       Padding around the figure. (optional)
     :param pos:       The position in the grid of a multiplot. (optional)
     :param rowspan:   The number of rows to span in the grid
                       of a multiplot. (optional)
@@ -262,13 +268,13 @@ def pie_groups(data: pd.DataFrame, column, sort_by=None,
     group_data = pd.DataFrame({'value': groups}, index=groups.index)
     pie(group_data, 'value', sort_by=sort_by,
         title=title, pct=pct,
-        figsize=figsize, pos=pos, rowspan=rowspan, colspan=colspan,
+        figsize=figsize, pad=pad, pos=pos, rowspan=rowspan, colspan=colspan,
         file_name=file_name, file_dpi=file_dpi)
 
 
 def bar(data: pd.DataFrame, value_column, label_column=None,
         xlabel=None, ylabel=None, title=None,
-        figsize=(10, 4), pos=(0, 0), rowspan=1, colspan=1,
+        figsize=(10, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1,
         file_name=None, file_dpi=300):
     """
     Display a bar chart from one two columns.
@@ -280,6 +286,7 @@ def bar(data: pd.DataFrame, value_column, label_column=None,
     :param ylabel:       The label for the Y axis. (optional)
     :param title:        The title of the plot. (optional)
     :param figsize:      The figure size in inches. (optional)
+    :param pad:          Padding around the figure. (optional)
     :param pos:          The position in the grid of a multiplot. (optional)
     :param rowspan:      The number of rows to span in the grid
                          of a multiplot. (optional)
@@ -302,10 +309,14 @@ def bar(data: pd.DataFrame, value_column, label_column=None,
     ax.set_xlabel(_col_label(xlabel, label_column))
     ax.set_ylabel(_col_label(ylabel, value_column))
     if not _in_multiplot() and file_name:
+        if pad is not None:
+            fig.tight_layout(pad=pad)
         fig.savefig(file_name, dpi=file_dpi)
     if title:
         ax.set_title(title)
     if not _in_multiplot():
+        if pad is not None:
+            fig.tight_layout(pad=pad)
         plt.show()
 
 
@@ -313,7 +324,7 @@ def bar(data: pd.DataFrame, value_column, label_column=None,
 def hist(data: pd.DataFrame, column, key_column=None,
          bins=35, ticks=None, xmin=None, xmax=None, ylog=False,
          xlabel=None, ylabel=None, title=None,
-         figsize=(10, 4), pos=(0, 0), rowspan=1, colspan=1,
+         figsize=(10, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1,
          file_name=None, file_dpi=300):
     """
     Display a histogram for the values of one column.
@@ -337,6 +348,7 @@ def hist(data: pd.DataFrame, column, key_column=None,
     :param ylabel:     The label for the Y axis. (optional)
     :param title:      The title of the plot. (optional)
     :param figsize:    The figure size in inches. (optional)
+    :param pad:        Padding around the figure. (optional)
     :param pos:        The position in the grid of a multiplot. (optional)
     :param rowspan:    The number of rows to span in the grid
                        of a multiplot. (optional)
@@ -378,10 +390,14 @@ def hist(data: pd.DataFrame, column, key_column=None,
     if key_column:
         ax.legend()
     if not _in_multiplot() and file_name:
+        if pad is not None:
+            fig.tight_layout(pad=pad)
         fig.savefig(file_name, dpi=file_dpi)
     if title:
         ax.set_title(title)
     if not _in_multiplot():
+        if pad is not None:
+            fig.tight_layout(pad=pad)
         plt.show()
 
 
@@ -389,7 +405,7 @@ def hist2d(data: pd.DataFrame, xcolumn, ycolumn,
            xmin=None, xmax=None, ymin=None, ymax=None,
            cmap='Blues', bins=20, colorbar=True,
            xlabel=None, ylabel=None, title=None,
-           figsize=(7.5, 6), pos=(0, 0), rowspan=1, colspan=1,
+           figsize=(7.5, 6), pad=1, pos=(0, 0), rowspan=1, colspan=1,
            file_name=None, file_dpi=300):
     """
     Displays a 2-dimensional histogram (heatmap).
@@ -416,6 +432,7 @@ def hist2d(data: pd.DataFrame, xcolumn, ycolumn,
     :param ylabel:    A label for Y axis. (optional)
     :param title:     A title for the plot. (optional)
     :param figsize:   The figure size in inches. (optional)
+    :param pad:        Padding around the figure. (optional)
     :param pos:       The position in the grid of a multiplot. (optional)
     :param rowspan:   The number of rows to span in the grid
                       of a multiplot. (optional)
@@ -457,10 +474,14 @@ def hist2d(data: pd.DataFrame, xcolumn, ycolumn,
         plt.colorbar(image, cax=cb_ax, **cb_kw)
         _suppress_tight_layout()
     if not _in_multiplot() and file_name:
+        if not colorbar and pad is not None:
+            fig.tight_layout(pad=pad)
         fig.savefig(file_name, dpi=file_dpi)
     if title:
         ax.set_title(title)
     if not _in_multiplot():
+        if not colorbar and pad is not None:
+            fig.tight_layout(pad=pad)
         plt.show()
 
 
@@ -469,7 +490,7 @@ def scatter(data: pd.DataFrame, xcolumn, ycolumn,
             xmin=None, xmax=None, ymin=None, ymax=None,
             size=1, color=None, cmap='rainbow',
             xlabel=None, ylabel=None, title=None,
-            figsize=(9.8, 8), pos=(0, 0), rowspan=1, colspan=1,
+            figsize=(9.8, 8), pad=1, pos=(0, 0), rowspan=1, colspan=1,
             file_name=None, file_dpi=300):
     """
     Display a 2-dimensional scatter plot.
@@ -497,6 +518,7 @@ def scatter(data: pd.DataFrame, xcolumn, ycolumn,
     :param ylabel:       A label for Y axis. (optional)
     :param title:        A title for the plot. (optional)
     :param figsize:      The figure size in inches. (optional)
+    :param pad:          Padding around the figure. (optional)
     :param pos:          The position in the grid of a multiplot. (optional)
     :param rowspan:      The number of rows to span in the grid
                          of a multiplot. (optional)
@@ -530,10 +552,14 @@ def scatter(data: pd.DataFrame, xcolumn, ycolumn,
         plt.colorbar(marker, cax=cb_ax, **cb_kw)
         _suppress_tight_layout()
     if not _in_multiplot() and file_name:
+        if not color_column and pad is not None:
+            fig.tight_layout(pad=pad)
         fig.savefig(file_name, dpi=file_dpi)
     if title:
         ax.set_title(title)
     if not _in_multiplot():
+        if not color_column and pad is not None:
+            fig.tight_layout(pad=pad)
         plt.show()
 
 
@@ -546,7 +572,7 @@ def scatter_map(data: pd.DataFrame,
                 size_column=None, size=1, size_mode=None,
                 color_column=None, color='blue', cmap='YlGnBu',
                 title=None,
-                figsize=(10, 10), pos=(0, 0), rowspan=1, colspan=1,
+                figsize=(10, 10), pad=1, pos=(0, 0), rowspan=1, colspan=1,
                 file_name=None, file_dpi=300):
     """
     Displays a scatter plot on a geographical map.
@@ -587,6 +613,7 @@ def scatter_map(data: pd.DataFrame,
                          See `matplotlib.pyplot.scatter()` for more info.
     :param title:        A title for the plot. (optional)
     :param figsize:      The figure size in inches. (optional)
+    :param pad:          Padding around the figure. (optional)
     :param pos:          The position in the grid of a multiplot. (optional)
     :param rowspan:      The number of rows to span in the grid
                          of a multiplot. (optional)
@@ -638,10 +665,14 @@ def scatter_map(data: pd.DataFrame,
         plt.colorbar(marker, cax=cb_ax, **cb_kw)
         _suppress_tight_layout()
     if not _in_multiplot() and file_name:
+        if not color_column and pad is not None:
+            fig.tight_layout(pad=pad)
         fig.savefig(file_name, dpi=file_dpi)
     if title:
         ax.set_title(title)
     if not _in_multiplot():
+        if not color_column and pad is not None:
+            fig.tight_layout(pad=pad)
         plt.show()
 
 
@@ -671,7 +702,7 @@ def lines(data: pd.DataFrame, column, xcolumn = None,
           avg_window=None, interpolation_step=None, interpolation_kind='quadratic',
           xmin=None, xmax=None, ymin=None, ymax=None,
           xlabel=None, ylabel=None, title=None,
-          figsize=(10, 5), pos=(0, 0), rowspan=1, colspan=1,
+          figsize=(10, 5), pad=1, pos=(0, 0), rowspan=1, colspan=1,
           file_name=None, file_dpi=300):
     """
     Display line(s) from values in one column of a DataFrame.
@@ -708,6 +739,7 @@ def lines(data: pd.DataFrame, column, xcolumn = None,
     :param ylabel:       A label for Y axis. (optional)
     :param title:        A title for the plot. (optional)
     :param figsize:      The figure size in inches. (optional)
+    :param pad:          Padding around the figure. (optional)
     :param pos:          The position in the grid of a multiplot. (optional)
     :param rowspan:      The number of rows to span in the grid
                          of a multiplot. (optional)
@@ -770,15 +802,19 @@ def lines(data: pd.DataFrame, column, xcolumn = None,
     if legend_handles:
         ax.legend(handles=legend_handles)
     if not _in_multiplot() and file_name:
+        if pad is not None:
+            fig.tight_layout(pad=pad)
         fig.savefig(file_name, dpi=file_dpi)
     if title:
         ax.set_title(title)
     if not _in_multiplot():
+        if pad is not None:
+            fig.tight_layout(pad=pad)
         plt.show()
 
 
 def scatter_matrix(data: pd.DataFrame, columns=None,
-                   subplot_size=2,
+                   subplot_size=2, pad=1,
                    file_name=None, file_dpi=300):
     """
     Plots a matrix of scatter plots and histograms for a number of columns
@@ -790,6 +826,7 @@ def scatter_matrix(data: pd.DataFrame, columns=None,
     :param data:         A Pandas DataFrame.
     :param columns:      The columns to include into the matrix. (optional)
     :param subplot_size: The edge length for the subplots. (optional)
+    :param pad:          Padding around the figure. (optional)
     :param file_name:    A path to a file to save the plot in. (optional)
     :param file_dpi:     A resolution to render the saved plot. (optional)
     """
@@ -814,12 +851,12 @@ def scatter_matrix(data: pd.DataFrame, columns=None,
                      xlabel=xlabel, ylabel=ylabel,
                      pos=(iy, ix))
 
-    end(h_pad=1.75, w_pad=1.0,
+    end(pad=pad, h_pad=1.75, w_pad=1.0,
         file_name=file_name, file_dpi=file_dpi)
 
 
 def hist2d_matrix(data: pd.DataFrame, columns=None,
-                  subplot_size=2, cmap='Blues',
+                  subplot_size=2, pad=1, cmap='Blues',
                   file_name=None, file_dpi=300):
     """
     Plots a matrix of 2D histogram plots and histograms for a number of columns
@@ -831,6 +868,7 @@ def hist2d_matrix(data: pd.DataFrame, columns=None,
     :param data:         A Pandas DataFrame.
     :param columns:      The columns to include into the matrix. (optional)
     :param subplot_size: The edge length for the subplots. (optional)
+    :param pad:          Padding around the figure. (optional)
     :param cmap:         The color map to use. (optional)
     :param file_name:    A path to a file to save the plot in. (optional)
     :param file_dpi:     A resolution to render the saved plot. (optional)
@@ -856,5 +894,5 @@ def hist2d_matrix(data: pd.DataFrame, columns=None,
                      xlabel=xlabel, ylabel=ylabel,
                      pos=(iy, ix))
 
-    end(h_pad=1.75, w_pad=1.0,
+    end(pad=pad, h_pad=1.75, w_pad=1.0,
         file_name=file_name, file_dpi=file_dpi)
