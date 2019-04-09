@@ -124,8 +124,6 @@ def end(pad=None, w_pad=None, h_pad=None,
                       See `matplotlib.pyplot.tight_layout()`.
     :param h_pad:     Vertical space between subplots. (optional)
                       See `matplotlib.pyplot.tight_layout()`.
-    :param tight_layout:
-                      A switch to call `matplotlib.pyplot.tight_layout()`.
     :param file_name: A path to a file to save the plot in. (optional)
     :param file_dpi:  A resolution to render the saved plot. (optional)
     """
