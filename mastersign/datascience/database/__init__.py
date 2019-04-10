@@ -112,7 +112,7 @@ def _select_query(table_name, columns=None, where=None, group_by=None, limit=Non
     else:
         limit_clause = ''
 
-    return "SELECT {} FROM `{}`{}{} ;".format(
+    return "SELECT {} FROM `{}`{}{}{} ;".format(
         column_list, table_name, where_clause, group_by_clause, limit_clause)
 
 
