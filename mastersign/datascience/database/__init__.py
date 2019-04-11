@@ -40,8 +40,8 @@ def execute(sql, db_conn=None, *args, **kwargs):
 
 
 def load_query(query, db_conn=None,
-               date=None, dtype=None, index=None, chunksize=4096,
-               **kwargs):
+               date=None, defaults=None, dtype=None, index=None,
+               chunksize=4096, **kwargs):
     """
     Load data from an arbitrary SQL query.
 
@@ -50,6 +50,15 @@ def load_query(query, db_conn=None,
     :param date:    A column name or an iterable with column names,
                     or a dict with column names and date format strings,
                     for parsing specific columns as datetimes. (optional)
+    :param defaults:
+                    A dict with column names and default values for
+                    `NULL` values. (optional)
+                    Can be used to fill columns with defaults before converting
+                    them to numeric data types with `dtype`.
+                    See `pandas.DataFrame.fillna()` for more details.
+    :param dtype:   A dict with column names and NumPy datatypes
+                    or ``'category'``. (optional)
+                    See `pandas.DataFrame.astype()` for details.
     :param index:   A column name or an iterable with column names,
                     which will be the index in the resulting DataFrame.
                     (optional)
@@ -65,6 +74,10 @@ def load_query(query, db_conn=None,
         date = (date,)
 
     def process_chunk(c):
+        if defaults:
+            c.fillna(defaults, inplace=True, downcast=dtype)
+        if dtype:
+            c = c.astype(dtype, copy=False)
         return c
 
     engine = create_engine(db_conn or _def_db_conn)
@@ -139,7 +152,8 @@ def _select_query(table_name, columns=None, where=None, group_by=None, limit=Non
 
 
 def load_table(name, columns=None, where=None, group_by=None, limit=None,
-               db_conn=None, date=None, index=None, chunksize=4096, **kwargs):
+               db_conn=None, date=None, defaults=None, dtype=None, index=None,
+               chunksize=4096, **kwargs):
     """
     Load data from a SQL table.
 
@@ -156,6 +170,14 @@ def load_table(name, columns=None, where=None, group_by=None, limit=None,
     :param date:     A column name or an iterable with column names,
                      or a dict with column names and date format strings,
                      for parsing specific columns as datetimes. (optional)
+    :param defaults: A dict with column names and default values for
+                     `NULL` values. (optional)
+                     Can be used to fill columns with defaults before converting
+                     them to numeric data types with `dtype`.
+                     See `pandas.DataFrame.fillna()` for more details.
+    :param dtype:    A dict with column names and NumPy datatypes
+                     or ``'category'``. (optional)
+                     See `pandas.DataFrame.astype()` for more details.
     :param index:    A column name or an iterable with column names,
                      which will be the index in the resulting DataFrame.
                      (optional)
@@ -167,7 +189,9 @@ def load_table(name, columns=None, where=None, group_by=None, limit=None,
 
     :return: Pandas DataFrame
     """
-    return load_query(_select_query(name, columns=columns, where=where,
-                                    group_by=group_by, limit=limit),
-                      db_conn=db_conn, date=date, index=index,
+    sql_query = _select_query(name,
+                              columns=columns, where=where,
+                              group_by=group_by, limit=limit)
+    return load_query(sql_query, db_conn=db_conn,
+                      date=date, defaults=defaults, dtype=dtype, index=index,
                       chunksize=chunksize, **kwargs)
