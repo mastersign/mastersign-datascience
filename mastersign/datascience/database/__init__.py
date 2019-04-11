@@ -33,30 +33,52 @@ def execute(sql, db_conn=None, *args, **kwargs):
     """
     engine = create_engine(db_conn or _def_db_conn)
     try:
-        with engine.connect() as connection:
-            connection.execute(sql, *args, **kwargs)
+        with engine.connect() as conn:
+            conn.execute(sql, *args, **kwargs)
     finally:
         engine.dispose()
 
 
-def load_query(query, index=None, db_conn=None, **kwargs):
+def load_query(query, db_conn=None,
+               date=None, dtype=None, index=None, chunksize=4096,
+               **kwargs):
     """
     Load data from an arbitrary SQL query.
 
     :param query:   A string as a SQL query.
+    :param db_conn: A SqlAlchemy connection string. (optional)
+    :param date:    A column name or an iterable with column names,
+                    or a dict with column names and date format strings,
+                    for parsing specific columns as datetimes. (optional)
     :param index:   A column name or an iterable with column names,
                     which will be the index in the resulting DataFrame.
                     (optional)
-    :param db_conn: A SqlAlchemy connection string. (optional)
+    :param chunksize:
+                    The number of rows to load in a chunk before
+                    converting them into a Pandas DataFrame. (optional)
     :param kwargs:  Additional keyword arguments
                     are passed to `pandas.read_sql_query()`.
 
     :return: Pandas DataFrame
     """
-    df = pd.read_sql_query(query, db_conn or _def_db_conn, **kwargs)
-    if index:
-        df.set_index(index, inplace=True)
-    return df
+    if type(date) is str:
+        date = (date,)
+
+    def process_chunk(c):
+        return c
+
+    engine = create_engine(db_conn or _def_db_conn)
+    try:
+        with engine.connect().execution_options(stream_results=True) as conn:
+            chunks = list(map(
+                process_chunk,
+                pd.read_sql_query(query, conn,
+                                  index_col=index,
+                                  parse_dates=date,
+                                  chunksize=chunksize, **kwargs)))
+    finally:
+        engine.dispose()
+    return pd.concat(chunks)
 
 
 def load_scalar(query, db_conn=None, *args, **kwargs):
@@ -75,8 +97,8 @@ def load_scalar(query, db_conn=None, *args, **kwargs):
     """
     engine = create_engine(db_conn or _def_db_conn)
     try:
-        with engine.connect() as connection:
-            return connection.execute(query, *args, **kwargs).scalar()
+        with engine.connect().execution_options(stream_results=True) as conn:
+            return conn.execute(query, *args, **kwargs).scalar()
     finally:
         engine.dispose()
 
@@ -116,17 +138,13 @@ def _select_query(table_name, columns=None, where=None, group_by=None, limit=Non
         column_list, table_name, where_clause, group_by_clause, limit_clause)
 
 
-def load_table(name, columns=None, index=None,
-               where=None, group_by=None, limit=None,
-               db_conn=None, **kwargs):
+def load_table(name, columns=None, where=None, group_by=None, limit=None,
+               db_conn=None, date=None, index=None, chunksize=4096, **kwargs):
     """
     Load data from a SQL table.
 
     :param name:     The name of the table.
     :param columns:  An iterable of column names. (optional)
-    :param index:    A column name or an iterable with column names,
-                     which will be the index in the resulting DataFrame.
-                     (optional)
     :param where:    A string with on condition or an iterable. (optional)
                      The iterable forms a conjunction and can hold strings
                      as conditions or nested iterables. The nested iterables
@@ -135,6 +153,15 @@ def load_table(name, columns=None, index=None,
                      multiple GROUP-BY-clauses. (optional)
     :param limit:    The maximum number of rows to fetch. (optional)
     :param db_conn:  A SqlAlchemy connection string. (optional)
+    :param date:     A column name or an iterable with column names,
+                     or a dict with column names and date format strings,
+                     for parsing specific columns as datetimes. (optional)
+    :param index:    A column name or an iterable with column names,
+                     which will be the index in the resulting DataFrame.
+                     (optional)
+    :param chunksize:
+                     The number of rows to load in a chunk before
+                     converting them into a Pandas DataFrame. (optional)
     :param kwargs:   Additional keyword arguments
                      are passed to `pandas.read_sql_query()`.
 
@@ -142,4 +169,5 @@ def load_table(name, columns=None, index=None,
     """
     return load_query(_select_query(name, columns=columns, where=where,
                                     group_by=group_by, limit=limit),
-                      index=index, db_conn=db_conn, **kwargs)
+                      db_conn=db_conn, date=date, index=index,
+                      chunksize=chunksize, **kwargs)
