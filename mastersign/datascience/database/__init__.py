@@ -5,6 +5,7 @@ This module contains functionality to comfortably access a SQL database.
 """
 
 import os
+from collections import Iterable
 import pandas as pd
 from sqlalchemy import create_engine
 from ..files import read_parquet as read_cachefile
@@ -167,7 +168,12 @@ def _select_query(table_name, columns=None, where=None, group_by=None, limit=Non
         group_by_clause = ' GROUP BY ' + group_by_clause
 
     if limit:
-        limit_clause = ' LIMIT ' + str(int(limit))
+        if not isinstance(limit, str) and isinstance(limit, Iterable):
+            limit_clause = ' LIMIT ' \
+                + str(int(limit[0])) + ', ' \
+                + str(int(limit[1]))
+        else:
+            limit_clause = ' LIMIT ' + str(int(limit))
     else:
         limit_clause = ''
 
@@ -190,7 +196,9 @@ def load_table(name, columns=None, where=None, group_by=None, limit=None,
                      form disjunctions and must hold strings with conditions.
     :param group_by: A string as a GROUP-BY-clause or an iterable with
                      multiple GROUP-BY-clauses. (optional)
-    :param limit:    The maximum number of rows to fetch. (optional)
+    :param limit:    The maximum number of rows,
+                     or a pair with an row offset
+                     and the maximum number of rows. (optional)
     :param db_conn:  A SqlAlchemy connection string. (optional)
     :param date:     A column name or an iterable with column names,
                      or a dict with column names and date format strings,
