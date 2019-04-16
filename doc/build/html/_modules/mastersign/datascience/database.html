@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>mastersign.datascience.database &mdash; mastersign-datascience 0.1.8 documentation</title>
+  <title>mastersign.datascience.database &mdash; mastersign-datascience 0.1.9 documentation</title>
   
 
   
@@ -85,6 +85,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../database.html">Database Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../files.html">File Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../plot.html">Plotting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../plot.html#module-mastersign.datascience.plot.basemap">Plotting with Basemap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notebook.html">Processing Jupyter Notebooks</a></li>
@@ -158,8 +159,12 @@
 <span class="sd">This module contains functionality to comfortably access a SQL database.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Iterable</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">create_engine</span>
+<span class="kn">from</span> <span class="nn">..files</span> <span class="k">import</span> <span class="n">read_parquet</span> <span class="k">as</span> <span class="n">read_cachefile</span>
+<span class="kn">from</span> <span class="nn">..files</span> <span class="k">import</span> <span class="n">write_parquet</span> <span class="k">as</span> <span class="n">write_cachefile</span>
 
 <span class="n">_def_db_conn</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -195,7 +200,8 @@
 
 <div class="viewcode-block" id="load_query"><a class="viewcode-back" href="../../../database.html#mastersign.datascience.database.load_query">[docs]</a><span class="k">def</span> <span class="nf">load_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">db_conn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                <span class="n">date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-               <span class="n">chunksize</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+               <span class="n">chunksize</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">cachefile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">compress_cache</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+               <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load data from an arbitrary SQL query.</span>
 
@@ -219,11 +225,26 @@
 <span class="sd">    :param chunksize:</span>
 <span class="sd">                    The number of rows to load in a chunk before</span>
 <span class="sd">                    converting them into a Pandas DataFrame. (optional)</span>
+<span class="sd">    :param cachefile:</span>
+<span class="sd">                    A path to a file to cache the result data from the query.</span>
+<span class="sd">                    (optional)</span>
+<span class="sd">                    If the file already exists, the content of the file is returned</span>
+<span class="sd">                    instead of connecting to the database.</span>
+<span class="sd">    :param compress_cache:</span>
+<span class="sd">                    A switch to activate data compression for the cache file.</span>
 <span class="sd">    :param kwargs:  Additional keyword arguments</span>
 <span class="sd">                    are passed to `pandas.read_sql_query()`.</span>
 
 <span class="sd">    :return: Pandas DataFrame</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">cachefile</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">cachefile</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s2">&quot;The parent directory for the cache file does not exist.&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">read_cachefile</span><span class="p">(</span><span class="n">cachefile</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">date</span> <span class="o">=</span> <span class="p">(</span><span class="n">date</span><span class="p">,)</span>
 
@@ -245,7 +266,12 @@
                                   <span class="n">chunksize</span><span class="o">=</span><span class="n">chunksize</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)))</span>
     <span class="k">finally</span><span class="p">:</span>
         <span class="n">engine</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span></div>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cachefile</span><span class="p">:</span>
+        <span class="n">write_cachefile</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">cachefile</span><span class="p">,</span> <span class="n">compress</span><span class="o">=</span><span class="n">compress_cache</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
 
 
 <div class="viewcode-block" id="load_scalar"><a class="viewcode-back" href="../../../database.html#mastersign.datascience.database.load_scalar">[docs]</a><span class="k">def</span> <span class="nf">load_scalar</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">db_conn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -297,7 +323,12 @@
         <span class="n">group_by_clause</span> <span class="o">=</span> <span class="s1">&#39; GROUP BY &#39;</span> <span class="o">+</span> <span class="n">group_by_clause</span>
 
     <span class="k">if</span> <span class="n">limit</span><span class="p">:</span>
-        <span class="n">limit_clause</span> <span class="o">=</span> <span class="s1">&#39; LIMIT &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">limit</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">limit</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">limit</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
+            <span class="n">limit_clause</span> <span class="o">=</span> <span class="s1">&#39; LIMIT &#39;</span> \
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">limit</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span> \
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">limit</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">limit_clause</span> <span class="o">=</span> <span class="s1">&#39; LIMIT &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">limit</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">limit_clause</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
@@ -307,7 +338,8 @@
 
 <div class="viewcode-block" id="load_table"><a class="viewcode-back" href="../../../database.html#mastersign.datascience.database.load_table">[docs]</a><span class="k">def</span> <span class="nf">load_table</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group_by</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                <span class="n">db_conn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-               <span class="n">chunksize</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+               <span class="n">chunksize</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">cachefile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">compress_cache</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+               <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load data from a SQL table.</span>
 
@@ -319,7 +351,9 @@
 <span class="sd">                     form disjunctions and must hold strings with conditions.</span>
 <span class="sd">    :param group_by: A string as a GROUP-BY-clause or an iterable with</span>
 <span class="sd">                     multiple GROUP-BY-clauses. (optional)</span>
-<span class="sd">    :param limit:    The maximum number of rows to fetch. (optional)</span>
+<span class="sd">    :param limit:    The maximum number of rows,</span>
+<span class="sd">                     or a pair with an row offset</span>
+<span class="sd">                     and the maximum number of rows. (optional)</span>
 <span class="sd">    :param db_conn:  A SqlAlchemy connection string. (optional)</span>
 <span class="sd">    :param date:     A column name or an iterable with column names,</span>
 <span class="sd">                     or a dict with column names and date format strings,</span>
@@ -338,6 +372,13 @@
 <span class="sd">    :param chunksize:</span>
 <span class="sd">                     The number of rows to load in a chunk before</span>
 <span class="sd">                     converting them into a Pandas DataFrame. (optional)</span>
+<span class="sd">    :param cachefile:</span>
+<span class="sd">                     A path to a file to cache the result data from the query.</span>
+<span class="sd">                     (optional)</span>
+<span class="sd">                     If the file already exists, the content of the file is returned</span>
+<span class="sd">                     instead of connecting to the database.</span>
+<span class="sd">    :param compress_cache:</span>
+<span class="sd">                     A switch to activate data compression for the cache file.</span>
 <span class="sd">    :param kwargs:   Additional keyword arguments</span>
 <span class="sd">                     are passed to `pandas.read_sql_query()`.</span>
 
@@ -348,7 +389,8 @@
                               <span class="n">group_by</span><span class="o">=</span><span class="n">group_by</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">load_query</span><span class="p">(</span><span class="n">sql_query</span><span class="p">,</span> <span class="n">db_conn</span><span class="o">=</span><span class="n">db_conn</span><span class="p">,</span>
                       <span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="n">defaults</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
-                      <span class="n">chunksize</span><span class="o">=</span><span class="n">chunksize</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+                      <span class="n">chunksize</span><span class="o">=</span><span class="n">chunksize</span><span class="p">,</span> <span class="n">cachefile</span><span class="o">=</span><span class="n">cachefile</span><span class="p">,</span>
+                      <span class="n">compress_cache</span><span class="o">=</span><span class="n">compress_cache</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
