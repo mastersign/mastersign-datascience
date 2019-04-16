@@ -4,8 +4,11 @@
 This module contains functionality to comfortably access a SQL database.
 """
 
+import os
 import pandas as pd
 from sqlalchemy import create_engine
+from ..files import read_parquet as read_cachefile
+from ..files import write_parquet as write_cachefile
 
 _def_db_conn = None
 
@@ -41,7 +44,8 @@ def execute(sql, db_conn=None, *args, **kwargs):
 
 def load_query(query, db_conn=None,
                date=None, defaults=None, dtype=None, index=None,
-               chunksize=4096, **kwargs):
+               chunksize=4096, cachefile=None, compress_cache=False,
+               **kwargs):
     """
     Load data from an arbitrary SQL query.
 
@@ -65,11 +69,26 @@ def load_query(query, db_conn=None,
     :param chunksize:
                     The number of rows to load in a chunk before
                     converting them into a Pandas DataFrame. (optional)
+    :param cachefile:
+                    A path to a file to cache the result data from the query.
+                    (optional)
+                    If the file already exists, the content of the file is returned
+                    instead of connecting to the database.
+    :param compress_cache:
+                    A switch to activate data compression for the cache file.
     :param kwargs:  Additional keyword arguments
                     are passed to `pandas.read_sql_query()`.
 
     :return: Pandas DataFrame
     """
+    if cachefile:
+        if not os.path.isdir(os.path.dirname(cachefile)):
+            raise FileNotFoundError("The parent directory for the cache file does not exist.")
+        try:
+            return read_cachefile(cachefile)
+        except FileNotFoundError:
+            pass
+
     if type(date) is str:
         date = (date,)
 
@@ -91,7 +110,12 @@ def load_query(query, db_conn=None,
                                   chunksize=chunksize, **kwargs)))
     finally:
         engine.dispose()
-    return pd.concat(chunks)
+    df = pd.concat(chunks)
+
+    if cachefile:
+        write_cachefile(df, cachefile, compress=compress_cache)
+
+    return df
 
 
 def load_scalar(query, db_conn=None, *args, **kwargs):
@@ -153,7 +177,8 @@ def _select_query(table_name, columns=None, where=None, group_by=None, limit=Non
 
 def load_table(name, columns=None, where=None, group_by=None, limit=None,
                db_conn=None, date=None, defaults=None, dtype=None, index=None,
-               chunksize=4096, **kwargs):
+               chunksize=4096, cachefile=None, compress_cache=False,
+               **kwargs):
     """
     Load data from a SQL table.
 
@@ -184,6 +209,13 @@ def load_table(name, columns=None, where=None, group_by=None, limit=None,
     :param chunksize:
                      The number of rows to load in a chunk before
                      converting them into a Pandas DataFrame. (optional)
+    :param cachefile:
+                     A path to a file to cache the result data from the query.
+                     (optional)
+                     If the file already exists, the content of the file is returned
+                     instead of connecting to the database.
+    :param compress_cache:
+                     A switch to activate data compression for the cache file.
     :param kwargs:   Additional keyword arguments
                      are passed to `pandas.read_sql_query()`.
 
@@ -194,4 +226,5 @@ def load_table(name, columns=None, where=None, group_by=None, limit=None,
                               group_by=group_by, limit=limit)
     return load_query(sql_query, db_conn=db_conn,
                       date=date, defaults=defaults, dtype=dtype, index=index,
-                      chunksize=chunksize, **kwargs)
+                      chunksize=chunksize, cachefile=cachefile,
+                      compress_cache=compress_cache, **kwargs)
