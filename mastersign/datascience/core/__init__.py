@@ -6,7 +6,7 @@ High level helpers for data science in Python with Pandas.
 
 # package metadata
 
-__version__ = '0.1.8'
+__version__ = '0.1.9'
 __url__ = 'https://github.com/mastersign/mastersign-datascience.git'
 __author__ = 'Tobias Kiertscher'
 __author_email__ = 'dev@mastersign.de'
