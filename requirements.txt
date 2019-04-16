@@ -6,3 +6,4 @@ tabulate
 matplotlib
 beautifulsoup4
 click>=7.0
+fastparquet>=0.3
