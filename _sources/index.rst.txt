@@ -6,6 +6,7 @@ Documentation for Mastersign Data Science
    :caption: Contents:
 
    database
+   files
    plot
    notebook
    cli
