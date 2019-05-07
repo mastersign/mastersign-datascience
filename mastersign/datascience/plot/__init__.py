@@ -494,6 +494,7 @@ def hist2d(data: pd.DataFrame, xcolumn, ycolumn,
 def scatter(data: pd.DataFrame, xcolumn, ycolumn,
             size_column=None, color_column=None,
             xmin=None, xmax=None, ymin=None, ymax=None,
+            xticks=None, yticks=None,
             size=1, color=None, cmap='rainbow',
             xlabel=None, ylabel=None, title=None,
             figsize=(9.8, 8), pad=1, pos=(0, 0), rowspan=1, colspan=1,
@@ -514,6 +515,10 @@ def scatter(data: pd.DataFrame, xcolumn, ycolumn,
                          in the vertical dimension. (optional)
     :param ymax:         The upper limit for displayed values
                          in the vertical dimension. (optional)
+    :param xticks:       A sequence of tick positions on the X axis.
+                         (optional)
+    :param yticks:       A sequence of tick positions on the Y axis.
+                         (optional)
     :param size:         A factor to the marker size. (optional)
     :param color:        A color for the markers. (optional)
                          Gets overridden by `color_column`.
@@ -551,6 +556,10 @@ def scatter(data: pd.DataFrame, xcolumn, ycolumn,
     marker = ax.scatter(x, y, s=s, c=c, marker='o', cmap=cmap)
     ax.set_xlim(left=xmin, right=xmax)
     ax.set_ylim(bottom=ymin, top=ymax)
+    if xticks is not None:
+        ax.set_xticks(xticks)
+    if yticks is not None:
+        ax.set_yticks(yticks)
     ax.set_xlabel(_col_label(xlabel, xcolumn))
     ax.set_ylabel(_col_label(ylabel, ycolumn))
     if color_column:
