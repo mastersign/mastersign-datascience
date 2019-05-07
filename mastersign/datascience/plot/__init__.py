@@ -829,6 +829,7 @@ def lines(data: pd.DataFrame, column, xcolumn = None,
 
 
 def scatter_matrix(data: pd.DataFrame, columns=None,
+                   mins=None, maxs=None, ticks=None,
                    subplot_size=2, pad=1,
                    file_name=None, file_dpi=300):
     """
@@ -840,6 +841,11 @@ def scatter_matrix(data: pd.DataFrame, columns=None,
 
     :param data:         A Pandas DataFrame.
     :param columns:      The columns to include into the matrix. (optional)
+    :param mins:         A dict, mapping column names to minimal values.
+                         (optional)
+    :param maxs:         A dict, mapping column names to maximal values.
+                         (optional)
+    :param ticks:        A dict, mapping column names to ticks. (optional)
     :param subplot_size: The edge length for the subplots. (optional)
     :param pad:          Padding around the figure. (optional)
     :param file_name:    A path to a file to save the plot in. (optional)
@@ -851,23 +857,33 @@ def scatter_matrix(data: pd.DataFrame, columns=None,
     if columns is None:
         columns = data.columns.values
     cn = len(columns)
+
     begin(grid=(cn, cn), figsize=(cn * subplot_size, cn * subplot_size))
-
-    for iy, cy in enumerate(columns):
-        for ix, cx in enumerate(columns):
-            ylabel = cy if ix == 0 else ""
-            xlabel = cx if iy == cn - 1 else ""
-            if cy != cx:
-                scatter(data, xcolumn=cx, ycolumn=cy,
-                        xlabel=xlabel, ylabel=ylabel,
-                        pos=(iy, ix))
-            else:
-                hist(data, cx,
-                     xlabel=xlabel, ylabel=ylabel,
-                     pos=(iy, ix))
-
-    end(pad=pad, h_pad=1.75, w_pad=1.0,
-        file_name=file_name, file_dpi=file_dpi)
+    try:
+        for iy, cy in enumerate(columns):
+            ymin = mins.get(cy) if mins is not None else None
+            ymax = maxs.get(cy) if maxs is not None else None
+            yticks = ticks.get(cy) if ticks is not None else None
+            for ix, cx in enumerate(columns):
+                xmin = mins.get(cx) if mins is not None else None
+                xmax = maxs.get(cx) if maxs is not None else None
+                xticks = ticks.get(cx) if ticks is not None else None
+                ylabel = cy if ix == 0 else ""
+                xlabel = cx if iy == cn - 1 else ""
+                if cy != cx:
+                    scatter(data, xcolumn=cx, ycolumn=cy,
+                            xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax,
+                            xticks=xticks, yticks=yticks,
+                            xlabel=xlabel, ylabel=ylabel,
+                            pos=(iy, ix))
+                else:
+                    hist(data, cx,
+                         xmin=xmin, xmax=xmax, ticks=xticks,
+                         xlabel=xlabel, ylabel=ylabel,
+                         pos=(iy, ix))
+    finally:
+        end(pad=pad, h_pad=1.75, w_pad=1.0,
+            file_name=file_name, file_dpi=file_dpi)
 
 
 def hist2d_matrix(data: pd.DataFrame, columns=None,
