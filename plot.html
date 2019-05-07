@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Plotting &mdash; mastersign-datascience 0.1.9 documentation</title>
+  <title>Plotting &mdash; mastersign-datascience 0.1.10 documentation</title>
   
 
   
@@ -36,7 +36,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Processing Jupyter Notebooks" href="notebook.html" />
-    <link rel="prev" title="Database Access" href="database.html" /> 
+    <link rel="prev" title="File Storage" href="files.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,6 +87,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="database.html">Database Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="files.html">File Storage</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Plotting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#module-mastersign.datascience.plot.basemap">Plotting with Basemap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebook.html">Processing Jupyter Notebooks</a></li>
@@ -277,7 +278,7 @@ of a multiplot. (optional)</li>
 
 <dl class="function">
 <dt id="mastersign.datascience.plot.hist2d">
-<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">hist2d</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>xcolumn</em>, <em>ycolumn</em>, <em>xmin=None</em>, <em>xmax=None</em>, <em>ymin=None</em>, <em>ymax=None</em>, <em>cmap='Blues'</em>, <em>bins=20</em>, <em>colorbar=True</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>title=None</em>, <em>figsize=(7.5</em>, <em>6)</em>, <em>pad=1</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#hist2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.hist2d" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">hist2d</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>xcolumn</em>, <em>ycolumn</em>, <em>xmin=None</em>, <em>xmax=None</em>, <em>ymin=None</em>, <em>ymax=None</em>, <em>bins=20</em>, <em>xticks=None</em>, <em>yticks=None</em>, <em>cmap='Blues'</em>, <em>colorbar=True</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>title=None</em>, <em>figsize=(7.5</em>, <em>6)</em>, <em>pad=1</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#hist2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.hist2d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays a 2-dimensional histogram (heatmap).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -295,10 +296,12 @@ in the horizontal dimension (exclusive). (optional)</li>
 in the vertical dimension (inclusive). (optional)</li>
 <li><strong>ymax</strong> – The upper limit for displayed values
 in the vertical dimension (exclusive). (optional)</li>
-<li><strong>cmap</strong> – A Matplotlib Colormap or the name of a color map.
+<li><strong>bins</strong> – None or int or [int, int] or array_like or [array, array].
 (optional)
 See <cite>matplotlib.pyplot.hist2d()</cite> for more info.</li>
-<li><strong>bins</strong> – None or int or [int, int] or array_like or [array, array].
+<li><strong>xticks</strong> – A sequence of tick positions on the X axis. (optional)</li>
+<li><strong>yticks</strong> – A sequence of tick positions on the Y axis. (optional)</li>
+<li><strong>cmap</strong> – A Matplotlib Colormap or the name of a color map.
 (optional)
 See <cite>matplotlib.pyplot.hist2d()</cite> for more info.</li>
 <li><strong>colorbar</strong> – A switch to control if a colorbar is shown. (optional)</li>
@@ -323,7 +326,7 @@ of a multiplot. (optional)</li>
 
 <dl class="function">
 <dt id="mastersign.datascience.plot.hist2d_matrix">
-<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">hist2d_matrix</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>columns=None</em>, <em>subplot_size=2</em>, <em>pad=1</em>, <em>cmap='Blues'</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#hist2d_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.hist2d_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">hist2d_matrix</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>columns=None</em>, <em>mins=None</em>, <em>maxs=None</em>, <em>bins=None</em>, <em>ticks=None</em>, <em>subplot_size=2</em>, <em>pad=1</em>, <em>cmap='Blues'</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#hist2d_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.hist2d_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a matrix of 2D histogram plots and histograms for a number of columns
 from a Pandas DataFrame.</p>
 <p>Warning: This function cannot be used between <cite>begin()</cite> and <cite>end()</cite> as part
@@ -335,6 +338,12 @@ of another multiplot.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>data</strong> – A Pandas DataFrame.</li>
 <li><strong>columns</strong> – The columns to include into the matrix. (optional)</li>
+<li><strong>mins</strong> – A dict, mapping column names to minimal values.
+(optional)</li>
+<li><strong>maxs</strong> – A dict, mapping column names to maximal values.
+(optional)</li>
+<li><strong>bins</strong> – A dict, mapping column names to bins. (optional)</li>
+<li><strong>ticks</strong> – A dict, mapping column names to ticks. (optional)</li>
 <li><strong>subplot_size</strong> – The edge length for the subplots. (optional)</li>
 <li><strong>pad</strong> – Padding around the figure. (optional)</li>
 <li><strong>cmap</strong> – The color map to use. (optional)</li>
@@ -465,7 +474,7 @@ of a multiplot. (optional)</li>
 
 <dl class="function">
 <dt id="mastersign.datascience.plot.scatter">
-<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">scatter</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>xcolumn</em>, <em>ycolumn</em>, <em>size_column=None</em>, <em>color_column=None</em>, <em>xmin=None</em>, <em>xmax=None</em>, <em>ymin=None</em>, <em>ymax=None</em>, <em>size=1</em>, <em>color=None</em>, <em>cmap='rainbow'</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>title=None</em>, <em>figsize=(9.8</em>, <em>8)</em>, <em>pad=1</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">scatter</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>xcolumn</em>, <em>ycolumn</em>, <em>size_column=None</em>, <em>color_column=None</em>, <em>xmin=None</em>, <em>xmax=None</em>, <em>ymin=None</em>, <em>ymax=None</em>, <em>xticks=None</em>, <em>yticks=None</em>, <em>size=1</em>, <em>color=None</em>, <em>cmap='rainbow'</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>title=None</em>, <em>figsize=(9.8</em>, <em>8)</em>, <em>pad=1</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a 2-dimensional scatter plot.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -485,6 +494,10 @@ in the horizontal dimension. (optional)</li>
 in the vertical dimension. (optional)</li>
 <li><strong>ymax</strong> – The upper limit for displayed values
 in the vertical dimension. (optional)</li>
+<li><strong>xticks</strong> – A sequence of tick positions on the X axis.
+(optional)</li>
+<li><strong>yticks</strong> – A sequence of tick positions on the Y axis.
+(optional)</li>
 <li><strong>size</strong> – A factor to the marker size. (optional)</li>
 <li><strong>color</strong> – A color for the markers. (optional)
 Gets overridden by <cite>color_column</cite>.</li>
@@ -568,7 +581,7 @@ of a multiplot. (optional)</li>
 
 <dl class="function">
 <dt id="mastersign.datascience.plot.scatter_matrix">
-<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">scatter_matrix</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>columns=None</em>, <em>subplot_size=2</em>, <em>pad=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">scatter_matrix</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>columns=None</em>, <em>mins=None</em>, <em>maxs=None</em>, <em>ticks=None</em>, <em>subplot_size=2</em>, <em>pad=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a matrix of scatter plots and histograms for a number of columns
 from a Pandas DataFrame.</p>
 <p>Warning: This function cannot be used between <cite>begin()</cite> and <cite>end()</cite> as part
@@ -580,6 +593,11 @@ of another multiplot.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>data</strong> – A Pandas DataFrame.</li>
 <li><strong>columns</strong> – The columns to include into the matrix. (optional)</li>
+<li><strong>mins</strong> – A dict, mapping column names to minimal values.
+(optional)</li>
+<li><strong>maxs</strong> – A dict, mapping column names to maximal values.
+(optional)</li>
+<li><strong>ticks</strong> – A dict, mapping column names to ticks. (optional)</li>
 <li><strong>subplot_size</strong> – The edge length for the subplots. (optional)</li>
 <li><strong>pad</strong> – Padding around the figure. (optional)</li>
 <li><strong>file_name</strong> – A path to a file to save the plot in. (optional)</li>
@@ -837,7 +855,7 @@ and upper right corner into a Basemap compatible structure.</p>
         <a href="notebook.html" class="btn btn-neutral float-right" title="Processing Jupyter Notebooks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="database.html" class="btn btn-neutral float-left" title="Database Access" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="files.html" class="btn btn-neutral float-left" title="File Storage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
