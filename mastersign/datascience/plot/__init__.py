@@ -402,7 +402,8 @@ def hist(data: pd.DataFrame, column, key_column=None,
 
 def hist2d(data: pd.DataFrame, xcolumn, ycolumn,
            xmin=None, xmax=None, ymin=None, ymax=None,
-           cmap='Blues', bins=20, colorbar=True,
+           bins=20, xticks=None, yticks=None,
+           cmap='Blues', colorbar=True,
            xlabel=None, ylabel=None, title=None,
            figsize=(7.5, 6), pad=1, pos=(0, 0), rowspan=1, colspan=1,
            file_name=None, file_dpi=300):
@@ -420,10 +421,12 @@ def hist2d(data: pd.DataFrame, xcolumn, ycolumn,
                       in the vertical dimension (inclusive). (optional)
     :param ymax:      The upper limit for displayed values
                       in the vertical dimension (exclusive). (optional)
-    :param cmap:      A Matplotlib Colormap or the name of a color map.
+    :param bins:      None or int or [int, int] or array_like or [array, array].
                       (optional)
                       See `matplotlib.pyplot.hist2d()` for more info.
-    :param bins:      None or int or [int, int] or array_like or [array, array].
+    :param xticks:    A sequence of tick positions on the X axis. (optional)
+    :param yticks:    A sequence of tick positions on the Y axis. (optional)
+    :param cmap:      A Matplotlib Colormap or the name of a color map.
                       (optional)
                       See `matplotlib.pyplot.hist2d()` for more info.
     :param colorbar:  A switch to control if a colorbar is shown. (optional)
@@ -466,6 +469,10 @@ def hist2d(data: pd.DataFrame, xcolumn, ycolumn,
     (fig, ax) = _plt(figsize=figsize, pos=pos,
                      rowspan=rowspan, colspan=colspan)
     (*_, image) = ax.hist2d(x, y, cmap=cmap, range=r, bins=bins, cmin=1)
+    if xticks is not None:
+        ax.set_xticks(xticks)
+    if yticks is not None:
+        ax.set_yticks(yticks)
     ax.set_xlabel(_col_label(xlabel, xcolumn))
     ax.set_ylabel(_col_label(ylabel, ycolumn))
     if colorbar:
