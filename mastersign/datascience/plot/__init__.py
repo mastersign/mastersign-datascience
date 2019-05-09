@@ -13,6 +13,7 @@ from scipy import interpolate
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
+import mpl_toolkits.axes_grid1 as axg1
 from configparser import ConfigParser
 from IPython.display import HTML, display
 from tabulate import tabulate
@@ -94,7 +95,6 @@ def table(data: pd.DataFrame, columns=None, labels=None,
 
 current_figure = None
 current_grid = (1, 1)
-allow_tight_layout = True
 
 
 def begin(figsize=(10, 5), grid=(1, 1)):
@@ -114,7 +114,7 @@ def begin(figsize=(10, 5), grid=(1, 1)):
     allow_tight_layout = True
 
 
-def end(pad=None, w_pad=None, h_pad=None,
+def end(pad=1.5, w_pad=None, h_pad=None,
         file_name=None, file_dpi=300):
     """
     Finalizes a figure with multiple subplots.
@@ -130,13 +130,11 @@ def end(pad=None, w_pad=None, h_pad=None,
     global current_figure, allow_tight_layout
     if current_figure is None:
         raise Exception("No current figure. Did you use begin()?")
-    if allow_tight_layout:
-        if pad is not None:
-            plt.tight_layout(pad=pad, h_pad=h_pad, w_pad=w_pad)
-        elif h_pad is not None or w_pad is not None:
-            plt.tight_layout(h_pad=h_pad, w_pad=w_pad)
+    if pad is not None:
+        plt.tight_layout(pad=pad, h_pad=h_pad, w_pad=w_pad)
+    elif h_pad is not None or w_pad is not None:
+        plt.tight_layout(h_pad=h_pad, w_pad=w_pad)
     elif pad is not None or h_pad is not None or w_pad is not None:
-        # one reason can be a plot with colorbar, e.g. hist2d
         warn("Padding can not be set because tight layout is suppressed.")
 
     if file_name:
@@ -179,11 +177,6 @@ def subplot(pos=(0, 0), rowspan=1, colspan=1):
     if not _in_multiplot():
         raise Exception("No current figure. Did you use begin()?")
     return _plt(pos=pos, rowspan=rowspan, colspan=colspan)
-
-
-def _suppress_tight_layout():
-    global allow_tight_layout
-    allow_tight_layout = False
 
 
 def pie(data: pd.DataFrame, column, label_column=None, sort_by=None,
@@ -434,7 +427,7 @@ def hist2d(data: pd.DataFrame, xcolumn, ycolumn,
     :param ylabel:    A label for Y axis. (optional)
     :param title:     A title for the plot. (optional)
     :param figsize:   The figure size in inches. (optional)
-    :param pad:        Padding around the figure. (optional)
+    :param pad:       Padding around the figure. (optional)
     :param pos:       The position in the grid of a multiplot. (optional)
     :param rowspan:   The number of rows to span in the grid
                       of a multiplot. (optional)
@@ -476,18 +469,16 @@ def hist2d(data: pd.DataFrame, xcolumn, ycolumn,
     ax.set_xlabel(_col_label(xlabel, xcolumn))
     ax.set_ylabel(_col_label(ylabel, ycolumn))
     if colorbar:
-        (cb_ax, cb_kw) = matplotlib.colorbar.make_axes(ax)
-        plt.colorbar(image, cax=cb_ax, **cb_kw)
-        _suppress_tight_layout()
+        divider = axg1.make_axes_locatable(ax)
+        cb_ax = divider.append_axes('right', '5%', pad='5%')
+        plt.colorbar(image, cax=cb_ax)
     if not _in_multiplot() and file_name:
-        if not colorbar and pad is not None:
-            fig.tight_layout(pad=pad)
+        fig.tight_layout(pad=pad)
         fig.savefig(file_name, dpi=file_dpi)
     if title:
         ax.set_title(title)
     if not _in_multiplot():
-        if not colorbar and pad is not None:
-            fig.tight_layout(pad=pad)
+        fig.tight_layout(pad=pad)
         plt.show()
 
 
@@ -495,7 +486,7 @@ def scatter(data: pd.DataFrame, xcolumn, ycolumn,
             size_column=None, color_column=None,
             xmin=None, xmax=None, ymin=None, ymax=None,
             xticks=None, yticks=None,
-            size=1, color=None, cmap='rainbow',
+            size=1, color=None, cmap='rainbow', colorbar=True,
             xlabel=None, ylabel=None, title=None,
             figsize=(9.8, 8), pad=1, pos=(0, 0), rowspan=1, colspan=1,
             file_name=None, file_dpi=300):
@@ -525,6 +516,7 @@ def scatter(data: pd.DataFrame, xcolumn, ycolumn,
     :param cmap:         A Matplotlib Colormap or the name of a color map.
                          Is used in combination with `color_column`. (optional)
                          See `matplotlib.pyplot.scatter()` for more info.
+    :param colorbar:     A switch to control if a colorbar is shown. (optional)
     :param xlabel:       A label for the X axis. (optional)
     :param ylabel:       A label for Y axis. (optional)
     :param title:        A title for the plot. (optional)
@@ -562,19 +554,17 @@ def scatter(data: pd.DataFrame, xcolumn, ycolumn,
         ax.set_yticks(yticks)
     ax.set_xlabel(_col_label(xlabel, xcolumn))
     ax.set_ylabel(_col_label(ylabel, ycolumn))
-    if color_column:
-        (cb_ax, cb_kw) = matplotlib.colorbar.make_axes(ax)
-        plt.colorbar(marker, cax=cb_ax, **cb_kw)
-        _suppress_tight_layout()
+    if color_column and colorbar:
+        divider = axg1.make_axes_locatable(ax)
+        cb_ax = divider.append_axes('right', '5%', pad='5%')
+        plt.colorbar(marker, cax=cb_ax)
     if not _in_multiplot() and file_name:
-        if not color_column and pad is not None:
-            fig.tight_layout(pad=pad)
+        fig.tight_layout(pad=pad)
         fig.savefig(file_name, dpi=file_dpi)
     if title:
         ax.set_title(title)
     if not _in_multiplot():
-        if not color_column and pad is not None:
-            fig.tight_layout(pad=pad)
+        fig.tight_layout(pad=pad)
         plt.show()
 
 
@@ -585,7 +575,7 @@ def scatter_map(data: pd.DataFrame,
                 map_resolution='i', grid=(1, 2),
                 map_style=None, map_style_attributes=None,
                 size_column=None, size=1, size_mode=None,
-                color_column=None, color='blue', cmap='YlGnBu',
+                color_column=None, color='blue', cmap='YlGnBu', colorbar=True,
                 title=None,
                 figsize=(10, 10), pad=1, pos=(0, 0), rowspan=1, colspan=1,
                 file_name=None, file_dpi=300):
@@ -626,6 +616,7 @@ def scatter_map(data: pd.DataFrame,
     :param cmap:         A Matplotlib Colormap or the name of a color map.
                          Is used in combination with `color_column`. (optional)
                          See `matplotlib.pyplot.scatter()` for more info.
+    :param colorbar:     A switch to control if a colorbar is shown. (optional)
     :param title:        A title for the plot. (optional)
     :param figsize:      The figure size in inches. (optional)
     :param pad:          Padding around the figure. (optional)
@@ -675,19 +666,17 @@ def scatter_map(data: pd.DataFrame,
                  ax=ax)
     marker = m.scatter(list(lon.values), list(lat.values), latlon=True,
               s=s, c=c, marker='o', cmap=cmap, zorder=10)
-    if color_column:
-        (cb_ax, cb_kw) = matplotlib.colorbar.make_axes(ax)
-        plt.colorbar(marker, cax=cb_ax, **cb_kw)
-        _suppress_tight_layout()
+    if color_column and colorbar:
+        divider = axg1.make_axes_locatable(ax)
+        cb_ax = divider.append_axes('right', '5%', pad='5%')
+        plt.colorbar(marker, cax=cb_ax)
     if not _in_multiplot() and file_name:
-        if not color_column and pad is not None:
-            fig.tight_layout(pad=pad)
+        fig.tight_layout(pad=pad)
         fig.savefig(file_name, dpi=file_dpi)
     if title:
         ax.set_title(title)
     if not _in_multiplot():
-        if not color_column and pad is not None:
-            fig.tight_layout(pad=pad)
+        fig.tight_layout(pad=pad)
         plt.show()
 
 
@@ -830,7 +819,7 @@ def lines(data: pd.DataFrame, column, xcolumn = None,
 
 def scatter_matrix(data: pd.DataFrame, columns=None,
                    mins=None, maxs=None, ticks=None,
-                   subplot_size=2, pad=1,
+                   subplot_size=2, pad=1, w_pad=1.0, h_pad=1.75,
                    file_name=None, file_dpi=300):
     """
     Plots a matrix of scatter plots and histograms for a number of columns
@@ -848,6 +837,8 @@ def scatter_matrix(data: pd.DataFrame, columns=None,
     :param ticks:        A dict, mapping column names to ticks. (optional)
     :param subplot_size: The edge length for the subplots. (optional)
     :param pad:          Padding around the figure. (optional)
+    :param w_pad:        Horizontal space between subplots. (optional)
+    :param h_pad:        Vertical space between subplots. (optional)
     :param file_name:    A path to a file to save the plot in. (optional)
     :param file_dpi:     A resolution to render the saved plot. (optional)
     """
@@ -882,13 +873,13 @@ def scatter_matrix(data: pd.DataFrame, columns=None,
                          xlabel=xlabel, ylabel=ylabel,
                          pos=(iy, ix))
     finally:
-        end(pad=pad, h_pad=1.75, w_pad=1.0,
+        end(pad=pad, h_pad=h_pad, w_pad=w_pad,
             file_name=file_name, file_dpi=file_dpi)
 
 
 def hist2d_matrix(data: pd.DataFrame, columns=None,
                   mins=None, maxs=None, bins=None, ticks=None,
-                  subplot_size=2, pad=1, cmap='Blues',
+                  subplot_size=2, pad=1, w_pad=1.0, h_pad=1.75, cmap='Blues',
                   file_name=None, file_dpi=300):
     """
     Plots a matrix of 2D histogram plots and histograms for a number of columns
@@ -907,6 +898,8 @@ def hist2d_matrix(data: pd.DataFrame, columns=None,
     :param ticks:        A dict, mapping column names to ticks. (optional)
     :param subplot_size: The edge length for the subplots. (optional)
     :param pad:          Padding around the figure. (optional)
+    :param w_pad:        Horizontal space between subplots. (optional)
+    :param h_pad:        Vertical space between subplots. (optional)
     :param cmap:         The color map to use. (optional)
     :param file_name:    A path to a file to save the plot in. (optional)
     :param file_dpi:     A resolution to render the saved plot. (optional)
@@ -946,5 +939,5 @@ def hist2d_matrix(data: pd.DataFrame, columns=None,
                          xlabel=xlabel, ylabel=ylabel,
                          pos=(iy, ix))
     finally:
-        end(pad=pad, h_pad=1.75, w_pad=1.0,
+        end(pad=pad, h_pad=h_pad, w_pad=w_pad,
             file_name=file_name, file_dpi=file_dpi)
