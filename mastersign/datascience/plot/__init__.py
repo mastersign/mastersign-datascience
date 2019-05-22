@@ -5,13 +5,16 @@ This module contains functionality to comfortably create plots.
 """
 
 from math import floor, ceil, pi
-from itertools import islice, chain
+from itertools import islice, chain, cycle
 from warnings import warn
 import pandas as pd
+import pandas.api.types as pd_types
 import numpy as np
 from scipy import interpolate
 import matplotlib
 import matplotlib.pyplot as plt
+import matplotlib.colors as plt_colors
+import matplotlib.cm as plt_cm
 import matplotlib.lines as mlines
 import mpl_toolkits.axes_grid1 as axg1
 from configparser import ConfigParser
@@ -266,15 +269,23 @@ def pie_groups(data: pd.DataFrame, column, sort_by=None,
 
 
 def bar(data: pd.DataFrame, value_column, label_column=None,
+        color_column=None, cmap=None, color=None,
         xlabel=None, ylabel=None, title=None,
         figsize=(10, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1,
         file_name=None, file_dpi=300):
     """
-    Display a bar chart from one two columns.
+    Display a bar chart from one or two columns.
 
     :param data:         A Pandas DataFrame.
     :param value_column: The column with the values for the bars height.
     :param label_column: The column with the labels for the bars. (optional)
+    :param color_column: The column with a numeric value for choosing
+                         a color from a color map or strings
+                         for explicit colors. (optional)
+    :param cmap:         The name of a color map to use with `color_column`.
+                         (optional)
+    :param color:        A color for all bars or a list with colors. (optional)
+                         `color_column` superseeds `color`.
     :param xlabel:       The label for the X axis. (optional)
     :param ylabel:       The label for the Y axis. (optional)
     :param title:        The title of the plot. (optional)
@@ -288,17 +299,39 @@ def bar(data: pd.DataFrame, value_column, label_column=None,
     :param file_name:    A path to a file to save the plot in. (optional)
     :param file_dpi:     A resolution to render the saved plot. (optional)
     """
+    columns = set()
+    columns.add(value_column)
     if label_column:
-        data = data.loc[:, [label_column, value_column]].dropna()
-        labels = data.loc[:, label_column]
-        values = data.loc[:, value_column]
+        columns.add(label_column)
+    if color_column:
+        columns.add(color_column)
+    data = data.loc[:, columns].dropna()
+    values = data[value_column]
+    if label_column:
+        labels = data[label_column]
     else:
-        values = data.loc[:, value_column].dropna()
         labels = values.index
 
     (fig, ax) = _plt(figsize=figsize, pos=pos,
                      rowspan=rowspan, colspan=colspan)
-    ax.bar(labels, values)
+    bars = ax.bar(labels, values)
+    if color_column:
+        colors = data[color_column]
+        if pd_types.is_numeric_dtype(colors.dtype):
+            color_map = plt_cm.get_cmap(cmap)
+            norm = plt_colors.Normalize(vmin=colors.min(), vmax=colors.max())
+            for b, cv in zip(bars, colors):
+                b.set_color(color_map(norm(cv)))
+        else:
+            for b, c in zip(bars, colors):
+                b.set_color(c)
+    elif color:
+        if type(color) is str:
+            for b in bars:
+                b.set_color(color)
+        else:
+            for b, c in zip(bars, cycle(color)):
+                b.set_color(c)
     ax.set_xlabel(_col_label(xlabel, label_column))
     ax.set_ylabel(_col_label(ylabel, value_column))
     if not _in_multiplot() and file_name:
