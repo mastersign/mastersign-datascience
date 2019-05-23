@@ -311,15 +311,16 @@ def pie_groups(data: Union[pd.DataFrame, pd.Series],
         file_name=file_name, file_dpi=file_dpi)
 
 
-def bar(data: pd.DataFrame, value_column, label_column=None,
+def bar(data: Union[pd.DataFrame, pd.Series],
+        value_column=None, label_column=None,
         color_column=None, cmap=None, color=None,
         xlabel=None, ylabel=None, title=None,
         figsize=(10, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1,
         file_name=None, file_dpi=300):
     """
-    Display a bar chart from one or two columns.
+    Display a bar chart from columns in a DataFrame or a Series.
 
-    :param data:         A Pandas DataFrame.
+    :param data:         A Pandas DataFrame or Series.
     :param value_column: The column with the values for the bars height.
     :param label_column: The column with the labels for the bars. (optional)
     :param color_column: The column with a numeric value for choosing
@@ -342,18 +343,24 @@ def bar(data: pd.DataFrame, value_column, label_column=None,
     :param file_name:    A path to a file to save the plot in. (optional)
     :param file_dpi:     A resolution to render the saved plot. (optional)
     """
-    columns = set()
-    columns.add(value_column)
-    if label_column:
-        columns.add(label_column)
-    if color_column:
-        columns.add(color_column)
-    data = data.loc[:, columns].dropna()
-    values = data[value_column]
-    if label_column:
-        labels = data[label_column]
+
+    if isinstance(data, pd.DataFrame):
+        columns = set()
+        columns.add(value_column)
+        if label_column:
+            columns.add(label_column)
+        if color_column:
+            columns.add(color_column)
+        data = data.loc[:, columns].dropna()
+        values = data[value_column]
+        if label_column:
+            labels = data[label_column]
+        else:
+            labels = values.index
     else:
-        labels = values.index
+        values = data
+        labels = data.index
+        color_column = None  # ignore color_column for Series
 
     (fig, ax) = _plt(figsize=figsize, pos=pos,
                      rowspan=rowspan, colspan=colspan)
