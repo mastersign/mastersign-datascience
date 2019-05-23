@@ -218,9 +218,6 @@ def pie(data: Union[pd.DataFrame, pd.Series],
     :param file_dpi:     A resolution to render the saved plot. (optional)
     """
 
-    (fig, ax) = _plt(figsize=figsize, pos=pos,
-                     rowspan=rowspan, colspan=colspan)
-
     if isinstance(data, pd.DataFrame):
         # data is a DataFrame
         if column is None:
@@ -232,15 +229,6 @@ def pie(data: Union[pd.DataFrame, pd.Series],
             data.sort_values(by=column, ascending=False, inplace=True)
         x = data[column]
         labels = data[label_column] if label_column else data.index
-        if color_column:
-            colors = data[color_column]
-        elif isinstance(color, Mapping):
-            colors = [color.get(l) or next(plt.gca()._get_lines.prop_cycler)['color']
-                      for l in labels]
-        elif color:
-            colors = color
-        else:
-            colors = None
     else:
         # data is assumed to be a Series
         if sort_by:
@@ -250,13 +238,20 @@ def pie(data: Union[pd.DataFrame, pd.Series],
 
         x = data
         labels = data.index
-        if isinstance(color, Mapping):
-            colors = [color.get(l) or next(plt.gca()._get_lines.prop_cycler)['color']
-                      for l in labels]
-        elif color:
-            colors = color
-        else:
-            colors = None
+        color_column = None  # ignore color_column for Series
+
+    (fig, ax) = _plt(figsize=figsize, pos=pos,
+                     rowspan=rowspan, colspan=colspan)
+
+    if color_column:
+        colors = data[color_column]
+    elif isinstance(color, Mapping):
+        colors = [color.get(l) or next(plt.gca()._get_lines.prop_cycler)['color']
+                  for l in labels]
+    elif color:
+        colors = color
+    else:
+        colors = None
 
     if pct:
         ax.pie(x, labels=labels, colors=colors,
