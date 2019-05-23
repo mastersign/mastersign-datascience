@@ -7,6 +7,7 @@ This module contains functionality to comfortably create plots.
 from math import floor, ceil, pi
 from itertools import islice, chain, cycle, repeat
 from collections.abc import Iterable, Mapping
+from typing import Union
 from warnings import warn
 import pandas as pd
 import pandas.api.types as pd_types
@@ -183,16 +184,18 @@ def subplot(pos=(0, 0), rowspan=1, colspan=1):
     return _plt(pos=pos, rowspan=rowspan, colspan=colspan)
 
 
-def pie(data: pd.DataFrame, column, label_column=None,
+def pie(data: Union[pd.DataFrame, pd.Series],
+        column=None, label_column=None,
         color_column=None, color=None,
         sort_by=None, title=None, pct=True,
         figsize=(4, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1,
         file_name=None, file_dpi=300):
     """
-    Display a pie chart with values from a column.
+    Display a pie chart with values from a column in a DataFrame
+    or a Series.
 
-    :param data:         A Pandas DataFrame.
-    :param column:       The column to use.
+    :param data:         A Pandas DataFrame or Series.
+    :param column:       The column to use if `data` is a DataFrame.
     :param label_column: A column to use for the labels. (optional)
                          By default the index is used.
     :param color_column: A column with color names or RGB hex values.
@@ -215,27 +218,45 @@ def pie(data: pd.DataFrame, column, label_column=None,
     :param file_dpi:     A resolution to render the saved plot. (optional)
     """
 
-    if sort_by:
-        data = data.sort_values(by=label_column) \
-            if label_column else data.sort_index()
-    if sort_by == 'value':
-        data.sort_values(by=column, ascending=False, inplace=True)
-
-    x = data[column]
-    labels = data[label_column] if label_column else data.index
-
     (fig, ax) = _plt(figsize=figsize, pos=pos,
                      rowspan=rowspan, colspan=colspan)
 
-    if color_column:
-        colors = data[color_column]
-    elif isinstance(color, Mapping):
-        colors = [color.get(l) or next(plt.gca()._get_lines.prop_cycler)['color']
-                  for l in labels]
-    elif color:
-        colors = color
+    if isinstance(data, pd.DataFrame):
+        # data is a DataFrame
+        if column is None:
+            raise TypeError("If data is a DataFrame, column must be specified.")
+        if sort_by:
+            data = data.sort_values(by=label_column) \
+                if label_column else data.sort_index()
+        if sort_by == 'value':
+            data.sort_values(by=column, ascending=False, inplace=True)
+        x = data[column]
+        labels = data[label_column] if label_column else data.index
+        if color_column:
+            colors = data[color_column]
+        elif isinstance(color, Mapping):
+            colors = [color.get(l) or next(plt.gca()._get_lines.prop_cycler)['color']
+                      for l in labels]
+        elif color:
+            colors = color
+        else:
+            colors = None
     else:
-        colors = None
+        # data is assumed to be a Series
+        if sort_by:
+            data = data.sort_index()
+        if sort_by == 'value':
+            data.sort_values(ascending=False, inplace=True)
+
+        x = data
+        labels = data.index
+        if isinstance(color, Mapping):
+            colors = [color.get(l) or next(plt.gca()._get_lines.prop_cycler)['color']
+                      for l in labels]
+        elif color:
+            colors = color
+        else:
+            colors = None
 
     if pct:
         ax.pie(x, labels=labels, colors=colors,
