@@ -396,17 +396,19 @@ def bar(data: Union[pd.DataFrame, pd.Series],
         plt.show()
 
 
-def hist(data: pd.DataFrame, column, key_column=None,
+def hist(data: Union[pd.DataFrame, pd.Series],
+         column=None, key_column=None,
          bins=35, ticks=None, xmin=None, xmax=None, ylog=False,
          color=None,
          xlabel=None, ylabel=None, title=None,
          figsize=(10, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1,
          file_name=None, file_dpi=300):
     """
-    Display a histogram for the values of one column.
-    Optionally group the values by another key column.
+    Display a histogram for the values of one column in a DataFrame
+    or a Series.
+    If using a DataFrame, optionally group the values by another key column.
 
-    :param data:       A Pandas DataFrame.
+    :param data:       A Pandas DataFrame or Series.
     :param column:     The column to build the histogram of.
     :param key_column: The column to group the values by. (optional)
     :param bins:       The bins of the histogram (int or sequence or str).
@@ -444,16 +446,19 @@ def hist(data: pd.DataFrame, column, key_column=None,
             s = s.loc[s <= xmax]
         return s.values
 
-    if key_column:
-        grouped = data.groupby(key_column)
-        labels = grouped.groups.keys()
-        x = [prep_values(grouped.get_group(g)[column]) for g in labels]
+    if isinstance(data, pd.DataFrame):
+        # data is a DataFrame
+        if key_column:
+            grouped = data.groupby(key_column)
+            labels = grouped.groups.keys()
+            x = [prep_values(grouped.get_group(g)[column]) for g in labels]
+        else:
+            labels = None
+            x = prep_values(data[column])
     else:
+        # assume data is a Series
         labels = None
-        x = prep_values(data[column])
-    columns = [column]
-    if key_column:
-        columns.append(key_column)
+        x = prep_values(data)
 
     (fig, ax) = _plt(figsize=figsize, pos=pos,
                      rowspan=rowspan, colspan=colspan)
