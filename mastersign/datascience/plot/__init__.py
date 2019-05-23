@@ -277,14 +277,16 @@ def pie(data: Union[pd.DataFrame, pd.Series],
         plt.show()
 
 
-def pie_groups(data: pd.DataFrame, column, sort_by=None,
+def pie_groups(data: Union[pd.DataFrame, pd.Series],
+               column=None, sort_by=None,
                title=None, pct=True, color=None,
                figsize=(4, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1,
                file_name=None, file_dpi=300):
     """
-    Display a pie chart by counting rows according to a column value.
+    Display a pie chart by counting rows according to a column value
+    from a DataFrame or values from a Series.
 
-    :param data:      A Pandas DataFrame.
+    :param data:      A Pandas DataFrame or Series.
     :param column:    The column to use for grouping.
     :param sort_by:   The sort mode `None`, `"label"`, or `"value"`
     :param title:     The title of the plot.
@@ -303,7 +305,10 @@ def pie_groups(data: pd.DataFrame, column, sort_by=None,
     :param file_dpi:  A resolution to render the saved plot. (optional)
     """
 
-    groups = data.groupby(column, sort=False).size()
+    if isinstance(data, pd.DataFrame):
+        groups = data.groupby(column, sort=False).size()
+    else:
+        groups = data.groupby(by=data, sort=False).size()
     group_data = pd.DataFrame({'value': groups}, index=groups.index)
     pie(group_data, 'value', sort_by=sort_by,
         title=title, pct=pct, color=color,
