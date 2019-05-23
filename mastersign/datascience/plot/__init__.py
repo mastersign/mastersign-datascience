@@ -5,7 +5,8 @@ This module contains functionality to comfortably create plots.
 """
 
 from math import floor, ceil, pi
-from itertools import islice, chain, cycle
+from itertools import islice, chain, cycle, repeat
+from collections.abc import Iterable, Mapping
 from warnings import warn
 import pandas as pd
 import pandas.api.types as pd_types
@@ -182,8 +183,9 @@ def subplot(pos=(0, 0), rowspan=1, colspan=1):
     return _plt(pos=pos, rowspan=rowspan, colspan=colspan)
 
 
-def pie(data: pd.DataFrame, column, label_column=None, sort_by=None,
-        title=None, pct=True,
+def pie(data: pd.DataFrame, column, label_column=None,
+        color_column=None, color=None,
+        sort_by=None, title=None, pct=True,
         figsize=(4, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1,
         file_name=None, file_dpi=300):
     """
@@ -191,8 +193,14 @@ def pie(data: pd.DataFrame, column, label_column=None, sort_by=None,
 
     :param data:         A Pandas DataFrame.
     :param column:       The column to use.
-    :param label_column: A column to use for the labels.
+    :param label_column: A column to use for the labels. (optional)
                          By default the index is used.
+    :param color_column: A column with color names or RGB hex values.
+                         (optional)
+    :param color:        A list or dict for the colors in the pie.
+                         (optional)
+                         If it is a dict the keys are the labels.
+                         Gets overridden by `color_column`.
     :param sort_by:      The sort mode `None`, `"label"`, or `"value"`
     :param title:        The title of the plot.
     :param pct:          A switch to display percentages.
@@ -213,17 +221,28 @@ def pie(data: pd.DataFrame, column, label_column=None, sort_by=None,
     if sort_by == 'value':
         data.sort_values(by=column, ascending=False, inplace=True)
 
-    x = data.loc[:, column]
-    labels = data.loc[:, label_column] if label_column else data.index
+    x = data[column]
+    labels = data[label_column] if label_column else data.index
 
     (fig, ax) = _plt(figsize=figsize, pos=pos,
                      rowspan=rowspan, colspan=colspan)
-    if pct:
-        ax.pie(x, labels=labels,
-                startangle=180, counterclock=False, autopct='%1.1f%%')
+
+    if color_column:
+        colors = data[color_column]
+    elif isinstance(color, Mapping):
+        colors = [color.get(l) or next(plt.gca()._get_lines.prop_cycler)['color']
+                  for l in labels]
+    elif color:
+        colors = color
     else:
-        ax.pie(x, labels=labels,
-                startangle=180, counterclock=False)
+        colors = None
+
+    if pct:
+        ax.pie(x, labels=labels, colors=colors,
+               startangle=180, counterclock=False, autopct='%1.1f%%')
+    else:
+        ax.pie(x, labels=labels, colors=colors,
+               startangle=180, counterclock=False)
     ax.axis('equal')
     if not _in_multiplot() and file_name:
         if pad is not None:
@@ -238,7 +257,7 @@ def pie(data: pd.DataFrame, column, label_column=None, sort_by=None,
 
 
 def pie_groups(data: pd.DataFrame, column, sort_by=None,
-               title=None, pct=True,
+               title=None, pct=True, color=None,
                figsize=(4, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1,
                file_name=None, file_dpi=300):
     """
@@ -249,6 +268,9 @@ def pie_groups(data: pd.DataFrame, column, sort_by=None,
     :param sort_by:   The sort mode `None`, `"label"`, or `"value"`
     :param title:     The title of the plot.
     :param pct:       A switch to display percentages.
+    :param color:     A list or dict for the colors in the pie.
+                      (optional)
+                      If it is a dict the groups are the labels.
     :param figsize:   The figure size in inches. (optional)
     :param pad:       Padding around the figure. (optional)
     :param pos:       The position in the grid of a multiplot. (optional)
@@ -263,7 +285,7 @@ def pie_groups(data: pd.DataFrame, column, sort_by=None,
     groups = data.groupby(column, sort=False).size()
     group_data = pd.DataFrame({'value': groups}, index=groups.index)
     pie(group_data, 'value', sort_by=sort_by,
-        title=title, pct=pct,
+        title=title, pct=pct, color=color,
         figsize=figsize, pad=pad, pos=pos, rowspan=rowspan, colspan=colspan,
         file_name=file_name, file_dpi=file_dpi)
 
@@ -348,6 +370,7 @@ def bar(data: pd.DataFrame, value_column, label_column=None,
 
 def hist(data: pd.DataFrame, column, key_column=None,
          bins=35, ticks=None, xmin=None, xmax=None, ylog=False,
+         color=None,
          xlabel=None, ylabel=None, title=None,
          figsize=(10, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1,
          file_name=None, file_dpi=300):
@@ -369,6 +392,8 @@ def hist(data: pd.DataFrame, column, key_column=None,
                        (optional)
     :param ylog:       A switch to use a logarithmic scale on the Y axis
                        (optional)
+    :param color:      A color for all bars or a list with one color
+                       per key if `key_column` is used. (optional)
     :param xlabel:     The label for the X axis. (optional)
     :param ylabel:     The label for the Y axis. (optional)
     :param title:      The title of the plot. (optional)
@@ -394,17 +419,27 @@ def hist(data: pd.DataFrame, column, key_column=None,
     if key_column:
         grouped = data.groupby(key_column)
         labels = grouped.groups.keys()
-        x = [prep_values(grouped.get_group(g).loc[:, column]) for g in labels]
+        x = [prep_values(grouped.get_group(g)[column]) for g in labels]
     else:
         labels = None
-        x = prep_values(data.loc[:, column])
+        x = prep_values(data[column])
     columns = [column]
     if key_column:
         columns.append(key_column)
 
     (fig, ax) = _plt(figsize=figsize, pos=pos,
                      rowspan=rowspan, colspan=colspan)
-    ax.hist(x, label=labels, bins=bins)
+
+    if labels:
+        if isinstance(color, str):
+            color = list(repeat(color, len(labels)))
+        elif isinstance(color, Mapping):
+            color = [color.get(l) or next(plt.gca()._get_lines.prop_cycler)['color']
+                     for l in labels]
+        elif isinstance(color, Iterable):
+            color = list(islice(cycle(color), len(labels)))
+
+    ax.hist(x, label=labels, bins=bins, color=color)
     ax.set_xlim(left=xmin, right=xmax)
     if ticks is not None:
         ax.set_xticks(ticks)
@@ -808,29 +843,42 @@ def lines(data: pd.DataFrame, column, xcolumn = None,
             x, y = _interpolate(x, y, interpolation_step, interpolation_kind)
         ax.plot(x, y, label=l, color=c, linewidth=linewidth)
 
+    def build_key_colors(keys):
+        if isinstance(color, str):
+            return repeat(color, len(keys))
+        elif isinstance(color, Mapping):
+            return [color.get(k, None) or next(plt.gca()._get_lines.prop_cycler)['color']
+                    for k in keys]
+        elif isinstance(color, Iterable):
+            return cycle(color)
+        else:
+            return [next(plt.gca()._get_lines.prop_cycler)['color'] for k in keys]
+
     if key_column:
         columns.add(key_column)
-        if label_column and color is None:
+        if label_column:
             columns.add(label_column)
             data = data.loc[:, columns].dropna()
             lgrouped = data.groupby(label_column)
-            for label in sorted(lgrouped.groups.keys()):
+            keys = sorted(lgrouped.groups.keys())
+
+            for label, c in zip(keys, build_key_colors(keys)):
                 ldata = lgrouped.get_group(label)
-                color = next(plt.gca()._get_lines.prop_cycler)['color']
                 legend_handles.append(mlines.Line2D(
-                    [], [], color=color, linewidth=linewidth, label=label))
+                    [], [], color=c, linewidth=linewidth, label=label))
                 grouped = ldata.groupby(key_column)
                 for k in grouped.groups.keys():
-                    plot_line(grouped.get_group(k), color, label)
+                    plot_line(grouped.get_group(k), c=c, l=label)
         else:
             data = data.loc[:, columns].dropna()
             grouped = data.groupby(key_column)
+            keys = grouped.groups.keys()
 
-            for k in sorted(grouped.groups.keys()):
-                plot_line(grouped.get_group(k), color)
+            for k, c in zip(keys, build_key_colors(keys)):
+                    plot_line(grouped.get_group(k), c=c)
     else:
         data = data.loc[:, columns].dropna()
-        plot_line(data, color)
+        plot_line(data, c=color)
 
     ax.set_xlim(left=xmin, right=xmax)
     ax.set_ylim(bottom=ymin, top=ymax)
