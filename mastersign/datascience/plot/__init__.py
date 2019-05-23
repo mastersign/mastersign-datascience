@@ -801,7 +801,105 @@ def _interpolate(indices: np.ndarray, values: np.ndarray, step, kind):
     return x, f(x)
 
 
-def lines(data: pd.DataFrame, column, xcolumn = None,
+def line(data: Union[pd.DataFrame, pd.Series],
+         column=None, xcolumn=None,
+         color=None, linewidth=2,
+         avg_window=None, interpolation_step=None, interpolation_kind='quadratic',
+         xmin=None, xmax=None, ymin=None, ymax=None,
+         xlabel=None, ylabel=None, title=None,
+         figsize=(10, 5), pad=1, pos=(0, 0), rowspan=1, colspan=1,
+         file_name=None, file_dpi=300):
+    """
+    Display a line from values in one column of a DataFrame or a Series.
+
+    If `data` is a Series, the index will be used for the horizontal dimension.
+
+    :param data:         A Pandas DataFrame or a Series.
+    :param column:       The column with the values to display as a line.
+                         The values are used as vertical dimension.
+    :param xcolumn:      A column with values for the horizontal dimension.
+                         (optional)
+    :param color:        A color for the line. (optional)
+    :param linewidth:    The width of the line.
+    :param avg_window:   The size of a window for smoothing the values
+                         with a sliding average. (optional)
+    :param interpolate_step:
+                         A step size in the horizontal dimension,
+                         for smoothing the line with interpolation.
+    :param interpolate_kind:
+                         The kind of interpolation to use:
+                         `quadratic` or `cubic`. (optional)
+                         Has an effect only if `interpolation_step` is used.
+    :param xmin:         The lower limit for displayed values
+                         in the horizontal dimension. (optional)
+    :param xmax:         The upper limit for displayed values
+                         in the horizontal dimension. (optional)
+    :param ymin:         The lower limit for displayed values
+                         in the vertical dimension. (optional)
+    :param ymax:         The upper limit for displayed values
+                         in the vertical dimension. (optional)
+    :param xlabel:       A label for the X axis. (optional)
+    :param ylabel:       A label for Y axis. (optional)
+    :param title:        A title for the plot. (optional)
+    :param figsize:      The figure size in inches. (optional)
+    :param pad:          Padding around the figure. (optional)
+    :param pos:          The position in the grid of a multiplot. (optional)
+    :param rowspan:      The number of rows to span in the grid
+                         of a multiplot. (optional)
+    :param colspan:      The number of columns to span in the grid
+                         of a multiplot. (optional)
+    :param file_name:    A path to a file to save the plot in. (optional)
+    :param file_dpi:     A resolution to render the saved plot. (optional)
+    """
+    (fig, ax) = _plt(figsize=figsize, pos=pos,
+                     rowspan=rowspan, colspan=colspan)
+    legend_handles = []
+
+    def plot_line(d, c=None):
+        if isinstance(d, pd.DataFrame):
+            x = d[xcolumn].values if xcolumn else d.index.values
+            y = d[column].values
+        else:
+            x = d.index.values
+            y = d.values
+        if avg_window:
+            x, y = _moving_average(x, y, avg_window)
+        if interpolation_step:
+            x, y = _interpolate(x, y, interpolation_step, interpolation_kind)
+        ax.plot(x, y, color=c, linewidth=linewidth)
+
+    if isinstance(data, pd.DataFrame):
+        # data is DataFrame
+        columns = set()
+        columns.add(column)
+        if xcolumn:
+            columns.add(xcolumn)
+        data = data.loc[:, columns].dropna()
+    else:
+        # assume data is Series
+        pass
+
+    plot_line(data, c=color)
+
+    ax.set_xlim(left=xmin, right=xmax)
+    ax.set_ylim(bottom=ymin, top=ymax)
+    ax.set_xlabel(_col_label(xlabel, xcolumn))
+    ax.set_ylabel(_col_label(ylabel, column))
+    if legend_handles:
+        ax.legend(handles=legend_handles)
+    if not _in_multiplot() and file_name:
+        if pad is not None:
+            fig.tight_layout(pad=pad)
+        fig.savefig(file_name, dpi=file_dpi)
+    if title:
+        ax.set_title(title)
+    if not _in_multiplot():
+        if pad is not None:
+            fig.tight_layout(pad=pad)
+        plt.show()
+
+
+def lines(data: pd.DataFrame, column, xcolumn=None,
           key_column=None, min_n=None, label_column=None,
           color=None, linewidth=2,
           avg_window=None, interpolation_step=None, interpolation_kind='quadratic',
