@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Plotting &mdash; mastersign-datascience 0.1.12 documentation</title>
+  <title>Plotting &mdash; mastersign-datascience 0.2.0 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.1
+                0.2
               </div>
             
           
@@ -547,6 +547,13 @@ of a multiplot. (optional)</li>
 </dd></dl>
 
 <dl class="function">
+<dt id="mastersign.datascience.plot.reset_figure_handler">
+<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">reset_figure_handler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#reset_figure_handler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.reset_figure_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the handler, which is called after rendering every plot,
+to the default.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="mastersign.datascience.plot.scatter">
 <code class="descclassname">mastersign.datascience.plot.</code><code class="descname">scatter</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>xcolumn</em>, <em>ycolumn</em>, <em>size_column=None</em>, <em>color_column=None</em>, <em>xmin=None</em>, <em>xmax=None</em>, <em>ymin=None</em>, <em>ymax=None</em>, <em>xticks=None</em>, <em>yticks=None</em>, <em>size=1</em>, <em>color=None</em>, <em>cmap='rainbow'</em>, <em>colorbar=True</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>title=None</em>, <em>figsize=(9.8</em>, <em>8)</em>, <em>pad=1</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a 2-dimensional scatter plot.</p>
@@ -682,6 +689,30 @@ of another multiplot.</p>
 <li><strong>file_dpi</strong> – A resolution to render the saved plot. (optional)</li>
 </ul>
 </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="mastersign.datascience.plot.set_figure_handler">
+<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">set_figure_handler</code><span class="sig-paren">(</span><em>handler</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#set_figure_handler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.set_figure_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a handler, which is called after rendering every plot.</p>
+<p>The specified handler must accept the following keyword arguments:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">subplot</span></code> A boolean flag indicating that the figure is a subplot</li>
+<li><code class="docutils literal notranslate"><span class="pre">fig</span></code> The figure object of the plot</li>
+<li><code class="docutils literal notranslate"><span class="pre">ax</span></code> The main axis or <cite>None</cite></li>
+<li><code class="docutils literal notranslate"><span class="pre">title</span></code> A title for the main axis or <cite>None</cite></li>
+<li><code class="docutils literal notranslate"><span class="pre">pad</span></code> A padding value for calling <cite>tight_layout()</cite> or <cite>None</cite></li>
+<li><code class="docutils literal notranslate"><span class="pre">file_name</span></code> The filename for the target image file or <cite>None</cite></li>
+<li><code class="docutils literal notranslate"><span class="pre">file_dpi</span></code> The dpi value for the target image file or <cite>None</cite></li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>handler</strong> – The figure handler to use for future plots</td>
 </tr>
 </tbody>
 </table>
