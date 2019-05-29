@@ -98,8 +98,62 @@ def table(data: pd.DataFrame, columns=None, labels=None,
     display(HTML(tabulate(rows, tablefmt='html', headers=headers)))
 
 
+def _default_figure_handler(subplot, fig, ax=None,
+                            title=None, pad=None,
+                            file_name=None, file_dpi=None):
+    if not fig:
+        return
+    if not subplot:
+        if pad is not None:
+            fig.tight_layout(pad=pad)
+        if file_name:
+            fig.savefig(file_name, dpi=file_dpi)
+    if title:
+        ax = ax or fig.gca()
+        if ax:
+            ax.set_title(title)
+    if not subplot:
+        plt.show()
+
+
 current_figure = None
 current_grid = (1, 1)
+_figure_handler = _default_figure_handler
+
+
+def _finish_figure(fig=None, **kwargs):
+    if fig is None:
+        return
+    _figure_handler(subplot=_in_multiplot(), fig=fig, **kwargs)
+
+
+def set_figure_handler(handler):
+    """
+    Set a handler, which is called after rendering every plot.
+
+    The specified handler must accept the following keyword arguments:
+
+    - ``subplot`` A boolean flag indicating that the figure is a subplot
+    - ``fig`` The figure object of the plot
+    - ``ax`` The main axis or `None`
+    - ``title`` A title for the main axis or `None`
+    - ``pad`` A padding value for calling `tight_layout()` or `None`
+    - ``file_name`` The filename for the target image file or `None`
+    - ``file_dpi`` The dpi value for the target image file or `None`
+
+    :param handler: The figure handler to use for future plots
+    """
+    global _figure_handler
+    _figure_handler = handler
+
+
+def reset_figure_handler():
+    """
+    Reset the handler, which is called after rendering every plot,
+    to the default.
+    """
+    global _figure_handler
+    _figure_handler = _default_figure_handler
 
 
 def begin(figsize=(10, 5), grid=(1, 1)):
@@ -111,12 +165,11 @@ def begin(figsize=(10, 5), grid=(1, 1)):
     :param grid:    The grid size to place the subplots in (rows, columns).
                     (optional)
     """
-    global current_figure, current_grid, allow_tight_layout
+    global current_figure, current_grid
     if current_figure is not None:
         warn("There is already an open figure. Did you use end()?")
     current_figure = plt.figure(figsize=figsize)
     current_grid = grid
-    allow_tight_layout = True
 
 
 def end(pad=1.5, w_pad=None, h_pad=None,
@@ -132,20 +185,19 @@ def end(pad=1.5, w_pad=None, h_pad=None,
     :param file_name: A path to a file to save the plot in. (optional)
     :param file_dpi:  A resolution to render the saved plot. (optional)
     """
-    global current_figure, allow_tight_layout
+    global current_figure, current_title
     if current_figure is None:
         raise Exception("No current figure. Did you use begin()?")
     if pad is not None:
         plt.tight_layout(pad=pad, h_pad=h_pad, w_pad=w_pad)
     elif h_pad is not None or w_pad is not None:
         plt.tight_layout(h_pad=h_pad, w_pad=w_pad)
-    elif pad is not None or h_pad is not None or w_pad is not None:
-        warn("Padding can not be set because tight layout is suppressed.")
 
-    if file_name:
-        current_figure.savefig(file_name, dpi=file_dpi)
-    plt.show()
+    fig = current_figure
     current_figure = None
+    _finish_figure(
+        fig=fig, pad=None,
+        file_name=file_name, file_dpi=file_dpi)
 
 
 def _in_multiplot():
@@ -260,16 +312,10 @@ def pie(data: Union[pd.DataFrame, pd.Series],
         ax.pie(x, labels=labels, colors=colors,
                startangle=180, counterclock=False)
     ax.axis('equal')
-    if not _in_multiplot() and file_name:
-        if pad is not None:
-            fig.tight_layout(pad=pad)
-        fig.savefig(file_name, dpi=file_dpi)
-    if title:
-        ax.set_title(title)
-    if not _in_multiplot():
-        if pad is not None:
-            fig.tight_layout(pad=pad)
-        plt.show()
+
+    _finish_figure(
+        fig=fig, ax=ax, title=title, pad=pad,
+        file_name=file_name, file_dpi=file_dpi)
 
 
 def pie_groups(data: Union[pd.DataFrame, pd.Series],
@@ -384,16 +430,10 @@ def bar(data: Union[pd.DataFrame, pd.Series],
                 b.set_color(c)
     ax.set_xlabel(_col_label(xlabel, label_column))
     ax.set_ylabel(_col_label(ylabel, value_column))
-    if not _in_multiplot() and file_name:
-        if pad is not None:
-            fig.tight_layout(pad=pad)
-        fig.savefig(file_name, dpi=file_dpi)
-    if title:
-        ax.set_title(title)
-    if not _in_multiplot():
-        if pad is not None:
-            fig.tight_layout(pad=pad)
-        plt.show()
+
+    _finish_figure(
+        fig=fig, ax=ax, title=title, pad=pad,
+        file_name=file_name, file_dpi=file_dpi)
 
 
 def hist(data: Union[pd.DataFrame, pd.Series],
@@ -482,16 +522,10 @@ def hist(data: Union[pd.DataFrame, pd.Series],
     ax.set_ylabel(_col_label(ylabel, 'count'))
     if key_column:
         ax.legend()
-    if not _in_multiplot() and file_name:
-        if pad is not None:
-            fig.tight_layout(pad=pad)
-        fig.savefig(file_name, dpi=file_dpi)
-    if title:
-        ax.set_title(title)
-    if not _in_multiplot():
-        if pad is not None:
-            fig.tight_layout(pad=pad)
-        plt.show()
+
+    _finish_figure(
+        fig=fig, ax=ax, title=title, pad=pad,
+        file_name=file_name, file_dpi=file_dpi)
 
 
 def hist2d(data: pd.DataFrame, xcolumn, ycolumn,
@@ -573,14 +607,10 @@ def hist2d(data: pd.DataFrame, xcolumn, ycolumn,
         divider = axg1.make_axes_locatable(ax)
         cb_ax = divider.append_axes('right', '5%', pad='5%')
         plt.colorbar(image, cax=cb_ax)
-    if not _in_multiplot() and file_name:
-        fig.tight_layout(pad=pad)
-        fig.savefig(file_name, dpi=file_dpi)
-    if title:
-        ax.set_title(title)
-    if not _in_multiplot():
-        fig.tight_layout(pad=pad)
-        plt.show()
+
+    _finish_figure(
+        fig=fig, ax=ax, title=title, pad=pad,
+        file_name=file_name, file_dpi=file_dpi)
 
 
 def scatter(data: pd.DataFrame, xcolumn, ycolumn,
@@ -659,14 +689,10 @@ def scatter(data: pd.DataFrame, xcolumn, ycolumn,
         divider = axg1.make_axes_locatable(ax)
         cb_ax = divider.append_axes('right', '5%', pad='5%')
         plt.colorbar(marker, cax=cb_ax)
-    if not _in_multiplot() and file_name:
-        fig.tight_layout(pad=pad)
-        fig.savefig(file_name, dpi=file_dpi)
-    if title:
-        ax.set_title(title)
-    if not _in_multiplot():
-        fig.tight_layout(pad=pad)
-        plt.show()
+
+    _finish_figure(
+        fig=fig, ax=ax, title=title, pad=pad,
+        file_name=file_name, file_dpi=file_dpi)
 
 
 def scatter_map(data: pd.DataFrame,
@@ -771,14 +797,10 @@ def scatter_map(data: pd.DataFrame,
         divider = axg1.make_axes_locatable(ax)
         cb_ax = divider.append_axes('right', '5%', pad='5%')
         plt.colorbar(marker, cax=cb_ax)
-    if not _in_multiplot() and file_name:
-        fig.tight_layout(pad=pad)
-        fig.savefig(file_name, dpi=file_dpi)
-    if title:
-        ax.set_title(title)
-    if not _in_multiplot():
-        fig.tight_layout(pad=pad)
-        plt.show()
+
+    _finish_figure(
+        fig=fig, ax=ax, title=title, pad=pad,
+        file_name=file_name, file_dpi=file_dpi)
 
 
 def _moving_average(indices: np.ndarray, values: np.ndarray, window):
@@ -887,16 +909,10 @@ def line(data: Union[pd.DataFrame, pd.Series],
     ax.set_ylabel(_col_label(ylabel, column))
     if legend_handles:
         ax.legend(handles=legend_handles)
-    if not _in_multiplot() and file_name:
-        if pad is not None:
-            fig.tight_layout(pad=pad)
-        fig.savefig(file_name, dpi=file_dpi)
-    if title:
-        ax.set_title(title)
-    if not _in_multiplot():
-        if pad is not None:
-            fig.tight_layout(pad=pad)
-        plt.show()
+
+    _finish_figure(
+        fig=fig, ax=ax, title=title, pad=pad,
+        file_name=file_name, file_dpi=file_dpi)
 
 
 def lines(data: pd.DataFrame, column, xcolumn=None,
@@ -1017,16 +1033,10 @@ def lines(data: pd.DataFrame, column, xcolumn=None,
     ax.set_ylabel(_col_label(ylabel, column))
     if legend_handles:
         ax.legend(handles=legend_handles)
-    if not _in_multiplot() and file_name:
-        if pad is not None:
-            fig.tight_layout(pad=pad)
-        fig.savefig(file_name, dpi=file_dpi)
-    if title:
-        ax.set_title(title)
-    if not _in_multiplot():
-        if pad is not None:
-            fig.tight_layout(pad=pad)
-        plt.show()
+
+    _finish_figure(
+        fig=fig, ax=ax, title=title, pad=pad,
+        file_name=file_name, file_dpi=file_dpi)
 
 
 def scatter_matrix(data: pd.DataFrame, columns=None,
