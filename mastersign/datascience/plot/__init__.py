@@ -444,6 +444,133 @@ def bar(data: Union[pd.DataFrame, pd.Series],
         file_name=file_name, file_dpi=file_dpi)
 
 
+def bar_groups(data: pd.DataFrame,
+        value_column, key_column, keys=None, label_column=None,
+        color_column=None, cmap=None, color=None,
+        stack=False,
+        xlabel=None, ylabel=None, title=None,
+        figsize=(10, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1,
+        file_name=None, file_dpi=300):
+    """
+    Display a bar chart with grouped bars from columns in a DataFrame.
+
+    :param data:         A Pandas DataFrame.
+    :param value_column: The column with the values for the bars height.
+    :param key_column:   The column with the key to group by.
+    :param keys:         A list with group keys to select. (optional)
+                         By default the group keys are taken from the key
+                         column and sorted alphabetically.
+    :param label_column: The column with the labels for the bars. (optional)
+    :param color_column: The column with a numeric value for choosing
+                         a color from a color map or strings
+                         for explicit colors. (optional)
+    :param cmap:         The name of a color map to use with `color_column`.
+                         (optional)
+    :param color:        A list or dict with colors for the groups. (optional)
+                         `color_column` superseeds `color`.
+    :param stack:        A switch to stack the bars. (optional)
+    :param xlabel:       The label for the X axis. (optional)
+    :param ylabel:       The label for the Y axis. (optional)
+    :param title:        The title of the plot. (optional)
+    :param figsize:      The figure size in inches. (optional)
+    :param pad:          Padding around the figure. (optional)
+    :param pos:          The position in the grid of a multiplot. (optional)
+    :param rowspan:      The number of rows to span in the grid
+                         of a multiplot. (optional)
+    :param colspan:      The number of columns to span in the grid
+                         of a multiplot. (optional)
+    :param file_name:    A path to a file to save the plot in. (optional)
+    :param file_dpi:     A resolution to render the saved plot. (optional)
+    """
+
+    all_columns = [value_column, key_column, label_column, color_column]
+    columns = set(c for c in all_columns if c)
+    data = data.loc[:, columns].dropna()
+    if keys is None:
+        keys = data[key_column].drop_duplicates().sort_values().values
+    groups = {k: data.loc[data[key_column] == k, :] for k in keys}
+    first_group = groups[keys[0]]
+    first_labels = first_group[label_column] if label_column else first_group.index
+    gs = len(keys)
+    gd = gs + 0.5
+    if stack:
+        pos = list(np.arange(0, len(first_group)))
+    else:
+        pos = {k: list(np.arange(i, i + len(first_group) * gd, gd))
+               for i, k in enumerate(keys)}
+
+    if color_column:
+        color_values = data[color_column]
+        if pd_types.is_numeric_dtype(color_values.dtype):
+            color_map = plt_cm.get_cmap(cmap)
+            norm = plt_colors.Normalize(vmin=color_values.min(), vmax=color_values.max())
+
+    (fig, ax) = _plt(figsize=figsize, pos=pos,
+                     rowspan=rowspan, colspan=colspan)
+
+    legend_handles = []
+
+    last_key = None
+    for k, c in zip(keys, _build_key_colors(keys, color)):
+        g = groups[k]
+
+        if stack:
+            p = pos
+            if last_key:
+                bars = ax.bar(p, g[value_column], color=c,
+                              bottom=(groups[last_key][value_column] if stack else None))
+            else:
+                bars = ax.bar(p, g[value_column], color=c)
+            last_key = k
+        else:
+            bars = ax.bar(pos[k], g[value_column], color=c, width=1)
+
+        if color_column:
+            colors = g[color_column]
+            if pd_types.is_numeric_dtype(colors.dtype):
+                for b, cv in zip(bars, colors):
+                    b.set_color(color_map(norm(cv)))
+            else:
+                for b, c in zip(bars, colors):
+                    b.set_color(c)
+        else:
+            legend_handles.append(mlines.Line2D(
+                [], [], color=c, linewidth=8, label=k))
+
+    def group_labels_unique(gl):
+        ls = gl[0]
+        for ls2 in gl[1:]:
+            if ls != ls2:
+                return False
+        return True
+
+    if stack:
+        ax.set_xticks(pos)
+        ax.set_xticklabels(first_labels)
+    else:
+        if label_column:
+            group_labels = [tuple(groups[k][label_column]) for k in keys]
+            if group_labels_unique(group_labels):
+                pos = list(np.arange((gs - 1) * 0.5, (gs - 1) * 0.5 + gd * len(first_group), gd))
+                ax.set_xticks(pos)
+                ax.set_xticklabels(first_labels)
+            else:
+                ax.set_xticks(list(chain(*(pos[k] for k in keys))))
+                ax.set_xticklabels(list(chain(*(groups[k][label_column] for k in keys))))
+        else:
+            ax.set_xticks(list(chain(*(pos[k] for k in keys))))
+            ax.set_xticklabels(list(chain(*(groups[k].index for k in keys))))
+
+    ax.set_xlabel(_col_label(xlabel, label_column))
+    ax.set_ylabel(_col_label(ylabel, value_column))
+    if legend_handles:
+        ax.legend(handles=legend_handles)
+
+    _finish_figure(
+        fig=fig, ax=ax, title=title, pad=pad,
+        file_name=file_name, file_dpi=file_dpi)
+
+
 def hist(data: Union[pd.DataFrame, pd.Series],
          column=None, key_column=None,
          bins=35, ticks=None, xmin=None, xmax=None, ylog=False,
