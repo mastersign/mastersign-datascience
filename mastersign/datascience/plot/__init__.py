@@ -236,6 +236,18 @@ def subplot(pos=(0, 0), rowspan=1, colspan=1):
     return _plt(pos=pos, rowspan=rowspan, colspan=colspan)
 
 
+def _build_key_colors(keys, color):
+    if isinstance(color, str):
+        return repeat(color, len(keys))
+    elif isinstance(color, Mapping):
+        return [color.get(k, None) or next(plt.gca()._get_lines.prop_cycler)['color']
+                for k in keys]
+    elif isinstance(color, Iterable):
+        return cycle(color)
+    else:
+        return [next(plt.gca()._get_lines.prop_cycler)['color'] for k in keys]
+
+
 def pie(data: Union[pd.DataFrame, pd.Series],
         column=None, label_column=None,
         color_column=None, color=None,
@@ -990,17 +1002,6 @@ def lines(data: pd.DataFrame, column, xcolumn=None,
             x, y = _interpolate(x, y, interpolation_step, interpolation_kind)
         ax.plot(x, y, label=l, color=c, linewidth=linewidth)
 
-    def build_key_colors(keys):
-        if isinstance(color, str):
-            return repeat(color, len(keys))
-        elif isinstance(color, Mapping):
-            return [color.get(k, None) or next(plt.gca()._get_lines.prop_cycler)['color']
-                    for k in keys]
-        elif isinstance(color, Iterable):
-            return cycle(color)
-        else:
-            return [next(plt.gca()._get_lines.prop_cycler)['color'] for k in keys]
-
     if key_column:
         columns.add(key_column)
         if label_column:
@@ -1009,7 +1010,7 @@ def lines(data: pd.DataFrame, column, xcolumn=None,
             lgrouped = data.groupby(label_column)
             keys = sorted(lgrouped.groups.keys())
 
-            for label, c in zip(keys, build_key_colors(keys)):
+            for label, c in zip(keys, _build_key_colors(keys, color)):
                 ldata = lgrouped.get_group(label)
                 legend_handles.append(mlines.Line2D(
                     [], [], color=c, linewidth=linewidth, label=label))
@@ -1021,7 +1022,7 @@ def lines(data: pd.DataFrame, column, xcolumn=None,
             grouped = data.groupby(key_column)
             keys = grouped.groups.keys()
 
-            for k, c in zip(keys, build_key_colors(keys)):
+            for k, c in zip(keys, _build_key_colors(keys, color)):
                     plot_line(grouped.get_group(k), c=c)
     else:
         data = data.loc[:, columns].dropna()
