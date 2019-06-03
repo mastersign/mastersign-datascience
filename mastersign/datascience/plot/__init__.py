@@ -403,12 +403,8 @@ def bar(data: Union[pd.DataFrame, pd.Series],
     """
 
     if isinstance(data, pd.DataFrame):
-        columns = set()
-        columns.add(value_column)
-        if label_column:
-            columns.add(label_column)
-        if color_column:
-            columns.add(color_column)
+        all_columns = [value_column, label_column, color_column]
+        columns = set(c for c in all_columns if c)
         data = data.loc[:, columns].dropna()
         values = data[value_column]
         if label_column:
@@ -887,7 +883,6 @@ def line(data: Union[pd.DataFrame, pd.Series],
     """
     (fig, ax) = _plt(figsize=figsize, pos=pos,
                      rowspan=rowspan, colspan=colspan)
-    legend_handles = []
 
     def plot_line(d, c=None):
         if isinstance(d, pd.DataFrame):
@@ -919,8 +914,6 @@ def line(data: Union[pd.DataFrame, pd.Series],
     ax.set_ylim(bottom=ymin, top=ymax)
     ax.set_xlabel(_col_label(xlabel, xcolumn))
     ax.set_ylabel(_col_label(ylabel, column))
-    if legend_handles:
-        ax.legend(handles=legend_handles)
 
     _finish_figure(
         fig=fig, ax=ax, title=title, pad=pad,
