@@ -796,18 +796,20 @@ def scatter(data: pd.DataFrame, xcolumn, ycolumn,
     :param file_name:    A path to a file to save the plot in. (optional)
     :param file_dpi:     A resolution to render the saved plot. (optional)
     """
-    columns = [xcolumn, ycolumn]
-    if size_column:
-        columns.append(size_column)
-    if color_column:
-        columns.append(color_column)
+    columns = list(set(c for c in [xcolumn, ycolumn, size_column, color_column]
+                       if c and c in data.columns))
     data = data.loc[:, columns].dropna()
 
-    x = data.loc[:, xcolumn]
-    y = data.loc[:, ycolumn]
+    x = data[xcolumn]
+    y = data[ycolumn]
 
-    s = (data.loc[:, size_column] if size_column else 20) * size
-    c = data.loc[:, color_column] if color_column else color
+    s = (data[size_column] if size_column else 20) * size
+    c = color
+    if color_column:
+        c = data[color_column]
+        if not pd_types.is_numeric_dtype(c.dtype):
+            cmap = None
+            colorbar = False
 
     (fig, ax) = _plt(figsize=figsize, pos=pos,
                      rowspan=rowspan, colspan=colspan)
@@ -893,21 +895,26 @@ def scatter_map(data: pd.DataFrame,
 
     from .basemap import base_map, lat_lon_region
 
-    columns = [longitude_column, latitude_column]
-    if size_column:
-        columns.append(size_column)
-    if color_column:
-        columns.append(color_column)
-
+    columns = list(set(c for c in [longitude_column, latitude_column,
+                                   size_column, color_column]
+                       if c and c in data.columns))
     data = data.loc[:, columns].dropna()
+
     lon = data.loc[:, longitude_column]
     lat = data.loc[:, latitude_column]
+
     s = (data.loc[:, size_column].values if size_column else 1) * size
     if size_mode == 'radius':
         s = np.power(s, 2.0) * pi
     if size_mode == 'area':
         pass
-    c = data.loc[:, color_column].values if color_column else color
+
+    c = color
+    if color_column:
+        c = data[color_column]
+        if not pd_types.is_numeric_dtype(c.dtype):
+            cmap = None
+            colorbar = False
 
     if autofit or region is None:
         region = [lat.min(), lon.min(), lat.max(), lon.max()]
