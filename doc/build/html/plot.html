@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Plotting &mdash; mastersign-datascience 0.2.0 documentation</title>
+  <title>Plotting &mdash; mastersign-datascience 0.2.1 documentation</title>
   
 
   
@@ -178,6 +178,49 @@ for explicit colors. (optional)</li>
 (optional)</li>
 <li><strong>color</strong> – A color for all bars or a list with colors. (optional)
 <cite>color_column</cite> superseeds <cite>color</cite>.</li>
+<li><strong>xlabel</strong> – The label for the X axis. (optional)</li>
+<li><strong>ylabel</strong> – The label for the Y axis. (optional)</li>
+<li><strong>title</strong> – The title of the plot. (optional)</li>
+<li><strong>figsize</strong> – The figure size in inches. (optional)</li>
+<li><strong>pad</strong> – Padding around the figure. (optional)</li>
+<li><strong>pos</strong> – The position in the grid of a multiplot. (optional)</li>
+<li><strong>rowspan</strong> – The number of rows to span in the grid
+of a multiplot. (optional)</li>
+<li><strong>colspan</strong> – The number of columns to span in the grid
+of a multiplot. (optional)</li>
+<li><strong>file_name</strong> – A path to a file to save the plot in. (optional)</li>
+<li><strong>file_dpi</strong> – A resolution to render the saved plot. (optional)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="mastersign.datascience.plot.bar_groups">
+<code class="descclassname">mastersign.datascience.plot.</code><code class="descname">bar_groups</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>value_column</em>, <em>key_column</em>, <em>keys=None</em>, <em>label_column=None</em>, <em>color_column=None</em>, <em>cmap=None</em>, <em>color=None</em>, <em>stack=False</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>title=None</em>, <em>figsize=(10</em>, <em>4)</em>, <em>pad=1</em>, <em>pos=(0</em>, <em>0)</em>, <em>rowspan=1</em>, <em>colspan=1</em>, <em>file_name=None</em>, <em>file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#bar_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.bar_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display a bar chart with grouped bars from columns in a DataFrame.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> – A Pandas DataFrame.</li>
+<li><strong>value_column</strong> – The column with the values for the bars height.</li>
+<li><strong>key_column</strong> – The column with the key to group by.</li>
+<li><strong>keys</strong> – A list with group keys to select. (optional)
+By default the group keys are taken from the key
+column and sorted alphabetically.</li>
+<li><strong>label_column</strong> – The column with the labels for the bars. (optional)</li>
+<li><strong>color_column</strong> – The column with a numeric value for choosing
+a color from a color map or strings
+for explicit colors. (optional)</li>
+<li><strong>cmap</strong> – The name of a color map to use with <cite>color_column</cite>.
+(optional)</li>
+<li><strong>color</strong> – A list or dict with colors for the groups. (optional)
+<cite>color_column</cite> superseeds <cite>color</cite>.</li>
+<li><strong>stack</strong> – A switch to stack the bars. (optional)</li>
 <li><strong>xlabel</strong> – The label for the X axis. (optional)</li>
 <li><strong>ylabel</strong> – The label for the Y axis. (optional)</li>
 <li><strong>title</strong> – The title of the plot. (optional)</li>
