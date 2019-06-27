@@ -526,13 +526,13 @@ def bar_groups(data: pd.DataFrame,
         if stack:
             p = pos
             if last_key:
-                bars = ax.bar(p, g[value_column], color=c,
-                              bottom=(groups[last_key][value_column] if stack else None))
+                bars = ax.bar(p, g[value_column].values, color=c,
+                              bottom=groups[last_key][value_column].values)
             else:
-                bars = ax.bar(p, g[value_column], color=c)
+                bars = ax.bar(p, g[value_column].values, color=c)
             last_key = k
         else:
-            bars = ax.bar(pos[k], g[value_column], color=c, width=1)
+            bars = ax.bar(pos[k], g[value_column].values, color=c, width=1)
 
         if color_column:
             colors = g[color_column]
