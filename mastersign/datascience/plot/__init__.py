@@ -251,6 +251,7 @@ def _build_key_colors(keys, color):
 def pie(data: Union[pd.DataFrame, pd.Series],
         column=None, label_column=None,
         color_column=None, color=None,
+        startangle=180, counterclock=False,
         sort_by=None, title=None, pct=True,
         figsize=(4, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1,
         file_name=None, file_dpi=300):
@@ -269,8 +270,11 @@ def pie(data: Union[pd.DataFrame, pd.Series],
                          If it is a dict the keys are the labels.
                          Gets overridden by `color_column`.
     :param sort_by:      The sort mode `None`, `"label"`, or `"value"`
-    :param title:        The title of the plot.
-    :param pct:          A switch to display percentages.
+                         (optional)
+    :param startangle:   The start angle in degrees. (optional)
+    :param counterclock: A switch to control the angular order. (optional)
+    :param title:        The title of the plot. (optional)
+    :param pct:          A switch to display percentages. (optional)
     :param figsize:      The figure size in inches. (optional)
     :param pad:          Padding around the figure. (optional)
     :param pos:          The position in the grid of a multiplot. (optional)
@@ -319,10 +323,11 @@ def pie(data: Union[pd.DataFrame, pd.Series],
 
     if pct:
         ax.pie(x, labels=labels, colors=colors,
-               startangle=180, counterclock=False, autopct='%1.1f%%')
+               startangle=startangle, counterclock=counterclock,
+               autopct='%1.1f%%')
     else:
         ax.pie(x, labels=labels, colors=colors,
-               startangle=180, counterclock=False)
+               startangle=startangle, counterclock=counterclock)
     ax.axis('equal')
 
     _finish_figure(
@@ -332,6 +337,7 @@ def pie(data: Union[pd.DataFrame, pd.Series],
 
 def pie_groups(data: Union[pd.DataFrame, pd.Series],
                column=None, sort_by=None,
+               startangle=180, counterclock=False,
                title=None, pct=True, color=None,
                figsize=(4, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1,
                file_name=None, file_dpi=300):
@@ -342,6 +348,8 @@ def pie_groups(data: Union[pd.DataFrame, pd.Series],
     :param data:      A Pandas DataFrame or Series.
     :param column:    The column to use for grouping.
     :param sort_by:   The sort mode `None`, `"label"`, or `"value"`
+    :param startangle:   The start angle in degrees. (optional)
+    :param counterclock: A switch to control the angular order. (optional)
     :param title:     The title of the plot.
     :param pct:       A switch to display percentages.
     :param color:     A list or dict for the colors in the pie.
@@ -364,6 +372,7 @@ def pie_groups(data: Union[pd.DataFrame, pd.Series],
         groups = data.groupby(by=data, sort=False).size()
     group_data = pd.DataFrame({'value': groups}, index=groups.index)
     pie(group_data, 'value', sort_by=sort_by,
+        startangle=startangle, counterclock=counterclock,
         title=title, pct=pct, color=color,
         figsize=figsize, pad=pad, pos=pos, rowspan=rowspan, colspan=colspan,
         file_name=file_name, file_dpi=file_dpi)
