@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>File Storage &mdash; mastersign-datascience 0.2.1 documentation</title>
+  <title>File Storage &mdash; mastersign-datascience 0.2.2 documentation</title>
   
 
   
@@ -162,56 +162,48 @@
 from and to files.</p>
 <dl class="function">
 <dt id="mastersign.datascience.files.read_parquet">
-<code class="descclassname">mastersign.datascience.files.</code><code class="descname">read_parquet</code><span class="sig-paren">(</span><em>filename</em>, <em>columns=None</em>, <em>index=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/files.html#read_parquet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.files.read_parquet" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">mastersign.datascience.files.</code><code class="sig-name descname">read_parquet</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">columns=None</em>, <em class="sig-param">index=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/files.html#read_parquet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.files.read_parquet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read the content of a Parquet file into a Pandas DataFrame.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>filename</strong> – A path to a Parquet file.</li>
-<li><strong>columns</strong> – A list of column names to load. (optional)
-If <cite>None</cite> is given, all columns from the file are read.</li>
-<li><strong>index</strong> – A column name or a list of column names,
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – A path to a Parquet file.</p></li>
+<li><p><strong>columns</strong> – A list of column names to load. (optional)
+If <cite>None</cite> is given, all columns from the file are read.</p></li>
+<li><p><strong>index</strong> – A column name or a list of column names,
 which should be used as the index for resulting
 DataFrame. (optional)
 By default, the index columns marked in the metadata
 of the file are used as index for the DataFrame.
 If no colums are marked as index, a simple incremental
-integer index is created.</li>
+integer index is created.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A Pandas DataFrame.</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Pandas DataFrame.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="mastersign.datascience.files.write_parquet">
-<code class="descclassname">mastersign.datascience.files.</code><code class="descname">write_parquet</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>filename</em>, <em>compress=False</em>, <em>append=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/files.html#write_parquet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.files.write_parquet" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">mastersign.datascience.files.</code><code class="sig-name descname">write_parquet</code><span class="sig-paren">(</span><em class="sig-param">data: pandas.core.frame.DataFrame</em>, <em class="sig-param">filename</em>, <em class="sig-param">compress=False</em>, <em class="sig-param">append=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/files.html#write_parquet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.files.write_parquet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write a Pandas DataFrame into a Parquet file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>data</strong> – A Pandas DataFrame.</li>
-<li><strong>filename</strong> – A path to the target Parquet file.
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – A Pandas DataFrame.</p></li>
+<li><p><strong>filename</strong> – A path to the target Parquet file.
 If the file already exists and <cite>append</cite> is <cite>False</cite>,
-it is overwritten.</li>
-<li><strong>compress</strong> – A switch to activate GZIP compression. (optional)</li>
-<li><strong>append</strong> – A switch to append the DataFrame to the file,
+it is overwritten.</p></li>
+<li><p><strong>compress</strong> – A switch to activate GZIP compression. (optional)</p></li>
+<li><p><strong>append</strong> – A switch to append the DataFrame to the file,
 incase it already exists. (optional)
 The schema of the DataFrame must match the existing data
-in the file.</li>
+in the file.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
