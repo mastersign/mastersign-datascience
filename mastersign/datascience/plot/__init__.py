@@ -457,7 +457,7 @@ def bar_groups(data: pd.DataFrame,
         value_column, key_column, keys=None, label_column=None,
         color_column=None, cmap=None, color=None,
         stack=False,
-        xlabel=None, ylabel=None, title=None,
+        xlabel=None, ylabel=None, title=None, legend=True,
         figsize=(10, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1,
         file_name=None, file_dpi=300):
     """
@@ -478,6 +478,8 @@ def bar_groups(data: pd.DataFrame,
     :param color:        A list or dict with colors for the groups. (optional)
                          `color_column` superseeds `color`.
     :param stack:        A switch to stack the bars. (optional)
+    :param legend:       A switch to control the visibility of the legend.
+                         (optional)
     :param xlabel:       The label for the X axis. (optional)
     :param ylabel:       The label for the Y axis. (optional)
     :param title:        The title of the plot. (optional)
@@ -572,7 +574,7 @@ def bar_groups(data: pd.DataFrame,
 
     ax.set_xlabel(_col_label(xlabel, label_column))
     ax.set_ylabel(_col_label(ylabel, value_column))
-    if legend_handles:
+    if legend and legend_handles:
         ax.legend(handles=legend_handles)
 
     _finish_figure(
