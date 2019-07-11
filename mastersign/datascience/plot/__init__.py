@@ -595,7 +595,7 @@ def hist(data: Union[pd.DataFrame, pd.Series],
          column=None, key_column=None,
          bins=35, ticks=None, xmin=None, xmax=None, ylog=False,
          color=None,
-         xlabel=None, ylabel=None, title=None,
+         xlabel=None, ylabel=None, title=None, legend=True,
          figsize=(10, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1,
          file_name=None, file_dpi=300):
     """
@@ -622,6 +622,8 @@ def hist(data: Union[pd.DataFrame, pd.Series],
     :param xlabel:     The label for the X axis. (optional)
     :param ylabel:     The label for the Y axis. (optional)
     :param title:      The title of the plot. (optional)
+    :param legend:     A switch to control the visibility of the legend.
+                       (optional)
     :param figsize:    The figure size in inches. (optional)
     :param pad:        Padding around the figure. (optional)
     :param pos:        The position in the grid of a multiplot. (optional)
@@ -675,7 +677,7 @@ def hist(data: Union[pd.DataFrame, pd.Series],
         ax.set_yscale('log', nonposy='clip')
     ax.set_xlabel(_col_label(xlabel, column))
     ax.set_ylabel(_col_label(ylabel, 'count'))
-    if key_column:
+    if legend and key_column:
         ax.legend()
 
     _finish_figure(
