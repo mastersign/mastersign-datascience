@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Plotting &mdash; mastersign-datascience 0.2.3 documentation</title>
+  <title>Plotting &mdash; mastersign-datascience 0.2.4 documentation</title>
   
 
   
@@ -673,7 +673,7 @@ of a multiplot. (optional)</p></li>
 
 <dl class="function">
 <dt id="mastersign.datascience.plot.scatter_matrix">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">scatter_matrix</code><span class="sig-paren">(</span><em class="sig-param">data: pandas.core.frame.DataFrame</em>, <em class="sig-param">columns=None</em>, <em class="sig-param">mins=None</em>, <em class="sig-param">maxs=None</em>, <em class="sig-param">ticks=None</em>, <em class="sig-param">key_column=None</em>, <em class="sig-param">color=None</em>, <em class="sig-param">subplot_size=2</em>, <em class="sig-param">pad=1</em>, <em class="sig-param">w_pad=1.0</em>, <em class="sig-param">h_pad=1.75</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">scatter_matrix</code><span class="sig-paren">(</span><em class="sig-param">data: pandas.core.frame.DataFrame</em>, <em class="sig-param">columns=None</em>, <em class="sig-param">mins=None</em>, <em class="sig-param">maxs=None</em>, <em class="sig-param">bins=None</em>, <em class="sig-param">ticks=None</em>, <em class="sig-param">sample=None</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">key_column=None</em>, <em class="sig-param">color=None</em>, <em class="sig-param">subplot_size=2</em>, <em class="sig-param">pad=1</em>, <em class="sig-param">w_pad=1.0</em>, <em class="sig-param">h_pad=1.75</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a matrix of scatter plots and histograms for a number of columns
 from a Pandas DataFrame.</p>
 <p>Warning: This function cannot be used between <cite>begin()</cite> and <cite>end()</cite> as part
@@ -689,6 +689,11 @@ of another multiplot.</p>
 (optional)</p></li>
 <li><p><strong>maxs</strong> – A dict, mapping column names to maximal values.
 (optional)</p></li>
+<li><p><strong>sample</strong> – A ratio between 0 and 1 to show a random subset
+in the scatter plots. (optional)</p></li>
+<li><p><strong>random_state</strong> – The initial random state for selecting a subset.
+(optional)</p></li>
+<li><p><strong>bins</strong> – A dict, mapping column names to bins. (optional)</p></li>
 <li><p><strong>ticks</strong> – A dict, mapping column names to ticks. (optional)</p></li>
 <li><p><strong>subplot_size</strong> – The edge length for the subplots. (optional)</p></li>
 <li><p><strong>pad</strong> – Padding around the figure. (optional)</p></li>
