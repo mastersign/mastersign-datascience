@@ -1209,6 +1209,7 @@ def lines(data: pd.DataFrame, column, xcolumn=None,
 
 def scatter_matrix(data: pd.DataFrame, columns=None,
                    mins=None, maxs=None, bins=None, ticks=None,
+                   sample=None, random_state=None,
                    key_column=None, color=None,
                    subplot_size=2, pad=1, w_pad=1.0, h_pad=1.75,
                    file_name=None, file_dpi=300):
@@ -1226,6 +1227,10 @@ def scatter_matrix(data: pd.DataFrame, columns=None,
     :param mins:         A dict, mapping column names to minimal values.
                          (optional)
     :param maxs:         A dict, mapping column names to maximal values.
+                         (optional)
+    :param sample:       A ratio between 0 and 1 to show a random subset
+                         in the scatter plots. (optional)
+    :param random_state: The initial random state for selecting a subset.
                          (optional)
     :param bins:         A dict, mapping column names to bins. (optional)
     :param ticks:        A dict, mapping column names to ticks. (optional)
@@ -1261,6 +1266,11 @@ def scatter_matrix(data: pd.DataFrame, columns=None,
     else:
         label_colors = color
 
+    if sample is not None and sample != 1.0:
+        subset = data.sample(frac=min(1.0, max(0.0, sample)), random_state=random_state)
+    else:
+        subset = data
+
     begin(grid=(cn, cn), figsize=(cn * subplot_size, cn * subplot_size))
     try:
         for iy, cy in enumerate(columns):
@@ -1275,7 +1285,7 @@ def scatter_matrix(data: pd.DataFrame, columns=None,
                 ylabel = cy if ix == 0 else ""
                 xlabel = cx if iy == cn - 1 else ""
                 if cy != cx:
-                    scatter(data, xcolumn=cx, ycolumn=cy,
+                    scatter(subset, xcolumn=cx, ycolumn=cy,
                             color_column=('scatter_matrix_color' if key_column else None),
                             color=(None if key_column else color),
                             xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax,
