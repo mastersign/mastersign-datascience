@@ -456,7 +456,7 @@ def bar(data: Union[pd.DataFrame, pd.Series],
 def bar_groups(data: pd.DataFrame,
         value_column, key_column, keys=None, label_column=None,
         color_column=None, cmap=None, color=None,
-        stack=False, relative=False,
+        stacked=False, relative=False,
         xlabel=None, ylabel=None, title=None, legend=True,
         figsize=(10, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1,
         file_name=None, file_dpi=300):
@@ -477,7 +477,7 @@ def bar_groups(data: pd.DataFrame,
                          (optional)
     :param color:        A list or dict with colors for the groups. (optional)
                          `color_column` superseeds `color`.
-    :param stack:        A switch to stack the bars. (optional)
+    :param stacked:      A switch to stack the bars. (optional)
     :param relative:     A switch to show relative portions with stacked bars.
                          (optional)
     :param legend:       A switch to control the visibility of the legend.
@@ -506,7 +506,7 @@ def bar_groups(data: pd.DataFrame,
     first_labels = first_group[label_column] if label_column else first_group.index
     gs = len(keys)
     gd = gs + 0.5
-    if stack:
+    if stacked:
         pos = list(np.arange(0, len(first_group)))
         if relative:
             label_scale = 100.0 / sum(g[value_column].values for g in groups.values())
@@ -531,7 +531,7 @@ def bar_groups(data: pd.DataFrame,
     for k, c in zip(keys, _build_key_colors(keys, color)):
         g = groups[k]
 
-        if stack:
+        if stacked:
             p = pos
             if last_key:
                 bars = ax.bar(p, g[value_column].values * label_scale, color=c,
@@ -561,7 +561,7 @@ def bar_groups(data: pd.DataFrame,
                 return False
         return True
 
-    if stack:
+    if stacked:
         ax.set_xticks(pos)
         ax.set_xticklabels(first_labels)
     else:
@@ -579,7 +579,7 @@ def bar_groups(data: pd.DataFrame,
             ax.set_xticklabels(list(chain(*(groups[k].index for k in keys))))
 
     ax.set_xlabel(_col_label(xlabel, label_column))
-    if stack and relative:
+    if stacked and relative:
         ax.set_ylabel(_col_label(ylabel, value_column) + ' (%)')
     else:
         ax.set_ylabel(_col_label(ylabel, value_column))
