@@ -195,7 +195,7 @@ of a multiplot. (optional)</p></li>
 
 <dl class="function">
 <dt id="mastersign.datascience.plot.bar_groups">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">bar_groups</code><span class="sig-paren">(</span><em class="sig-param">data: pandas.core.frame.DataFrame</em>, <em class="sig-param">value_column</em>, <em class="sig-param">key_column</em>, <em class="sig-param">keys=None</em>, <em class="sig-param">label_column=None</em>, <em class="sig-param">color_column=None</em>, <em class="sig-param">cmap=None</em>, <em class="sig-param">color=None</em>, <em class="sig-param">stack=False</em>, <em class="sig-param">xlabel=None</em>, <em class="sig-param">ylabel=None</em>, <em class="sig-param">title=None</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">4)</em>, <em class="sig-param">pad=1</em>, <em class="sig-param">pos=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">rowspan=1</em>, <em class="sig-param">colspan=1</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#bar_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.bar_groups" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">bar_groups</code><span class="sig-paren">(</span><em class="sig-param">data: pandas.core.frame.DataFrame</em>, <em class="sig-param">value_column</em>, <em class="sig-param">key_column</em>, <em class="sig-param">keys=None</em>, <em class="sig-param">label_column=None</em>, <em class="sig-param">color_column=None</em>, <em class="sig-param">cmap=None</em>, <em class="sig-param">color=None</em>, <em class="sig-param">stacked=False</em>, <em class="sig-param">relative=False</em>, <em class="sig-param">xlabel=None</em>, <em class="sig-param">ylabel=None</em>, <em class="sig-param">title=None</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">4)</em>, <em class="sig-param">pad=1</em>, <em class="sig-param">pos=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">rowspan=1</em>, <em class="sig-param">colspan=1</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#bar_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.bar_groups" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a bar chart with grouped bars from columns in a DataFrame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -214,7 +214,11 @@ for explicit colors. (optional)</p></li>
 (optional)</p></li>
 <li><p><strong>color</strong> – A list or dict with colors for the groups. (optional)
 <cite>color_column</cite> superseeds <cite>color</cite>.</p></li>
-<li><p><strong>stack</strong> – A switch to stack the bars. (optional)</p></li>
+<li><p><strong>stacked</strong> – A switch to stack the bars. (optional)</p></li>
+<li><p><strong>relative</strong> – A switch to show relative portions with stacked bars.
+(optional)</p></li>
+<li><p><strong>legend</strong> – A switch to control the visibility of the legend.
+(optional)</p></li>
 <li><p><strong>xlabel</strong> – The label for the X axis. (optional)</p></li>
 <li><p><strong>ylabel</strong> – The label for the Y axis. (optional)</p></li>
 <li><p><strong>title</strong> – The title of the plot. (optional)</p></li>
@@ -269,7 +273,7 @@ See <cite>matplotlib.pyplot.tight_layout()</cite>.</p></li>
 
 <dl class="function">
 <dt id="mastersign.datascience.plot.hist">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">hist</code><span class="sig-paren">(</span><em class="sig-param">data: Union[pandas.core.frame.DataFrame, pandas.core.series.Series], column=None, key_column=None, bins=35, ticks=None, xmin=None, xmax=None, ylog=False, color=None, xlabel=None, ylabel=None, title=None, figsize=(10, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1, file_name=None, file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#hist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.hist" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">hist</code><span class="sig-paren">(</span><em class="sig-param">data: Union[pandas.core.frame.DataFrame, pandas.core.series.Series], column=None, key_column=None, bins=35, ticks=None, xmin=None, xmax=None, ylog=False, color=None, cumulative=False, stacked=False, xlabel=None, ylabel=None, title=None, legend=True, figsize=(10, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1, file_name=None, file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#hist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.hist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a histogram for the values of one column in a DataFrame
 or a Series.
 If using a DataFrame, optionally group the values by another key column.</p>
@@ -292,9 +296,14 @@ for more details.</p></li>
 (optional)</p></li>
 <li><p><strong>color</strong> – A color for all bars or a list with one color
 per key if <cite>key_column</cite> is used. (optional)</p></li>
+<li><p><strong>cumulative</strong> – A switch to activate cumulative summing. (optional)</p></li>
+<li><p><strong>stacked</strong> – A switch to stack bars if <cite>key_column</cite> is used.
+(optional)</p></li>
 <li><p><strong>xlabel</strong> – The label for the X axis. (optional)</p></li>
 <li><p><strong>ylabel</strong> – The label for the Y axis. (optional)</p></li>
 <li><p><strong>title</strong> – The title of the plot. (optional)</p></li>
+<li><p><strong>legend</strong> – A switch to control the visibility of the legend.
+(optional)</p></li>
 <li><p><strong>figsize</strong> – The figure size in inches. (optional)</p></li>
 <li><p><strong>pad</strong> – Padding around the figure. (optional)</p></li>
 <li><p><strong>pos</strong> – The position in the grid of a multiplot. (optional)</p></li>
@@ -385,7 +394,7 @@ of another multiplot.</p>
 
 <dl class="function">
 <dt id="mastersign.datascience.plot.line">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">line</code><span class="sig-paren">(</span><em class="sig-param">data: Union[pandas.core.frame.DataFrame, pandas.core.series.Series], column=None, xcolumn=None, color=None, linewidth=2, avg_window=None, interpolation_step=None, interpolation_kind='quadratic', xmin=None, xmax=None, ymin=None, ymax=None, xlabel=None, ylabel=None, title=None, figsize=(10, 5), pad=1, pos=(0, 0), rowspan=1, colspan=1, file_name=None, file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.line" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">line</code><span class="sig-paren">(</span><em class="sig-param">data: Union[pandas.core.frame.DataFrame, pandas.core.series.Series], column=None, xcolumn=None, color=None, linewidth=2, avg_window=None, interpolation_step=None, interpolation_kind='quadratic', xmin=None, xmax=None, ymin=None, ymax=None, xticks=None, yticks=None, xlabel=None, ylabel=None, title=None, figsize=(10, 5), pad=1, pos=(0, 0), rowspan=1, colspan=1, file_name=None, file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.line" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a line from values in one column of a DataFrame or a Series.</p>
 <p>If <cite>data</cite> is a Series, the index will be used for the horizontal dimension.</p>
 <dl class="field-list simple">
@@ -413,6 +422,8 @@ in the horizontal dimension. (optional)</p></li>
 in the vertical dimension. (optional)</p></li>
 <li><p><strong>ymax</strong> – The upper limit for displayed values
 in the vertical dimension. (optional)</p></li>
+<li><p><strong>xticks</strong> – A sequence of tick positions on the X axis. (optional)</p></li>
+<li><p><strong>yticks</strong> – A sequence of tick positions on the Y axis. (optional)</p></li>
 <li><p><strong>xlabel</strong> – A label for the X axis. (optional)</p></li>
 <li><p><strong>ylabel</strong> – A label for Y axis. (optional)</p></li>
 <li><p><strong>title</strong> – A title for the plot. (optional)</p></li>
@@ -432,7 +443,7 @@ of a multiplot. (optional)</p></li>
 
 <dl class="function">
 <dt id="mastersign.datascience.plot.lines">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">lines</code><span class="sig-paren">(</span><em class="sig-param">data: pandas.core.frame.DataFrame</em>, <em class="sig-param">column</em>, <em class="sig-param">xcolumn=None</em>, <em class="sig-param">key_column=None</em>, <em class="sig-param">min_n=None</em>, <em class="sig-param">label_column=None</em>, <em class="sig-param">color=None</em>, <em class="sig-param">linewidth=2</em>, <em class="sig-param">avg_window=None</em>, <em class="sig-param">interpolation_step=None</em>, <em class="sig-param">interpolation_kind='quadratic'</em>, <em class="sig-param">xmin=None</em>, <em class="sig-param">xmax=None</em>, <em class="sig-param">ymin=None</em>, <em class="sig-param">ymax=None</em>, <em class="sig-param">xlabel=None</em>, <em class="sig-param">ylabel=None</em>, <em class="sig-param">title=None</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">5)</em>, <em class="sig-param">pad=1</em>, <em class="sig-param">pos=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">rowspan=1</em>, <em class="sig-param">colspan=1</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.lines" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">lines</code><span class="sig-paren">(</span><em class="sig-param">data: pandas.core.frame.DataFrame</em>, <em class="sig-param">column</em>, <em class="sig-param">xcolumn=None</em>, <em class="sig-param">key_column=None</em>, <em class="sig-param">min_n=None</em>, <em class="sig-param">label_column=None</em>, <em class="sig-param">color=None</em>, <em class="sig-param">linewidth=2</em>, <em class="sig-param">avg_window=None</em>, <em class="sig-param">interpolation_step=None</em>, <em class="sig-param">interpolation_kind='quadratic'</em>, <em class="sig-param">xmin=None</em>, <em class="sig-param">xmax=None</em>, <em class="sig-param">ymin=None</em>, <em class="sig-param">ymax=None</em>, <em class="sig-param">xticks=None</em>, <em class="sig-param">yticks=None</em>, <em class="sig-param">xlabel=None</em>, <em class="sig-param">ylabel=None</em>, <em class="sig-param">title=None</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">5)</em>, <em class="sig-param">pad=1</em>, <em class="sig-param">pos=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">rowspan=1</em>, <em class="sig-param">colspan=1</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.lines" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display line(s) from values in one column of a DataFrame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -463,6 +474,8 @@ in the horizontal dimension. (optional)</p></li>
 in the vertical dimension. (optional)</p></li>
 <li><p><strong>ymax</strong> – The upper limit for displayed values
 in the vertical dimension. (optional)</p></li>
+<li><p><strong>xticks</strong> – A sequence of tick positions on the X axis. (optional)</p></li>
+<li><p><strong>yticks</strong> – A sequence of tick positions on the Y axis. (optional)</p></li>
 <li><p><strong>xlabel</strong> – A label for the X axis. (optional)</p></li>
 <li><p><strong>ylabel</strong> – A label for Y axis. (optional)</p></li>
 <li><p><strong>title</strong> – A title for the plot. (optional)</p></li>
@@ -660,7 +673,7 @@ of a multiplot. (optional)</p></li>
 
 <dl class="function">
 <dt id="mastersign.datascience.plot.scatter_matrix">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">scatter_matrix</code><span class="sig-paren">(</span><em class="sig-param">data: pandas.core.frame.DataFrame</em>, <em class="sig-param">columns=None</em>, <em class="sig-param">mins=None</em>, <em class="sig-param">maxs=None</em>, <em class="sig-param">ticks=None</em>, <em class="sig-param">subplot_size=2</em>, <em class="sig-param">pad=1</em>, <em class="sig-param">w_pad=1.0</em>, <em class="sig-param">h_pad=1.75</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">scatter_matrix</code><span class="sig-paren">(</span><em class="sig-param">data: pandas.core.frame.DataFrame</em>, <em class="sig-param">columns=None</em>, <em class="sig-param">mins=None</em>, <em class="sig-param">maxs=None</em>, <em class="sig-param">ticks=None</em>, <em class="sig-param">key_column=None</em>, <em class="sig-param">color=None</em>, <em class="sig-param">subplot_size=2</em>, <em class="sig-param">pad=1</em>, <em class="sig-param">w_pad=1.0</em>, <em class="sig-param">h_pad=1.75</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a matrix of scatter plots and histograms for a number of columns
 from a Pandas DataFrame.</p>
 <p>Warning: This function cannot be used between <cite>begin()</cite> and <cite>end()</cite> as part
@@ -670,6 +683,8 @@ of another multiplot.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> – A Pandas DataFrame.</p></li>
 <li><p><strong>columns</strong> – The columns to include into the matrix. (optional)</p></li>
+<li><p><strong>key_column</strong> – A column used to build groups. (optional)</p></li>
+<li><p><strong>color</strong> – A list or dict with colors for the groups. (optional)</p></li>
 <li><p><strong>mins</strong> – A dict, mapping column names to minimal values.
 (optional)</p></li>
 <li><p><strong>maxs</strong> – A dict, mapping column names to maximal values.
