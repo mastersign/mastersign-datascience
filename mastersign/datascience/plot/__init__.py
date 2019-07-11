@@ -996,6 +996,7 @@ def line(data: Union[pd.DataFrame, pd.Series],
          color=None, linewidth=2,
          avg_window=None, interpolation_step=None, interpolation_kind='quadratic',
          xmin=None, xmax=None, ymin=None, ymax=None,
+         xticks=None, yticks=None,
          xlabel=None, ylabel=None, title=None,
          figsize=(10, 5), pad=1, pos=(0, 0), rowspan=1, colspan=1,
          file_name=None, file_dpi=300):
@@ -1028,6 +1029,8 @@ def line(data: Union[pd.DataFrame, pd.Series],
                          in the vertical dimension. (optional)
     :param ymax:         The upper limit for displayed values
                          in the vertical dimension. (optional)
+    :param xticks:       A sequence of tick positions on the X axis. (optional)
+    :param yticks:       A sequence of tick positions on the Y axis. (optional)
     :param xlabel:       A label for the X axis. (optional)
     :param ylabel:       A label for Y axis. (optional)
     :param title:        A title for the plot. (optional)
@@ -1072,6 +1075,10 @@ def line(data: Union[pd.DataFrame, pd.Series],
 
     ax.set_xlim(left=xmin, right=xmax)
     ax.set_ylim(bottom=ymin, top=ymax)
+    if xticks is not None:
+        ax.set_xticks(xticks)
+    if xticks is not None:
+        ax.set_yticks(yticks)
     ax.set_xlabel(_col_label(xlabel, xcolumn))
     ax.set_ylabel(_col_label(ylabel, column))
 
@@ -1085,6 +1092,7 @@ def lines(data: pd.DataFrame, column, xcolumn=None,
           color=None, linewidth=2,
           avg_window=None, interpolation_step=None, interpolation_kind='quadratic',
           xmin=None, xmax=None, ymin=None, ymax=None,
+          xticks=None, yticks=None,
           xlabel=None, ylabel=None, title=None,
           figsize=(10, 5), pad=1, pos=(0, 0), rowspan=1, colspan=1,
           file_name=None, file_dpi=300):
@@ -1119,6 +1127,8 @@ def lines(data: pd.DataFrame, column, xcolumn=None,
                          in the vertical dimension. (optional)
     :param ymax:         The upper limit for displayed values
                          in the vertical dimension. (optional)
+    :param xticks:       A sequence of tick positions on the X axis. (optional)
+    :param yticks:       A sequence of tick positions on the Y axis. (optional)
     :param xlabel:       A label for the X axis. (optional)
     :param ylabel:       A label for Y axis. (optional)
     :param title:        A title for the plot. (optional)
@@ -1183,6 +1193,10 @@ def lines(data: pd.DataFrame, column, xcolumn=None,
 
     ax.set_xlim(left=xmin, right=xmax)
     ax.set_ylim(bottom=ymin, top=ymax)
+    if xticks is not None:
+        ax.set_xticks(xticks)
+    if xticks is not None:
+        ax.set_yticks(yticks)
     ax.set_xlabel(_col_label(xlabel, xcolumn))
     ax.set_ylabel(_col_label(ylabel, column))
     if legend_handles:
