@@ -456,7 +456,7 @@ def bar(data: Union[pd.DataFrame, pd.Series],
 def bar_groups(data: pd.DataFrame,
         value_column, key_column, keys=None, label_column=None,
         color_column=None, cmap=None, color=None,
-        stack=False,
+        stack=False, relative=False,
         xlabel=None, ylabel=None, title=None, legend=True,
         figsize=(10, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1,
         file_name=None, file_dpi=300):
@@ -478,6 +478,8 @@ def bar_groups(data: pd.DataFrame,
     :param color:        A list or dict with colors for the groups. (optional)
                          `color_column` superseeds `color`.
     :param stack:        A switch to stack the bars. (optional)
+    :param relative:     A switch to show relative portions with stacked bars.
+                         (optional)
     :param legend:       A switch to control the visibility of the legend.
                          (optional)
     :param xlabel:       The label for the X axis. (optional)
@@ -506,6 +508,10 @@ def bar_groups(data: pd.DataFrame,
     gd = gs + 0.5
     if stack:
         pos = list(np.arange(0, len(first_group)))
+        if relative:
+            label_scale = 100.0 / sum(g[value_column].values for g in groups.values())
+        else:
+            label_scale = [1.0] * len(first_labels)
     else:
         pos = {k: list(np.arange(i, i + len(first_group) * gd, gd))
                for i, k in enumerate(keys)}
@@ -528,10 +534,10 @@ def bar_groups(data: pd.DataFrame,
         if stack:
             p = pos
             if last_key:
-                bars = ax.bar(p, g[value_column].values, color=c,
-                              bottom=groups[last_key][value_column].values)
+                bars = ax.bar(p, g[value_column].values * label_scale, color=c,
+                              bottom=groups[last_key][value_column].values * label_scale)
             else:
-                bars = ax.bar(p, g[value_column].values, color=c)
+                bars = ax.bar(p, g[value_column].values * label_scale, color=c)
             last_key = k
         else:
             bars = ax.bar(pos[k], g[value_column].values, color=c, width=1)
@@ -573,7 +579,10 @@ def bar_groups(data: pd.DataFrame,
             ax.set_xticklabels(list(chain(*(groups[k].index for k in keys))))
 
     ax.set_xlabel(_col_label(xlabel, label_column))
-    ax.set_ylabel(_col_label(ylabel, value_column))
+    if stack and relative:
+        ax.set_ylabel(_col_label(ylabel, value_column) + ' (%)')
+    else:
+        ax.set_ylabel(_col_label(ylabel, value_column))
     if legend and legend_handles:
         ax.legend(handles=legend_handles)
 
