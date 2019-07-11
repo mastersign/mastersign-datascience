@@ -594,7 +594,7 @@ def bar_groups(data: pd.DataFrame,
 def hist(data: Union[pd.DataFrame, pd.Series],
          column=None, key_column=None,
          bins=35, ticks=None, xmin=None, xmax=None, ylog=False,
-         color=None, stacked=False,
+         color=None, cumulative=False, stacked=False,
          xlabel=None, ylabel=None, title=None, legend=True,
          figsize=(10, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1,
          file_name=None, file_dpi=300):
@@ -619,6 +619,7 @@ def hist(data: Union[pd.DataFrame, pd.Series],
                        (optional)
     :param color:      A color for all bars or a list with one color
                        per key if `key_column` is used. (optional)
+    :param cumulative: A switch to activate cumulative summing. (optional)
     :param stacked:    A switch to stack bars if `key_column` is used.
                        (optional)
     :param xlabel:     The label for the X axis. (optional)
@@ -671,7 +672,8 @@ def hist(data: Union[pd.DataFrame, pd.Series],
         elif isinstance(color, Iterable):
             color = list(islice(cycle(color), len(labels)))
 
-    ax.hist(x, label=labels, bins=bins, color=color, stacked=stacked)
+    ax.hist(x, label=labels, bins=bins, cumulative=cumulative,
+            stacked=stacked, color=color)
     ax.set_xlim(left=xmin, right=xmax)
     if ticks is not None:
         ax.set_xticks(ticks)
