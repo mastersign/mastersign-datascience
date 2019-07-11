@@ -1209,6 +1209,7 @@ def lines(data: pd.DataFrame, column, xcolumn=None,
 
 def scatter_matrix(data: pd.DataFrame, columns=None,
                    mins=None, maxs=None, ticks=None,
+                   key_column=None, color=None,
                    subplot_size=2, pad=1, w_pad=1.0, h_pad=1.75,
                    file_name=None, file_dpi=300):
     """
@@ -1220,6 +1221,8 @@ def scatter_matrix(data: pd.DataFrame, columns=None,
 
     :param data:         A Pandas DataFrame.
     :param columns:      The columns to include into the matrix. (optional)
+    :param key_column:   A column used to build groups. (optional)
+    :param color:        A list or dict with colors for the groups. (optional)
     :param mins:         A dict, mapping column names to minimal values.
                          (optional)
     :param maxs:         A dict, mapping column names to maximal values.
@@ -1239,6 +1242,24 @@ def scatter_matrix(data: pd.DataFrame, columns=None,
         columns = data.columns.values
     cn = len(columns)
 
+    if key_column:
+        grouped = data.groupby(key_column)
+        labels = grouped.groups.keys()
+        if isinstance(color, Mapping):
+            color = [color.get(l) or next(plt.gca()._get_lines.prop_cycler)['color']
+                     for l in labels]
+        elif isinstance(color, Iterable):
+            color = list(islice(cycle(color), len(labels)))
+        else:
+            color = [next(plt.gca()._get_lines.prop_cycler)['color']
+                     for l in labels]
+        _ = plt.close()
+        label_colors = dict(zip(labels, color))
+        data_color = data[key_column].map(label_colors)
+        data = data.assign(scatter_matrix_color=data_color)
+    else:
+        label_colors = color
+
     begin(grid=(cn, cn), figsize=(cn * subplot_size, cn * subplot_size))
     try:
         for iy, cy in enumerate(columns):
@@ -1253,12 +1274,15 @@ def scatter_matrix(data: pd.DataFrame, columns=None,
                 xlabel = cx if iy == cn - 1 else ""
                 if cy != cx:
                     scatter(data, xcolumn=cx, ycolumn=cy,
+                            color_column=('scatter_matrix_color' if key_column else None),
+                            color=(None if key_column else color),
                             xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax,
                             xticks=xticks, yticks=yticks,
                             xlabel=xlabel, ylabel=ylabel,
                             pos=(iy, ix))
                 else:
-                    hist(data, cx,
+                    hist(data, cx, key_column=key_column, color=label_colors,
+                         stacked=True, legend=False,
                          xmin=xmin, xmax=xmax, ticks=xticks,
                          xlabel=xlabel, ylabel=ylabel,
                          pos=(iy, ix))
