@@ -1208,7 +1208,7 @@ def lines(data: pd.DataFrame, column, xcolumn=None,
 
 
 def scatter_matrix(data: pd.DataFrame, columns=None,
-                   mins=None, maxs=None, ticks=None,
+                   mins=None, maxs=None, bins=None, ticks=None,
                    key_column=None, color=None,
                    subplot_size=2, pad=1, w_pad=1.0, h_pad=1.75,
                    file_name=None, file_dpi=300):
@@ -1227,6 +1227,7 @@ def scatter_matrix(data: pd.DataFrame, columns=None,
                          (optional)
     :param maxs:         A dict, mapping column names to maximal values.
                          (optional)
+    :param bins:         A dict, mapping column names to bins. (optional)
     :param ticks:        A dict, mapping column names to ticks. (optional)
     :param subplot_size: The edge length for the subplots. (optional)
     :param pad:          Padding around the figure. (optional)
@@ -1265,6 +1266,7 @@ def scatter_matrix(data: pd.DataFrame, columns=None,
         for iy, cy in enumerate(columns):
             ymin = mins.get(cy) if mins is not None else None
             ymax = maxs.get(cy) if maxs is not None else None
+            ybins = bins.get(cy) if bins is not None else None
             yticks = ticks.get(cy) if ticks is not None else None
             for ix, cx in enumerate(columns):
                 xmin = mins.get(cx) if mins is not None else None
@@ -1283,7 +1285,7 @@ def scatter_matrix(data: pd.DataFrame, columns=None,
                 else:
                     hist(data, cx, key_column=key_column, color=label_colors,
                          stacked=True, legend=False,
-                         xmin=xmin, xmax=xmax, ticks=xticks,
+                         xmin=xmin, xmax=xmax, bins=(ybins or 35), ticks=xticks,
                          xlabel=xlabel, ylabel=ylabel,
                          pos=(iy, ix))
     finally:
