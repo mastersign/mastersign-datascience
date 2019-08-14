@@ -1093,7 +1093,7 @@ def lines(data: pd.DataFrame, column, xcolumn=None,
           avg_window=None, interpolation_step=None, interpolation_kind='quadratic',
           xmin=None, xmax=None, ymin=None, ymax=None,
           xticks=None, yticks=None,
-          xlabel=None, ylabel=None, title=None,
+          xlabel=None, ylabel=None, title=None, legend=True,
           figsize=(10, 5), pad=1, pos=(0, 0), rowspan=1, colspan=1,
           file_name=None, file_dpi=300):
     """
@@ -1132,6 +1132,8 @@ def lines(data: pd.DataFrame, column, xcolumn=None,
     :param xlabel:       A label for the X axis. (optional)
     :param ylabel:       A label for Y axis. (optional)
     :param title:        A title for the plot. (optional)
+    :param legend:       A switch to control the appearance of a legend.
+                         (optional)
     :param figsize:      The figure size in inches. (optional)
     :param pad:          Padding around the figure. (optional)
     :param pos:          The position in the grid of a multiplot. (optional)
@@ -1199,7 +1201,7 @@ def lines(data: pd.DataFrame, column, xcolumn=None,
         ax.set_yticks(yticks)
     ax.set_xlabel(_col_label(xlabel, xcolumn))
     ax.set_ylabel(_col_label(ylabel, column))
-    if legend_handles:
+    if legend and legend_handles:
         ax.legend(handles=legend_handles)
 
     _finish_figure(
