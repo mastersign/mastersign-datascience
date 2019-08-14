@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Plotting &mdash; mastersign-datascience 0.2.4 documentation</title>
+  <title>Plotting &mdash; mastersign-datascience 0.2.5 documentation</title>
   
 
   
@@ -443,7 +443,7 @@ of a multiplot. (optional)</p></li>
 
 <dl class="function">
 <dt id="mastersign.datascience.plot.lines">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">lines</code><span class="sig-paren">(</span><em class="sig-param">data: pandas.core.frame.DataFrame</em>, <em class="sig-param">column</em>, <em class="sig-param">xcolumn=None</em>, <em class="sig-param">key_column=None</em>, <em class="sig-param">min_n=None</em>, <em class="sig-param">label_column=None</em>, <em class="sig-param">color=None</em>, <em class="sig-param">linewidth=2</em>, <em class="sig-param">avg_window=None</em>, <em class="sig-param">interpolation_step=None</em>, <em class="sig-param">interpolation_kind='quadratic'</em>, <em class="sig-param">xmin=None</em>, <em class="sig-param">xmax=None</em>, <em class="sig-param">ymin=None</em>, <em class="sig-param">ymax=None</em>, <em class="sig-param">xticks=None</em>, <em class="sig-param">yticks=None</em>, <em class="sig-param">xlabel=None</em>, <em class="sig-param">ylabel=None</em>, <em class="sig-param">title=None</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">5)</em>, <em class="sig-param">pad=1</em>, <em class="sig-param">pos=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">rowspan=1</em>, <em class="sig-param">colspan=1</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.lines" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">lines</code><span class="sig-paren">(</span><em class="sig-param">data: pandas.core.frame.DataFrame</em>, <em class="sig-param">column</em>, <em class="sig-param">xcolumn=None</em>, <em class="sig-param">key_column=None</em>, <em class="sig-param">min_n=None</em>, <em class="sig-param">label_column=None</em>, <em class="sig-param">color=None</em>, <em class="sig-param">linewidth=2</em>, <em class="sig-param">avg_window=None</em>, <em class="sig-param">interpolation_step=None</em>, <em class="sig-param">interpolation_kind='quadratic'</em>, <em class="sig-param">xmin=None</em>, <em class="sig-param">xmax=None</em>, <em class="sig-param">ymin=None</em>, <em class="sig-param">ymax=None</em>, <em class="sig-param">xticks=None</em>, <em class="sig-param">yticks=None</em>, <em class="sig-param">xlabel=None</em>, <em class="sig-param">ylabel=None</em>, <em class="sig-param">title=None</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">5)</em>, <em class="sig-param">pad=1</em>, <em class="sig-param">pos=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">rowspan=1</em>, <em class="sig-param">colspan=1</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.lines" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display line(s) from values in one column of a DataFrame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -479,6 +479,8 @@ in the vertical dimension. (optional)</p></li>
 <li><p><strong>xlabel</strong> – A label for the X axis. (optional)</p></li>
 <li><p><strong>ylabel</strong> – A label for Y axis. (optional)</p></li>
 <li><p><strong>title</strong> – A title for the plot. (optional)</p></li>
+<li><p><strong>legend</strong> – A switch to control the appearance of a legend.
+(optional)</p></li>
 <li><p><strong>figsize</strong> – The figure size in inches. (optional)</p></li>
 <li><p><strong>pad</strong> – Padding around the figure. (optional)</p></li>
 <li><p><strong>pos</strong> – The position in the grid of a multiplot. (optional)</p></li>

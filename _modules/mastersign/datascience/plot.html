@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>mastersign.datascience.plot &mdash; mastersign-datascience 0.2.4 documentation</title>
+  <title>mastersign.datascience.plot &mdash; mastersign-datascience 0.2.5 documentation</title>
   
 
   
@@ -1248,7 +1248,7 @@
           <span class="n">avg_window</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interpolation_step</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interpolation_kind</span><span class="o">=</span><span class="s1">&#39;quadratic&#39;</span><span class="p">,</span>
           <span class="n">xmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
           <span class="n">xticks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">yticks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-          <span class="n">xlabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+          <span class="n">xlabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
           <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
           <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file_dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -1287,6 +1287,8 @@
 <span class="sd">    :param xlabel:       A label for the X axis. (optional)</span>
 <span class="sd">    :param ylabel:       A label for Y axis. (optional)</span>
 <span class="sd">    :param title:        A title for the plot. (optional)</span>
+<span class="sd">    :param legend:       A switch to control the appearance of a legend.</span>
+<span class="sd">                         (optional)</span>
 <span class="sd">    :param figsize:      The figure size in inches. (optional)</span>
 <span class="sd">    :param pad:          Padding around the figure. (optional)</span>
 <span class="sd">    :param pos:          The position in the grid of a multiplot. (optional)</span>
@@ -1354,7 +1356,7 @@
         <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">yticks</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">_col_label</span><span class="p">(</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">xcolumn</span><span class="p">))</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">_col_label</span><span class="p">(</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">column</span><span class="p">))</span>
-    <span class="k">if</span> <span class="n">legend_handles</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">legend</span> <span class="ow">and</span> <span class="n">legend_handles</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">legend_handles</span><span class="p">)</span>
 
     <span class="n">_finish_figure</span><span class="p">(</span>
