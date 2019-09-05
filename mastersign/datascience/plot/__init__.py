@@ -617,7 +617,8 @@ def hist(data: Union[pd.DataFrame, pd.Series],
                        (optional)
     :param ylog:       A switch to use a logarithmic scale on the Y axis
                        (optional)
-    :param color:      A color for all bars or a list with one color
+    :param color:      A color for all bars, a list with a color per bar
+                       (cycled if too short), or a list with one color
                        per key if `key_column` is used. (optional)
     :param cumulative: A switch to activate cumulative summing. (optional)
     :param stacked:    A switch to stack bars if `key_column` is used.
@@ -672,8 +673,21 @@ def hist(data: Union[pd.DataFrame, pd.Series],
         elif isinstance(color, Iterable):
             color = list(islice(cycle(color), len(labels)))
 
-    ax.hist(x, label=labels, bins=bins, cumulative=cumulative,
-            stacked=stacked, color=color)
+    if not labels and not isinstance(color, str) and isinstance(color, Iterable):
+        colors = color
+        color = colors[0]
+    else:
+        colors = None
+
+    N, bins, patches = ax.hist(
+        x, label=labels, bins=bins, cumulative=cumulative,
+        stacked=stacked, color=color)
+
+    if colors:
+        colors = list(islice(cycle(colors), len(patches)))
+        for p, c in zip(patches, colors):
+            p.set_facecolor(c)
+
     ax.set_xlim(left=xmin, right=xmax)
     if ticks is not None:
         ax.set_xticks(ticks)
