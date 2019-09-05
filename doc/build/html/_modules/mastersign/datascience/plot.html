@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>mastersign.datascience.plot &mdash; mastersign-datascience 0.2.5 documentation</title>
+  <title>mastersign.datascience.plot &mdash; mastersign-datascience 0.2.6 documentation</title>
   
 
   
@@ -772,7 +772,8 @@
 <span class="sd">                       (optional)</span>
 <span class="sd">    :param ylog:       A switch to use a logarithmic scale on the Y axis</span>
 <span class="sd">                       (optional)</span>
-<span class="sd">    :param color:      A color for all bars or a list with one color</span>
+<span class="sd">    :param color:      A color for all bars, a list with a color per bar</span>
+<span class="sd">                       (cycled if too short), or a list with one color</span>
 <span class="sd">                       per key if `key_column` is used. (optional)</span>
 <span class="sd">    :param cumulative: A switch to activate cumulative summing. (optional)</span>
 <span class="sd">    :param stacked:    A switch to stack bars if `key_column` is used.</span>
@@ -827,8 +828,21 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
             <span class="n">color</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">islice</span><span class="p">(</span><span class="n">cycle</span><span class="p">(</span><span class="n">color</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)))</span>
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">cumulative</span><span class="o">=</span><span class="n">cumulative</span><span class="p">,</span>
-            <span class="n">stacked</span><span class="o">=</span><span class="n">stacked</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">labels</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="n">color</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">N</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">patches</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">cumulative</span><span class="o">=</span><span class="n">cumulative</span><span class="p">,</span>
+        <span class="n">stacked</span><span class="o">=</span><span class="n">stacked</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">colors</span><span class="p">:</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">islice</span><span class="p">(</span><span class="n">cycle</span><span class="p">(</span><span class="n">colors</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">patches</span><span class="p">)))</span>
+        <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">patches</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="n">xmin</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">xmax</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">ticks</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">ticks</span><span class="p">)</span>
