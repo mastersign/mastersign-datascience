@@ -1091,7 +1091,7 @@ def line(data: Union[pd.DataFrame, pd.Series],
     ax.set_ylim(bottom=ymin, top=ymax)
     if xticks is not None:
         ax.set_xticks(xticks)
-    if xticks is not None:
+    if yticks is not None:
         ax.set_yticks(yticks)
     ax.set_xlabel(_col_label(xlabel, xcolumn))
     ax.set_ylabel(_col_label(ylabel, column))
@@ -1211,7 +1211,7 @@ def lines(data: pd.DataFrame, column, xcolumn=None,
     ax.set_ylim(bottom=ymin, top=ymax)
     if xticks is not None:
         ax.set_xticks(xticks)
-    if xticks is not None:
+    if yticks is not None:
         ax.set_yticks(yticks)
     ax.set_xlabel(_col_label(xlabel, xcolumn))
     ax.set_ylabel(_col_label(ylabel, column))
