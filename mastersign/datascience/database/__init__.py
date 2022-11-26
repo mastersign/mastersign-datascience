@@ -5,11 +5,15 @@ This module contains functionality to comfortably access a SQL database.
 """
 
 import os
-from collections import Iterable
 import pandas as pd
 from sqlalchemy import create_engine
 from ..files import read_parquet as read_cachefile
 from ..files import write_parquet as write_cachefile
+
+try:
+    from collections.abc import Iterable
+except:
+    from collections import Iterable
 
 _def_db_conn = None
 

@@ -413,7 +413,7 @@ def bar(data: Union[pd.DataFrame, pd.Series],
 
     if isinstance(data, pd.DataFrame):
         all_columns = [value_column, label_column, color_column]
-        columns = set(c for c in all_columns if c)
+        columns = list(set(c for c in all_columns if c))
         data = data.loc[:, columns].dropna()
         values = data[value_column]
         if label_column:
@@ -497,7 +497,7 @@ def bar_groups(data: pd.DataFrame,
     """
 
     all_columns = [value_column, key_column, label_column, color_column]
-    columns = set(c for c in all_columns if c)
+    columns = list(set(c for c in all_columns if c))
     data = data.loc[:, columns].dropna()
     if keys is None:
         keys = data[key_column].drop_duplicates().sort_values().values
@@ -1080,7 +1080,7 @@ def line(data: Union[pd.DataFrame, pd.Series],
         columns.add(column)
         if xcolumn:
             columns.add(xcolumn)
-        data = data.loc[:, columns].dropna()
+        data = data.loc[:, list(columns)].dropna()
     else:
         # assume data is Series
         pass
@@ -1185,7 +1185,7 @@ def lines(data: pd.DataFrame, column, xcolumn=None,
         columns.add(key_column)
         if label_column:
             columns.add(label_column)
-            data = data.loc[:, columns].dropna()
+            data = data.loc[:, list(columns)].dropna()
             lgrouped = data.groupby(label_column)
             keys = sorted(lgrouped.groups.keys())
 
@@ -1197,14 +1197,14 @@ def lines(data: pd.DataFrame, column, xcolumn=None,
                 for k in grouped.groups.keys():
                     plot_line(grouped.get_group(k), c=c, l=label)
         else:
-            data = data.loc[:, columns].dropna()
+            data = data.loc[:, list(columns)].dropna()
             grouped = data.groupby(key_column)
             keys = grouped.groups.keys()
 
             for k, c in zip(keys, _build_key_colors(keys, color)):
                     plot_line(grouped.get_group(k), c=c)
     else:
-        data = data.loc[:, columns].dropna()
+        data = data.loc[:, list(columns)].dropna()
         plot_line(data, c=color)
 
     ax.set_xlim(left=xmin, right=xmax)
