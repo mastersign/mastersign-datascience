@@ -236,16 +236,23 @@ def subplot(pos=(0, 0), rowspan=1, colspan=1):
     return _plt(pos=pos, rowspan=rowspan, colspan=colspan)
 
 
+def _next_lines_color():
+    lines_ppva = plt.gca()._get_lines
+    try:
+        return lines_ppva.get_next_color()
+    except AttributeError:
+        return next(lines_ppva.prop_cycler)['color']
+
+
 def _build_key_colors(keys, color):
     if isinstance(color, str):
         return repeat(color, len(keys))
     elif isinstance(color, Mapping):
-        return [color.get(k, None) or next(plt.gca()._get_lines.prop_cycler)['color']
-                for k in keys]
+        return [color.get(k, None) or _next_lines_color() for k in keys]
     elif isinstance(color, Iterable):
         return cycle(color)
     else:
-        return [next(plt.gca()._get_lines.prop_cycler)['color'] for k in keys]
+        return [_next_lines_color() for _ in keys]
 
 
 def pie(data: Union[pd.DataFrame, pd.Series],
@@ -314,8 +321,7 @@ def pie(data: Union[pd.DataFrame, pd.Series],
     if color_column:
         colors = data[color_column]
     elif isinstance(color, Mapping):
-        colors = [color.get(l) or next(plt.gca()._get_lines.prop_cycler)['color']
-                  for l in labels]
+        colors = [color.get(l) or _next_lines_color() for l in labels]
     elif color:
         colors = color
     else:
@@ -668,14 +674,15 @@ def hist(data: Union[pd.DataFrame, pd.Series],
         if isinstance(color, str):
             color = list(repeat(color, len(labels)))
         elif isinstance(color, Mapping):
-            color = [color.get(l) or next(plt.gca()._get_lines.prop_cycler)['color']
-                     for l in labels]
+            color = [color.get(l) or _next_lines_color() for l in labels]
         elif isinstance(color, Iterable):
             color = list(islice(cycle(color), len(labels)))
 
     if not labels and not isinstance(color, str) and isinstance(color, Iterable):
         colors = color
-        color = colors[0]
+        for c in colors:
+            color = c
+            break
     else:
         colors = None
 
