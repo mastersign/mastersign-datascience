@@ -857,6 +857,8 @@ def scatter(data: pd.DataFrame, xcolumn, ycolumn,
         if not pd_types.is_numeric_dtype(c.dtype):
             cmap = None
             colorbar = False
+    else:
+        cmap = None
 
     (fig, ax) = _plt(figsize=figsize, pos=pos,
                      rowspan=rowspan, colspan=colspan)
@@ -962,6 +964,8 @@ def scatter_map(data: pd.DataFrame,
         if not pd_types.is_numeric_dtype(c.dtype):
             cmap = None
             colorbar = False
+    else:
+        cmap = None
 
     if autofit or region is None:
         region = [lat.min(), lon.min(), lat.max(), lon.max()]
