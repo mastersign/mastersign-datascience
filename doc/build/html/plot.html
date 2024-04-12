@@ -1,170 +1,124 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Plotting &mdash; mastersign-datascience 0.2.7 documentation</title>
-  
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plotting &mdash; mastersign-datascience 0.2.9 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
   
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-  
-  
-
-  
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=14672bda"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Processing Jupyter Notebooks" href="notebook.html" />
     <link rel="prev" title="File Storage" href="files.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
 
           
-            <a href="index.html" class="icon icon-home"> mastersign-datascience
           
-
-          
+          <a href="index.html" class="icon icon-home">
+            mastersign-datascience
           </a>
-
-          
-            
-            
               <div class="version">
                 0.2
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="database.html">Database Access</a></li>
 <li class="toctree-l1"><a class="reference internal" href="files.html">File Storage</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Plotting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#module-mastersign.datascience.plot.basemap">Plotting with Basemap</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Plotting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.bar"><code class="docutils literal notranslate"><span class="pre">bar()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.bar_groups"><code class="docutils literal notranslate"><span class="pre">bar_groups()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.begin"><code class="docutils literal notranslate"><span class="pre">begin()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.end"><code class="docutils literal notranslate"><span class="pre">end()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.hist"><code class="docutils literal notranslate"><span class="pre">hist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.hist2d"><code class="docutils literal notranslate"><span class="pre">hist2d()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.hist2d_matrix"><code class="docutils literal notranslate"><span class="pre">hist2d_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.line"><code class="docutils literal notranslate"><span class="pre">line()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.lines"><code class="docutils literal notranslate"><span class="pre">lines()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.pie"><code class="docutils literal notranslate"><span class="pre">pie()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.pie_groups"><code class="docutils literal notranslate"><span class="pre">pie_groups()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.reset_figure_handler"><code class="docutils literal notranslate"><span class="pre">reset_figure_handler()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.scatter"><code class="docutils literal notranslate"><span class="pre">scatter()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.scatter_map"><code class="docutils literal notranslate"><span class="pre">scatter_map()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.scatter_matrix"><code class="docutils literal notranslate"><span class="pre">scatter_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.set_figure_handler"><code class="docutils literal notranslate"><span class="pre">set_figure_handler()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.spec_col_file"><code class="docutils literal notranslate"><span class="pre">spec_col_file()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.spec_col_labels"><code class="docutils literal notranslate"><span class="pre">spec_col_labels()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.subplot"><code class="docutils literal notranslate"><span class="pre">subplot()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.table"><code class="docutils literal notranslate"><span class="pre">table()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#module-mastersign.datascience.plot.basemap">Plotting with Basemap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.basemap.base_map"><code class="docutils literal notranslate"><span class="pre">base_map()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.basemap.g2m"><code class="docutils literal notranslate"><span class="pre">g2m()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.basemap.g2ms"><code class="docutils literal notranslate"><span class="pre">g2ms()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.basemap.g2xys"><code class="docutils literal notranslate"><span class="pre">g2xys()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mastersign.datascience.plot.basemap.lat_lon_region"><code class="docutils literal notranslate"><span class="pre">lat_lon_region()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="notebook.html">Processing Jupyter Notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
 </ul>
 
-            
-          
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">mastersign-datascience</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-      <li>Plotting</li>
-    
-    
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Plotting</li>
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="_sources/plot.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="module-mastersign.datascience.plot">
-<span id="plotting"></span><h1>Plotting<a class="headerlink" href="#module-mastersign.datascience.plot" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="module-mastersign.datascience.plot">
+<span id="plotting"></span><h1>Plotting<a class="headerlink" href="#module-mastersign.datascience.plot" title="Link to this heading"></a></h1>
 <p>This module contains functionality to comfortably create plots.</p>
-<dl class="function">
-<dt id="mastersign.datascience.plot.bar">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">bar</code><span class="sig-paren">(</span><em class="sig-param">data: Union[pandas.core.frame.DataFrame, pandas.core.series.Series], value_column=None, label_column=None, color_column=None, cmap=None, color=None, xlabel=None, ylabel=None, title=None, figsize=(10, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1, file_name=None, file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#bar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.bar" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.bar">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.</span></span><span class="sig-name descname"><span class="pre">bar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(10,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rowspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#bar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.bar" title="Link to this definition"></a></dt>
 <dd><p>Display a bar chart from columns in a DataFrame or a Series.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> – A Pandas DataFrame or Series.</p></li>
 <li><p><strong>value_column</strong> – The column with the values for the bars height.</p></li>
@@ -193,12 +147,12 @@ of a multiplot. (optional)</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.bar_groups">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">bar_groups</code><span class="sig-paren">(</span><em class="sig-param">data: pandas.core.frame.DataFrame</em>, <em class="sig-param">value_column</em>, <em class="sig-param">key_column</em>, <em class="sig-param">keys=None</em>, <em class="sig-param">label_column=None</em>, <em class="sig-param">color_column=None</em>, <em class="sig-param">cmap=None</em>, <em class="sig-param">color=None</em>, <em class="sig-param">stacked=False</em>, <em class="sig-param">relative=False</em>, <em class="sig-param">xlabel=None</em>, <em class="sig-param">ylabel=None</em>, <em class="sig-param">title=None</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">4)</em>, <em class="sig-param">pad=1</em>, <em class="sig-param">pos=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">rowspan=1</em>, <em class="sig-param">colspan=1</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#bar_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.bar_groups" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.bar_groups">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.</span></span><span class="sig-name descname"><span class="pre">bar_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stacked</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(10,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rowspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#bar_groups"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.bar_groups" title="Link to this definition"></a></dt>
 <dd><p>Display a bar chart with grouped bars from columns in a DataFrame.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> – A Pandas DataFrame.</p></li>
 <li><p><strong>value_column</strong> – The column with the values for the bars height.</p></li>
@@ -236,12 +190,12 @@ of a multiplot. (optional)</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.begin">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">begin</code><span class="sig-paren">(</span><em class="sig-param">figsize=(10</em>, <em class="sig-param">5)</em>, <em class="sig-param">grid=(1</em>, <em class="sig-param">1)</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#begin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.begin" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.begin">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.</span></span><span class="sig-name descname"><span class="pre">begin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(10,</span> <span class="pre">5)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1,</span> <span class="pre">1)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#begin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.begin" title="Link to this definition"></a></dt>
 <dd><p>Begins a figure with multiple subplots.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>figsize</strong> – A tuple with the figure size in inches (width, height).
 (optional)</p></li>
@@ -252,12 +206,12 @@ of a multiplot. (optional)</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.end">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">end</code><span class="sig-paren">(</span><em class="sig-param">pad=1.5</em>, <em class="sig-param">w_pad=None</em>, <em class="sig-param">h_pad=None</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.end" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.end">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.</span></span><span class="sig-name descname"><span class="pre">end</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w_pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h_pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.end" title="Link to this definition"></a></dt>
 <dd><p>Finalizes a figure with multiple subplots.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pad</strong> – Padding around the figure. (optional)</p></li>
 <li><p><strong>w_pad</strong> – Horizontal space between subplots. (optional)
@@ -271,14 +225,14 @@ See <cite>matplotlib.pyplot.tight_layout()</cite>.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.hist">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">hist</code><span class="sig-paren">(</span><em class="sig-param">data: Union[pandas.core.frame.DataFrame, pandas.core.series.Series], column=None, key_column=None, bins=35, ticks=None, xmin=None, xmax=None, ylog=False, color=None, cumulative=False, stacked=False, xlabel=None, ylabel=None, title=None, legend=True, figsize=(10, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1, file_name=None, file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#hist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.hist" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.hist">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.</span></span><span class="sig-name descname"><span class="pre">hist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">35</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylog</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cumulative</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stacked</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(10,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rowspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#hist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.hist" title="Link to this definition"></a></dt>
 <dd><p>Display a histogram for the values of one column in a DataFrame
 or a Series.
 If using a DataFrame, optionally group the values by another key column.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> – A Pandas DataFrame or Series.</p></li>
 <li><p><strong>column</strong> – The column to build the histogram of.</p></li>
@@ -319,12 +273,12 @@ of a multiplot. (optional)</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.hist2d">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">hist2d</code><span class="sig-paren">(</span><em class="sig-param">data: pandas.core.frame.DataFrame</em>, <em class="sig-param">xcolumn</em>, <em class="sig-param">ycolumn</em>, <em class="sig-param">xmin=None</em>, <em class="sig-param">xmax=None</em>, <em class="sig-param">ymin=None</em>, <em class="sig-param">ymax=None</em>, <em class="sig-param">bins=20</em>, <em class="sig-param">xticks=None</em>, <em class="sig-param">yticks=None</em>, <em class="sig-param">cmap='Blues'</em>, <em class="sig-param">colorbar=True</em>, <em class="sig-param">xlabel=None</em>, <em class="sig-param">ylabel=None</em>, <em class="sig-param">title=None</em>, <em class="sig-param">figsize=(7.5</em>, <em class="sig-param">6)</em>, <em class="sig-param">pad=1</em>, <em class="sig-param">pos=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">rowspan=1</em>, <em class="sig-param">colspan=1</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#hist2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.hist2d" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.hist2d">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.</span></span><span class="sig-name descname"><span class="pre">hist2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xcolumn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ycolumn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Blues'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(7.5,</span> <span class="pre">6)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rowspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#hist2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.hist2d" title="Link to this definition"></a></dt>
 <dd><p>Displays a 2-dimensional histogram (heatmap).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> – A Pandas DataFrame.</p></li>
 <li><p><strong>xcolumn</strong> – The column for the horizontal dimension.</p></li>
@@ -363,15 +317,15 @@ of a multiplot. (optional)</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.hist2d_matrix">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">hist2d_matrix</code><span class="sig-paren">(</span><em class="sig-param">data: pandas.core.frame.DataFrame</em>, <em class="sig-param">columns=None</em>, <em class="sig-param">mins=None</em>, <em class="sig-param">maxs=None</em>, <em class="sig-param">bins=None</em>, <em class="sig-param">ticks=None</em>, <em class="sig-param">subplot_size=2</em>, <em class="sig-param">pad=1</em>, <em class="sig-param">w_pad=1.0</em>, <em class="sig-param">h_pad=1.75</em>, <em class="sig-param">cmap='Blues'</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#hist2d_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.hist2d_matrix" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.hist2d_matrix">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.</span></span><span class="sig-name descname"><span class="pre">hist2d_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subplot_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w_pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h_pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.75</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Blues'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#hist2d_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.hist2d_matrix" title="Link to this definition"></a></dt>
 <dd><p>Plots a matrix of 2D histogram plots and histograms for a number of columns
 from a Pandas DataFrame.</p>
 <p>Warning: This function cannot be used between <cite>begin()</cite> and <cite>end()</cite> as part
 of another multiplot.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> – A Pandas DataFrame.</p></li>
 <li><p><strong>columns</strong> – The columns to include into the matrix. (optional)</p></li>
@@ -393,13 +347,13 @@ of another multiplot.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.line">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">line</code><span class="sig-paren">(</span><em class="sig-param">data: Union[pandas.core.frame.DataFrame, pandas.core.series.Series], column=None, xcolumn=None, color=None, linewidth=2, avg_window=None, interpolation_step=None, interpolation_kind='quadratic', xmin=None, xmax=None, ymin=None, ymax=None, xticks=None, yticks=None, xlabel=None, ylabel=None, title=None, figsize=(10, 5), pad=1, pos=(0, 0), rowspan=1, colspan=1, file_name=None, file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.line" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.line">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.</span></span><span class="sig-name descname"><span class="pre">line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xcolumn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linewidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avg_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation_kind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'quadratic'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(10,</span> <span class="pre">5)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rowspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.line" title="Link to this definition"></a></dt>
 <dd><p>Display a line from values in one column of a DataFrame or a Series.</p>
 <p>If <cite>data</cite> is a Series, the index will be used for the horizontal dimension.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> – A Pandas DataFrame or a Series.</p></li>
 <li><p><strong>column</strong> – The column with the values to display as a line.
@@ -442,12 +396,12 @@ of a multiplot. (optional)</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.lines">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">lines</code><span class="sig-paren">(</span><em class="sig-param">data: pandas.core.frame.DataFrame</em>, <em class="sig-param">column</em>, <em class="sig-param">xcolumn=None</em>, <em class="sig-param">key_column=None</em>, <em class="sig-param">min_n=None</em>, <em class="sig-param">label_column=None</em>, <em class="sig-param">color=None</em>, <em class="sig-param">linewidth=2</em>, <em class="sig-param">avg_window=None</em>, <em class="sig-param">interpolation_step=None</em>, <em class="sig-param">interpolation_kind='quadratic'</em>, <em class="sig-param">xmin=None</em>, <em class="sig-param">xmax=None</em>, <em class="sig-param">ymin=None</em>, <em class="sig-param">ymax=None</em>, <em class="sig-param">xticks=None</em>, <em class="sig-param">yticks=None</em>, <em class="sig-param">xlabel=None</em>, <em class="sig-param">ylabel=None</em>, <em class="sig-param">title=None</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">5)</em>, <em class="sig-param">pad=1</em>, <em class="sig-param">pos=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">rowspan=1</em>, <em class="sig-param">colspan=1</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.lines" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.lines">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.</span></span><span class="sig-name descname"><span class="pre">lines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xcolumn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linewidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avg_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation_kind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'quadratic'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(10,</span> <span class="pre">5)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rowspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#lines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.lines" title="Link to this definition"></a></dt>
 <dd><p>Display line(s) from values in one column of a DataFrame.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> – A Pandas DataFrame.</p></li>
 <li><p><strong>column</strong> – The column with the values to display as a line.
@@ -496,13 +450,13 @@ of a multiplot. (optional)</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.pie">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">pie</code><span class="sig-paren">(</span><em class="sig-param">data: Union[pandas.core.frame.DataFrame, pandas.core.series.Series], column=None, label_column=None, color_column=None, color=None, startangle=180, counterclock=False, sort_by=None, title=None, pct=True, figsize=(4, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1, file_name=None, file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#pie"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.pie" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.pie">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.</span></span><span class="sig-name descname"><span class="pre">pie</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startangle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">180</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">counterclock</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(4,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rowspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#pie"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.pie" title="Link to this definition"></a></dt>
 <dd><p>Display a pie chart with values from a column in a DataFrame
 or a Series.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> – A Pandas DataFrame or Series.</p></li>
 <li><p><strong>column</strong> – The column to use if <cite>data</cite> is a DataFrame.</p></li>
@@ -534,13 +488,13 @@ of a multiplot. (optional)</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.pie_groups">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">pie_groups</code><span class="sig-paren">(</span><em class="sig-param">data: Union[pandas.core.frame.DataFrame, pandas.core.series.Series], column=None, sort_by=None, startangle=180, counterclock=False, title=None, pct=True, color=None, figsize=(4, 4), pad=1, pos=(0, 0), rowspan=1, colspan=1, file_name=None, file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#pie_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.pie_groups" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.pie_groups">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.</span></span><span class="sig-name descname"><span class="pre">pie_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startangle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">180</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">counterclock</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(4,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rowspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#pie_groups"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.pie_groups" title="Link to this definition"></a></dt>
 <dd><p>Display a pie chart by counting rows according to a column value
 from a DataFrame or values from a Series.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> – A Pandas DataFrame or Series.</p></li>
 <li><p><strong>column</strong> – The column to use for grouping.</p></li>
@@ -566,19 +520,19 @@ of a multiplot. (optional)</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.reset_figure_handler">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">reset_figure_handler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#reset_figure_handler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.reset_figure_handler" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.reset_figure_handler">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.</span></span><span class="sig-name descname"><span class="pre">reset_figure_handler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#reset_figure_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.reset_figure_handler" title="Link to this definition"></a></dt>
 <dd><p>Reset the handler, which is called after rendering every plot,
 to the default.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.scatter">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">scatter</code><span class="sig-paren">(</span><em class="sig-param">data: pandas.core.frame.DataFrame</em>, <em class="sig-param">xcolumn</em>, <em class="sig-param">ycolumn</em>, <em class="sig-param">size_column=None</em>, <em class="sig-param">color_column=None</em>, <em class="sig-param">xmin=None</em>, <em class="sig-param">xmax=None</em>, <em class="sig-param">ymin=None</em>, <em class="sig-param">ymax=None</em>, <em class="sig-param">xticks=None</em>, <em class="sig-param">yticks=None</em>, <em class="sig-param">size=1</em>, <em class="sig-param">color=None</em>, <em class="sig-param">cmap='rainbow'</em>, <em class="sig-param">colorbar=True</em>, <em class="sig-param">xlabel=None</em>, <em class="sig-param">ylabel=None</em>, <em class="sig-param">title=None</em>, <em class="sig-param">figsize=(9.8</em>, <em class="sig-param">8)</em>, <em class="sig-param">pad=1</em>, <em class="sig-param">pos=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">rowspan=1</em>, <em class="sig-param">colspan=1</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.scatter">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.</span></span><span class="sig-name descname"><span class="pre">scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xcolumn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ycolumn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rainbow'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(9.8,</span> <span class="pre">8)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rowspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter" title="Link to this definition"></a></dt>
 <dd><p>Display a 2-dimensional scatter plot.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> – A Pandas DataFrame</p></li>
 <li><p><strong>xcolumn</strong> – The column for the horizontal dimension.</p></li>
@@ -621,12 +575,12 @@ of a multiplot. (optional)</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.scatter_map">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">scatter_map</code><span class="sig-paren">(</span><em class="sig-param">data: pandas.core.frame.DataFrame</em>, <em class="sig-param">longitude_column='longitude'</em>, <em class="sig-param">latitude_column='latitude'</em>, <em class="sig-param">region=None</em>, <em class="sig-param">autofit=False</em>, <em class="sig-param">projection='merc'</em>, <em class="sig-param">map_resolution='i'</em>, <em class="sig-param">grid=(1</em>, <em class="sig-param">2)</em>, <em class="sig-param">map_style=None</em>, <em class="sig-param">map_style_attributes=None</em>, <em class="sig-param">size_column=None</em>, <em class="sig-param">size=1</em>, <em class="sig-param">size_mode=None</em>, <em class="sig-param">color_column=None</em>, <em class="sig-param">color='blue'</em>, <em class="sig-param">cmap='YlGnBu'</em>, <em class="sig-param">colorbar=True</em>, <em class="sig-param">title=None</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">pad=1</em>, <em class="sig-param">pos=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">rowspan=1</em>, <em class="sig-param">colspan=1</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter_map" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.scatter_map">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.</span></span><span class="sig-name descname"><span class="pre">scatter_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'longitude'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'latitude'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autofit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'merc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'i'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1,</span> <span class="pre">2)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_style_attributes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'blue'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'YlGnBu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(10,</span> <span class="pre">10)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rowspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter_map" title="Link to this definition"></a></dt>
 <dd><p>Displays a scatter plot on a geographical map.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> – A Pandas DataFrame.</p></li>
 <li><p><strong>longitude_column</strong> – The column with the longitudes. (optional)</p></li>
@@ -674,15 +628,15 @@ of a multiplot. (optional)</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.scatter_matrix">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">scatter_matrix</code><span class="sig-paren">(</span><em class="sig-param">data: pandas.core.frame.DataFrame</em>, <em class="sig-param">columns=None</em>, <em class="sig-param">mins=None</em>, <em class="sig-param">maxs=None</em>, <em class="sig-param">bins=None</em>, <em class="sig-param">ticks=None</em>, <em class="sig-param">sample=None</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">key_column=None</em>, <em class="sig-param">color=None</em>, <em class="sig-param">subplot_size=2</em>, <em class="sig-param">pad=1</em>, <em class="sig-param">w_pad=1.0</em>, <em class="sig-param">h_pad=1.75</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">file_dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter_matrix" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.scatter_matrix">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.</span></span><span class="sig-name descname"><span class="pre">scatter_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subplot_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w_pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h_pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.75</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#scatter_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.scatter_matrix" title="Link to this definition"></a></dt>
 <dd><p>Plots a matrix of scatter plots and histograms for a number of columns
 from a Pandas DataFrame.</p>
 <p>Warning: This function cannot be used between <cite>begin()</cite> and <cite>end()</cite> as part
 of another multiplot.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> – A Pandas DataFrame.</p></li>
 <li><p><strong>columns</strong> – The columns to include into the matrix. (optional)</p></li>
@@ -709,9 +663,9 @@ in the scatter plots. (optional)</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.set_figure_handler">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">set_figure_handler</code><span class="sig-paren">(</span><em class="sig-param">handler</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#set_figure_handler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.set_figure_handler" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.set_figure_handler">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.</span></span><span class="sig-name descname"><span class="pre">set_figure_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#set_figure_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.set_figure_handler" title="Link to this definition"></a></dt>
 <dd><p>Set a handler, which is called after rendering every plot.</p>
 <p>The specified handler must accept the following keyword arguments:</p>
 <ul class="simple">
@@ -724,44 +678,44 @@ in the scatter plots. (optional)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">file_dpi</span></code> The dpi value for the target image file or <cite>None</cite></p></li>
 </ul>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>handler</strong> – The figure handler to use for future plots</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.spec_col_file">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">spec_col_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#spec_col_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.spec_col_file" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.spec_col_file">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.</span></span><span class="sig-name descname"><span class="pre">spec_col_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#spec_col_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.spec_col_file" title="Link to this definition"></a></dt>
 <dd><p>Specify an INI file with column names to be automatically used in plots.
 The column-label-pairs must be placed under the INI section <cite>[Columns]</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>filename</strong> – A path to the INI file.</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.spec_col_labels">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">spec_col_labels</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#spec_col_labels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.spec_col_labels" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.spec_col_labels">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.</span></span><span class="sig-name descname"><span class="pre">spec_col_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#spec_col_labels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.spec_col_labels" title="Link to this definition"></a></dt>
 <dd><p>Specify labels for column names to be automatically used in plots.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>kwargs</strong> – A map of column names and labels.</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.subplot">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">subplot</code><span class="sig-paren">(</span><em class="sig-param">pos=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">rowspan=1</em>, <em class="sig-param">colspan=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#subplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.subplot" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.subplot">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.</span></span><span class="sig-name descname"><span class="pre">subplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rowspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colspan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#subplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.subplot" title="Link to this definition"></a></dt>
 <dd><p>Prepares a sub-plot inside the current figure between calls
 of <cite>begin()</cite> and <cite>end()</cite>.</p>
 <p>This method is useful, if a custom plot must be integrated
 into a multiplot created with <cite>mastersign.datasience.plot</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pos</strong> – The position in the grid of a multiplot. (optional)</p></li>
 <li><p><strong>rowspan</strong> – The number of rows to span in the grid
@@ -770,22 +724,22 @@ of a multiplot. (optional)</p></li>
 of a multiplot. (optional)</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A tuple with Matplotlib figure and axes: <code class="docutils literal notranslate"><span class="pre">(fig,</span> <span class="pre">ax)</span></code>.</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.table">
-<code class="sig-prename descclassname">mastersign.datascience.plot.</code><code class="sig-name descname">table</code><span class="sig-paren">(</span><em class="sig-param">data: pandas.core.frame.DataFrame</em>, <em class="sig-param">columns=None</em>, <em class="sig-param">labels=None</em>, <em class="sig-param">with_index=True</em>, <em class="sig-param">index_label=None</em>, <em class="sig-param">limit=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.table" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.table">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.</span></span><span class="sig-name descname"><span class="pre">table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot.html#table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.table" title="Link to this definition"></a></dt>
 <dd><p>Displays an HTML table with the given data.
 A subset of columns can be selected with <cite>columns</cite>.
 The labels in the header can be explicitly specified with <cite>labels</cite>.</p>
 <p>Does not support multi-indexes.</p>
 <p>Calls <cite>IPython.display.display()</cite> to present the HTML table.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> – A Pandas DataFrame</p></li>
 <li><p><strong>columns</strong> – An iterable with column names. (optional)</p></li>
@@ -800,18 +754,18 @@ Must be the same size as the columns.</p></li>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="module-mastersign.datascience.plot.basemap">
-<span id="plotting-with-basemap"></span><h1>Plotting with Basemap<a class="headerlink" href="#module-mastersign.datascience.plot.basemap" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="module-mastersign.datascience.plot.basemap">
+<span id="plotting-with-basemap"></span><h1>Plotting with Basemap<a class="headerlink" href="#module-mastersign.datascience.plot.basemap" title="Link to this heading"></a></h1>
 <p>This module contains functionality used to plot on a map.</p>
 <p>See e.g. <cite>mastersign.datascience.plot.scatter_map()</cite>.</p>
-<dl class="function">
-<dt id="mastersign.datascience.plot.basemap.base_map">
-<code class="sig-prename descclassname">mastersign.datascience.plot.basemap.</code><code class="sig-name descname">base_map</code><span class="sig-paren">(</span><em class="sig-param">region: Mapping[str, float], projection: str = 'cyl', epsg: Optional[int] = None, grid: Tuple[float, float] = (30, 60), resolution: str = 'i', style_name: Optional[str] = None, style_attributes: Optional[Mapping[str, Any]] = None, ax=None</em><span class="sig-paren">)</span> &#x2192; mpl_toolkits.basemap.Basemap<a class="reference internal" href="_modules/mastersign/datascience/plot/basemap.html#base_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.basemap.base_map" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.basemap.base_map">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.basemap.</span></span><span class="sig-name descname"><span class="pre">base_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cyl'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(30,</span> <span class="pre">60)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'i'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_attributes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Basemap</span></span></span><a class="reference internal" href="_modules/mastersign/datascience/plot/basemap.html#base_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.basemap.base_map" title="Link to this definition"></a></dt>
 <dd><p>Creates a Basemap instance containing continents, coastlines,
 rivers and country borders.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>region</strong> (<em>Mapping</em><em>[</em><em>str</em><em>, </em><em>float</em><em>]</em>) – A Basemap compatible structure defining a rectangular
 geographical region. (See <cite>lat_lon_region()</cite>.)</p></li>
@@ -835,86 +789,86 @@ E.g. <cite>EPSG_WGS84_GIS</cite>, <cite>EPSG_WGS84_GPS</cite>, or <cite>EPSG_ETR
 <li><p><strong>ax</strong> – A mapplotlib Axes object.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The initialized Basemap instance.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>mpl_toolkits.basemap.Basemap</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.basemap.g2m">
-<code class="sig-prename descclassname">mastersign.datascience.plot.basemap.</code><code class="sig-name descname">g2m</code><span class="sig-paren">(</span><em class="sig-param">m: mpl_toolkits.basemap.Basemap, coord: Tuple[float, float]</em><span class="sig-paren">)</span> &#x2192; Tuple[float, float]<a class="reference internal" href="_modules/mastersign/datascience/plot/basemap.html#g2m"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.basemap.g2m" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.basemap.g2m">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.basemap.</span></span><span class="sig-name descname"><span class="pre">g2m</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Basemap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coord</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/mastersign/datascience/plot/basemap.html#g2m"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.basemap.g2m" title="Link to this definition"></a></dt>
 <dd><p>Convert geographical coordinate into x-y-coordinates in the plotting space.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>m</strong> (<em>mpl_toolkits.basemap.Basemap</em>) – The Basemap instance to use for conversion.</p></li>
 <li><p><strong>coord</strong> (<em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em>) – A tuple with the latitude and longitude.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A tuple with the x and y coordinates in the plotting space.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Tuple[float, float]</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.basemap.g2ms">
-<code class="sig-prename descclassname">mastersign.datascience.plot.basemap.</code><code class="sig-name descname">g2ms</code><span class="sig-paren">(</span><em class="sig-param">m: mpl_toolkits.basemap.Basemap, coords: Iterable[Tuple[float, float]]</em><span class="sig-paren">)</span> &#x2192; List[Tuple[float, float]]<a class="reference internal" href="_modules/mastersign/datascience/plot/basemap.html#g2ms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.basemap.g2ms" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.basemap.g2ms">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.basemap.</span></span><span class="sig-name descname"><span class="pre">g2ms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Basemap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/mastersign/datascience/plot/basemap.html#g2ms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.basemap.g2ms" title="Link to this definition"></a></dt>
 <dd><p>Convert an iterable with geographical coordinates into
 a list of x-y-coordinates in the plotting space.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>m</strong> (<em>mpl_toolkits.basemap.Basemap</em>) – The Basemap instance to use for conversion.</p></li>
 <li><p><strong>coords</strong> (<em>Iterable</em><em>[</em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em><em>]</em>) – An iterable with geographical coordinates (lat, lon).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list with x-y-coordinates in the plotting space.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>List[Tuple[float, float]]</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.basemap.g2xys">
-<code class="sig-prename descclassname">mastersign.datascience.plot.basemap.</code><code class="sig-name descname">g2xys</code><span class="sig-paren">(</span><em class="sig-param">m: mpl_toolkits.basemap.Basemap, coords: Iterable[Tuple[float, float]]</em><span class="sig-paren">)</span> &#x2192; Tuple[Sequence[float], Sequence[float]]<a class="reference internal" href="_modules/mastersign/datascience/plot/basemap.html#g2xys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.basemap.g2xys" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.basemap.g2xys">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.basemap.</span></span><span class="sig-name descname"><span class="pre">g2xys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Basemap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/mastersign/datascience/plot/basemap.html#g2xys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.basemap.g2xys" title="Link to this definition"></a></dt>
 <dd><p>Convert an iterable with geographical coordinates into
 two sequences with x- and y-coordinates in the plotting space.</p>
 <p>Can be used to convert an iterable with geographic coordinates
 into the input for a line or scatter plot.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>m</strong> (<em>mpl_toolkits.basemap.Basemap</em>) – The Basemap instance to use for conversion.</p></li>
 <li><p><strong>coords</strong> (<em>Iterable</em><em>[</em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em><em>]</em>) – An iterable with geographical coordinates (lat, lon).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Two lists with x- and y-coordinates in the plotting space.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Tuple[Sequence[float], Sequence[float]]</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="mastersign.datascience.plot.basemap.lat_lon_region">
-<code class="sig-prename descclassname">mastersign.datascience.plot.basemap.</code><code class="sig-name descname">lat_lon_region</code><span class="sig-paren">(</span><em class="sig-param">lower_left_corner_latitude</em>, <em class="sig-param">lower_left_corner_longitude</em>, <em class="sig-param">upper_right_corner_latitude</em>, <em class="sig-param">upper_right_corner_longitude</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot/basemap.html#lat_lon_region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mastersign.datascience.plot.basemap.lat_lon_region" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mastersign.datascience.plot.basemap.lat_lon_region">
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.plot.basemap.</span></span><span class="sig-name descname"><span class="pre">lat_lon_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lower_left_corner_latitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower_left_corner_longitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper_right_corner_latitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper_right_corner_longitude</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/plot/basemap.html#lat_lon_region"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.plot.basemap.lat_lon_region" title="Link to this definition"></a></dt>
 <dd><p>Converts a geographical region with lower left corner
 and upper right corner into a Basemap compatible structure.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lower_left_corner_latitude</strong> – The latitude of the lower left corner.</p></li>
 <li><p><strong>lower_left_corner_longitude</strong> – The longitude of the lower left corner.</p></li>
@@ -922,62 +876,44 @@ and upper right corner into a Basemap compatible structure.</p>
 <li><p><strong>upper_right_corner_longitude</strong> – The longitude of the lower left corner.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A dict with the keys <code class="docutils literal notranslate"><span class="pre">llcrnrlat</span></code>, <code class="docutils literal notranslate"><span class="pre">llcrnrlon</span></code>,
 <code class="docutils literal notranslate"><span class="pre">urcrnrlat</span></code>, and <code class="docutils literal notranslate"><span class="pre">urcrnrlon</span></code>.</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="notebook.html" class="btn btn-neutral float-right" title="Processing Jupyter Notebooks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="files.html" class="btn btn-neutral float-left" title="File Storage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="files.html" class="btn btn-neutral float-left" title="File Storage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="notebook.html" class="btn btn-neutral float-right" title="Processing Jupyter Notebooks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &copy; Copyright 2019, Tobias Kiertscher
-
-    </p>
+    <p>&#169; Copyright 2019, Tobias Kiertscher.</p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
