@@ -31,12 +31,12 @@ Therefore *Basemap* is not listed as a dependency in this library.
 
 On Windows, you may install the Wheel
 from https://www.lfd.uci.edu/~gohlke/pythonlibs/#basemap .
-Download the e.g. ``basemap‑1.2.0‑cp36‑cp36m‑win_amd64.whl`` and then install it
+Download the e.g. ``basemap-1.2.0-cp36-cp36m-win_amd64.whl`` and then install it
 with ``pip``:
 
 ::
 
-	pip install .\basemap‑1.2.0‑cp36‑cp36m‑win_amd64.whl
+	pip install .\basemap-1.2.0-cp36-cp36m-win_amd64.whl
 
 On Linux you may install *Basemap* with your distributions package manager.
 E.g. on Ubuntu you can use ``apt``:
