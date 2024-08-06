@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Database Access &mdash; mastersign-datascience 0.2.9 documentation</title>
+  <title>Database Access &mdash; mastersign-datascience 0.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
@@ -15,7 +15,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=14672bda"></script>
+        <script src="_static/documentation_options.js?v=e259d695"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -37,7 +37,7 @@
             mastersign-datascience
           </a>
               <div class="version">
-                0.2
+                0.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -93,17 +93,15 @@
 <p>This module contains functionality to comfortably access a SQL database.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="mastersign.datascience.database.execute">
-<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.database.</span></span><span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sql</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db_conn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/database.html#execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.database.execute" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.database.</span></span><span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sql</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db_conn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/database.html#execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.database.execute" title="Link to this definition"></a></dt>
 <dd><p>Execute a SQL statement, returning no data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sql</strong> – A string as a SQL statement.</p></li>
 <li><p><strong>db_conn</strong> – A SqlAlchemy connection string. (optional)</p></li>
-<li><p><strong>args</strong> – Additional positional arguments,
-passed to <cite>sqlalchemy.engine.Connection.execute()</cite>.</p></li>
-<li><p><strong>kwargs</strong> – Additional keyword arguments,
-passed to <cite>sqlalchemy.engine.Connection.execute()</cite>.</p></li>
+<li><p><strong>kwargs</strong> – Additional named arguments,
+passed to <cite>sqlalchemy.sql.expression.TextClause.bindparams()</cite>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -139,8 +137,8 @@ converting them into a Pandas DataFrame. (optional)</p></li>
 If the file already exists, the content of the file is returned
 instead of connecting to the database.</p></li>
 <li><p><strong>compress_cache</strong> – A switch to activate data compression for the cache file.</p></li>
-<li><p><strong>kwargs</strong> – Additional keyword arguments
-are passed to <cite>pandas.read_sql_query()</cite>.</p></li>
+<li><p><strong>kwargs</strong> – Additional named arguments
+are passed to <cite>pandas.read_sql_query(params=…)</cite>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -151,17 +149,15 @@ are passed to <cite>pandas.read_sql_query()</cite>.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mastersign.datascience.database.load_scalar">
-<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.database.</span></span><span class="sig-name descname"><span class="pre">load_scalar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db_conn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/database.html#load_scalar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.database.load_scalar" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">mastersign.datascience.database.</span></span><span class="sig-name descname"><span class="pre">load_scalar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db_conn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mastersign/datascience/database.html#load_scalar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mastersign.datascience.database.load_scalar" title="Link to this definition"></a></dt>
 <dd><p>Load a single scalar from an arbitrary SQL query.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>query</strong> – A string as a SQL query.</p></li>
 <li><p><strong>db_conn</strong> – A SqlAlchemy connection string. (optional)</p></li>
-<li><p><strong>args</strong> – Additional positional arguments,
-passed to <cite>sqlalchemy.engine.Connection.execute()</cite>.</p></li>
-<li><p><strong>kwargs</strong> – Additional keyword arguments,
-passed to <cite>sqlalchemy.engine.Connection.execute()</cite>.</p></li>
+<li><p><strong>kwargs</strong> – Additional named arguments,
+passed to <cite>sqlalchemy.sql.expression.TextClause.bindparams()</cite>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
