@@ -82,7 +82,7 @@ def load_query(query, db_conn=None,
     :param compress_cache:
                     A switch to activate data compression for the cache file.
     :param kwargs:  Additional named arguments
-                    are passed to `pandas.read_sql_query(params=...)`.
+                    are passed to `sqlalchemy.sql.expression.TextClause.bindparams()`.
 
     :return: Pandas DataFrame
     """
@@ -109,8 +109,8 @@ def load_query(query, db_conn=None,
         with engine.connect().execution_options(stream_results=True) as conn:
             chunks = list(map(
                 process_chunk,
-                pd.read_sql_query(query, conn,
-                                  params=kwargs,
+                pd.read_sql_query(text(query).bindparams(**kwargs),
+                                  conn,
                                   index_col=index,
                                   parse_dates=date,
                                   chunksize=chunksize)))
@@ -186,8 +186,7 @@ def _select_query(table_name, columns=None, where=None, group_by=None, limit=Non
 
 def load_table(name, columns=None, where=None, group_by=None, limit=None,
                db_conn=None, date=None, defaults=None, dtype=None, index=None,
-               chunksize=4096, cachefile=None, compress_cache=False,
-               **kwargs):
+               chunksize=4096, cachefile=None, compress_cache=False):
     """
     Load data from a SQL table.
 
@@ -227,8 +226,6 @@ def load_table(name, columns=None, where=None, group_by=None, limit=None,
                      instead of connecting to the database.
     :param compress_cache:
                      A switch to activate data compression for the cache file.
-    :param kwargs:   Additional keyword arguments
-                     are passed to `pandas.read_sql_query()`.
 
     :return: Pandas DataFrame
     """
@@ -238,4 +235,4 @@ def load_table(name, columns=None, where=None, group_by=None, limit=None,
     return load_query(sql_query, db_conn=db_conn,
                       date=date, defaults=defaults, dtype=dtype, index=index,
                       chunksize=chunksize, cachefile=cachefile,
-                      compress_cache=compress_cache, **kwargs)
+                      compress_cache=compress_cache)
