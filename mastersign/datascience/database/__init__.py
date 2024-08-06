@@ -6,7 +6,7 @@ This module contains functionality to comfortably access a SQL database.
 
 import os
 import pandas as pd
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from ..files import read_parquet as read_cachefile
 from ..files import write_parquet as write_cachefile
 
@@ -14,6 +14,7 @@ try:
     from collections.abc import Iterable
 except:
     from collections import Iterable
+
 
 _def_db_conn = None
 
@@ -28,21 +29,20 @@ def set_default_db_conn(db_conn):
     _def_db_conn = db_conn
 
 
-def execute(sql, db_conn=None, *args, **kwargs):
+def execute(sql, db_conn=None, **kwargs):
     """
     Execute a SQL statement, returning no data.
 
     :param sql:     A string as a SQL statement.
     :param db_conn: A SqlAlchemy connection string. (optional)
-    :param args:    Additional positional arguments,
-                    passed to `sqlalchemy.engine.Connection.execute()`.
-    :param kwargs:  Additional keyword arguments,
-                    passed to `sqlalchemy.engine.Connection.execute()`.
+    :param kwargs:  Additional named arguments,
+                    passed to `sqlalchemy.sql.expression.TextClause.bindparams()`.
     """
     engine = create_engine(db_conn or _def_db_conn)
     try:
         with engine.connect() as conn:
-            conn.execute(sql, *args, **kwargs)
+            conn.execute(text(sql).bindparams(**kwargs))
+            conn.commit()
     finally:
         engine.dispose()
 
@@ -81,8 +81,8 @@ def load_query(query, db_conn=None,
                     instead of connecting to the database.
     :param compress_cache:
                     A switch to activate data compression for the cache file.
-    :param kwargs:  Additional keyword arguments
-                    are passed to `pandas.read_sql_query()`.
+    :param kwargs:  Additional named arguments
+                    are passed to `pandas.read_sql_query(params=...)`.
 
     :return: Pandas DataFrame
     """
@@ -110,9 +110,10 @@ def load_query(query, db_conn=None,
             chunks = list(map(
                 process_chunk,
                 pd.read_sql_query(query, conn,
+                                  params=kwargs,
                                   index_col=index,
                                   parse_dates=date,
-                                  chunksize=chunksize, **kwargs)))
+                                  chunksize=chunksize)))
     finally:
         engine.dispose()
     df = pd.concat(chunks)
@@ -123,24 +124,22 @@ def load_query(query, db_conn=None,
     return df
 
 
-def load_scalar(query, db_conn=None, *args, **kwargs):
+def load_scalar(query, db_conn=None, **kwargs):
     """
     Load a single scalar from an arbitrary SQL query.
 
 
     :param query:   A string as a SQL query.
     :param db_conn: A SqlAlchemy connection string. (optional)
-    :param args:    Additional positional arguments,
-                    passed to `sqlalchemy.engine.Connection.execute()`.
-    :param kwargs:  Additional keyword arguments,
-                    passed to `sqlalchemy.engine.Connection.execute()`.
+    :param kwargs:  Additional named arguments,
+                    passed to `sqlalchemy.sql.expression.TextClause.bindparams()`.
 
     :return: A single value
     """
     engine = create_engine(db_conn or _def_db_conn)
     try:
         with engine.connect().execution_options(stream_results=True) as conn:
-            return conn.execute(query, *args, **kwargs).scalar()
+            return conn.execute(text(query).bindparams(**kwargs)).scalar()
     finally:
         engine.dispose()
 
