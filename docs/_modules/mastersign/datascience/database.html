@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>mastersign.datascience.database &mdash; mastersign-datascience 0.3.0 documentation</title>
+  <title>mastersign.datascience.database &mdash; mastersign-datascience 0.3.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
 
@@ -14,7 +14,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=e259d695"></script>
+        <script src="../../../_static/documentation_options.js?v=4621528c"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -171,7 +171,7 @@
 <span class="sd">    :param compress_cache:</span>
 <span class="sd">                    A switch to activate data compression for the cache file.</span>
 <span class="sd">    :param kwargs:  Additional named arguments</span>
-<span class="sd">                    are passed to `pandas.read_sql_query(params=...)`.</span>
+<span class="sd">                    are passed to `sqlalchemy.sql.expression.TextClause.bindparams()`.</span>
 
 <span class="sd">    :return: Pandas DataFrame</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -198,8 +198,8 @@
         <span class="k">with</span> <span class="n">engine</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span><span class="o">.</span><span class="n">execution_options</span><span class="p">(</span><span class="n">stream_results</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
             <span class="n">chunks</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span>
                 <span class="n">process_chunk</span><span class="p">,</span>
-                <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span>
-                                  <span class="n">params</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
+                <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="n">text</span><span class="p">(</span><span class="n">query</span><span class="p">)</span><span class="o">.</span><span class="n">bindparams</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">),</span>
+                                  <span class="n">conn</span><span class="p">,</span>
                                   <span class="n">index_col</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
                                   <span class="n">parse_dates</span><span class="o">=</span><span class="n">date</span><span class="p">,</span>
                                   <span class="n">chunksize</span><span class="o">=</span><span class="n">chunksize</span><span class="p">)))</span>
@@ -281,8 +281,7 @@
 <a class="viewcode-back" href="../../../database.html#mastersign.datascience.database.load_table">[docs]</a>
 <span class="k">def</span> <span class="nf">load_table</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group_by</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                <span class="n">db_conn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-               <span class="n">chunksize</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">cachefile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">compress_cache</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-               <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+               <span class="n">chunksize</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">cachefile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">compress_cache</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load data from a SQL table.</span>
 
@@ -322,8 +321,6 @@
 <span class="sd">                     instead of connecting to the database.</span>
 <span class="sd">    :param compress_cache:</span>
 <span class="sd">                     A switch to activate data compression for the cache file.</span>
-<span class="sd">    :param kwargs:   Additional keyword arguments</span>
-<span class="sd">                     are passed to `pandas.read_sql_query()`.</span>
 
 <span class="sd">    :return: Pandas DataFrame</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -333,7 +330,7 @@
     <span class="k">return</span> <span class="n">load_query</span><span class="p">(</span><span class="n">sql_query</span><span class="p">,</span> <span class="n">db_conn</span><span class="o">=</span><span class="n">db_conn</span><span class="p">,</span>
                       <span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="n">defaults</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
                       <span class="n">chunksize</span><span class="o">=</span><span class="n">chunksize</span><span class="p">,</span> <span class="n">cachefile</span><span class="o">=</span><span class="n">cachefile</span><span class="p">,</span>
-                      <span class="n">compress_cache</span><span class="o">=</span><span class="n">compress_cache</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+                      <span class="n">compress_cache</span><span class="o">=</span><span class="n">compress_cache</span><span class="p">)</span></div>
 
 </pre></div>
 
