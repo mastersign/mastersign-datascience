@@ -6,5 +6,3 @@ __pycache__/
 
 /build/
 /dist/
-/doc/build/*
-!/doc/build/html/
